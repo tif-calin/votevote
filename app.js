@@ -98,15 +98,20 @@ const rgbToHex = rgb => {
 const newCircle = color => {
     const div = document.createElement('div');
 
+    div.textContent = 'x';
+    div.value = color;
+    div.name
     div.style.backgroundColor = rgbToHex(COLORS[color]);
-    div.style.height = "20px";
-    div.style.width = "20px";
-    div.style.margin = "2px";
-    div.style.display = "flex";
-    div.style.borderWidth = "1px";
-    div.style.borderStyle = "double";
-    div.style.borderRadius = "100%";
     div.classList.add('citizen-circle');
+    div.addEventListener('click', e => {
+        let tgt = e.target;
+        if (tgt.parentNode.id === "roster-candidates") {
+            const option = document.createElement("option");
+            option.text = tgt.value;
+            slcCnds.add(option);
+        }
+        tgt.parentNode.removeChild(tgt);
+    })
 
     return div;
 }

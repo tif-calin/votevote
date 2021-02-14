@@ -55,7 +55,24 @@ main * {
     justify-content: center;
 }
 
-.citizen-circle:hover {
+.citizen-circle {
     background-color: white;
-    width: 30px;
+    border-color: black;
+    border-radius: 100%;
+    border-style: double;
+    border-width: 1px;
+    color: transparent;
+    cursor: pointer;
+    display: flex;
+    height: 20px;
+    margin: 2px;
+    width: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.citizen-circle:hover {
+    color: black;
+    background-color: white!important;
+    padding: -50%;
 }
