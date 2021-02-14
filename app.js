@@ -84,13 +84,13 @@ populate_selects(slcCnds);
 
 const rgbToHex = rgb => {
     let red = Math.round(rgb[0] * 255).toString(16);
-    red = red.length == 1 ? "0" + red : red
+    red = red.length == 1 ? "0" + red : red;
 
     let grn = Math.round(rgb[1] * 255).toString(16);
-    grn = grn.length == 1 ? "0" + grn : grn
+    grn = grn.length == 1 ? "0" + grn : grn;
     
     let blu = Math.round(rgb[2] * 255).toString(16);
-    blu = blu.length == 1 ? "0" + blu : blu
+    blu = blu.length == 1 ? "0" + blu : blu;
 
     return '#' + red + '' + grn  + '' + blu;
 };
@@ -100,7 +100,6 @@ const newCircle = color => {
 
     div.textContent = 'x';
     div.value = color;
-    div.name
     div.style.backgroundColor = rgbToHex(COLORS[color]);
     div.classList.add('citizen-circle');
     div.addEventListener('click', e => {
