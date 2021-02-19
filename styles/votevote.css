@@ -16,7 +16,7 @@ body {
 main {
     display: flex;
     background-color: whitesmoke;
-    width: 60vw;
+    width: 70vw;
 }
 
 main * {
@@ -26,11 +26,11 @@ main * {
 .interactive-input,
 .interactive-output {
     display: flex;
-    width: 50%;
     padding: 2em;
 }
 
 .interactive-input {
+    width: 40%;
     justify-content: center;
     flex-direction: column;
     border-width: 1px;
@@ -38,6 +38,7 @@ main * {
 }
 
 .interactive-output {
+    width: 60%;
     border-width: 1px;
 }
 

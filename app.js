@@ -6,12 +6,14 @@
 
 //universal, unique, untouched. unadulturated, the raw uncut
 const COLORS = {
+    "amber": [1, 0.749, 0],
     "aqua": [0, 1, 1],
     "aquamarine": [0.498, 1, 0.831],
     "azure": [0.941, 1, 1],
     "black": [0, 0, 0],
     "blue": [0, 0, 1],
     "brown": [0.647, 0.165, 0.165],
+    "capri": [0, 0.749, 1],
     "carmine": [0.588, 0, 0.094],
     "charcoal": [0.212, 0.271, 0.31],
     "chartreuse": [0.498, 1, 0],
@@ -19,6 +21,7 @@ const COLORS = {
     "cream": [1, 0.992, 0.816],
     "crimson": [0.863, 0.078, 0.235],
     "cyan": [0, 1, 1],
+    "denim": [0.082, 0.376, 0.741],
     "ebony": [0.333, 0.365, 0.314],
     "emerald": [0.314, 0.784, 0.471],
     "fuchsia": [1, 0, 1],
@@ -29,10 +32,13 @@ const COLORS = {
     "green": [0, 0.502, 0],
     "gray": [0.502, 0.502, 0.502],
     "grey": [0.502, 0.502, 0.502],
+    "harlequin": [0.247, 1, 0],
+    "heliotrope": [0.875, 0.451, 1],
     "indigo": [0.294, 0, 0.51],
     "jade": [0, 0.659, 0.42],
     "khaki": [0.941, 0.902, 0.549],
     "lavender": [0.902, 0.902, 0.98],
+    "lilac": [0.784, 0.635, 0.784],
     "lime": [0, 1, 0],
     "magenta": [1, 0, 1],
     "malachite": [0.043, 0.855, 0.318],
@@ -48,6 +54,7 @@ const COLORS = {
     "pink": [1, 0.753, 0.796],
     "puce": [0.8, 0.533, 0.6],
     "purple": [0.502, 0, 0.502],
+    "quicksilver": [0.541, 0.577, 0.6],
     "red": [1, 0, 0],
     "salmon": [0.98, 0.502, 0.447],
     "shamrock": [0.271, 0.808, 0.635],
@@ -60,7 +67,8 @@ const COLORS = {
     "violet": [0.933, 0.51, 0.933],
     "white": [1, 1, 1],
     "xanthic": [0.933, 0.929, 0.035],
-    "yellow": [1, 1, 0]
+    "yellow": [1, 1, 0],
+    "zaffre": [0, 0.078, 0.659]
 }
 
 const slcVtrs = document.getElementById('select-voters');
