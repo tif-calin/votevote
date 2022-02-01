@@ -1,5 +1,8 @@
 # votevote
 
+## To-do
+ - [ ] fix SPA for gh-pages (https://github.com/rafgraph/spa-github-pages) 
+
 ## list of voting methods
  - [x] firstPastThePost
  - [x] contingent
