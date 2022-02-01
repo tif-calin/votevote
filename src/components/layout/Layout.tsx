@@ -4,6 +4,8 @@ import Footer from './Footer';
 import Header from './Header';
 
 const StyledLayout = styled.div`
+  --padding: 1rem;
+
   display: flex;
   flex-direction: column;
 
@@ -11,21 +13,39 @@ const StyledLayout = styled.div`
   width: 100vw;
   overflow-y: overlay;
 
-  & > * {
-    padding: 0.5rem;
+  & > :is(header, main, footer) {
     width: 100%;
-  
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    & > * {
+      min-width: calc(100px + 60vw);
+      width: calc(150px + 40vw);
+      max-width: calc(900px + 10vw);
+    }
   }
 
-  & > header, & > footer {
+  & > :is(header, footer) {
+    padding: var(--padding);
     flex-grow: 0;
+
+    & > * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   & > main {
     flex-grow: 1;
+    height: 100%;
+
+    & > * { 
+      padding: var(--padding);
+      flex-grow: 1;
+    }
   }
 `;
 
