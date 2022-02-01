@@ -22,3 +22,7 @@ a {
 summary, button, input[type=radio]:not(:disabled), input[type=checkbox]:not(:disabled) {
   cursor: pointer;
 }
+
+hr {
+  width: 100%;
+}
