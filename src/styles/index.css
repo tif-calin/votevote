@@ -1,8 +1,16 @@
+@import url("./reset.css");
 @import url("./open-color.css");
 
 :root {
   --font-sans: "Josefin Sans", sans-serif;
-  
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  overflow-y: overlay;
+
   font-family: var(--font-sans);
 }
 
