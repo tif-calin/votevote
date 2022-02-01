@@ -1,13 +1,10 @@
-import React from 'react';
+import styled from 'styled-components';
 
-interface Props {};
+const A = styled(({ children, ...props }: any) => <a target="_blank" rel="noopener noreferrer" {...props} >{children}</a>)`
+  transition: color 0.1s;
+  color: var(--blue);
 
-const A: React.FC<Props> = ({ children, ...props }) => {
-  return (
-    <a target="_blank" rel="noopener noreferrer" {...props}>
-      {children}
-    </a>
-  );
-};
+  &:hover { color: unset }
+`;
 
 export default A;
