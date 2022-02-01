@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {}
+interface Props {};
 
 const A: React.FC<Props> = ({ children, ...props }) => {
   return (
