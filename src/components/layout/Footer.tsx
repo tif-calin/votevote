@@ -3,17 +3,12 @@ import styled from 'styled-components';
 import A from '../A';
 
 const StyledFooter = styled.footer`
-  text-align: center;
-
   & a {
+    margin-top: calc(1rem + 1vh);
+    gap: 0.25rem;
+
     opacity: 0.5;
     transition: opacity 0.15s;
-
-    display: flex;
-    gap: 0.25rem;
-    align-items: center;
-
-    margin-top: 3rem;
 
     &:hover {
       opacity: 1;
