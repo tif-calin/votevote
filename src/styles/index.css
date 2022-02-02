@@ -1,8 +1,15 @@
 @import url("./reset.css");
 @import url("./open-color.css");
+@import url("./shadow-palette.css");
 
 :root {
   --font-sans: "Josefin Sans", sans-serif;
+
+  --color-white: #fffafa;
+  --color-black: #1f373f;
+
+  background-color: var(--color-white);
+  color: var(--color-black);
 }
 
 html,
