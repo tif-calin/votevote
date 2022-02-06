@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
+import RosterControls from './RosterControls';
 
 const StyledForm = styled.form`
   display: flex;
@@ -10,28 +11,7 @@ const StyledForm = styled.form`
   flex-basis: 35%;
   flex-grow: 1;
   padding: var(--padding);
-
-  & > fieldset {
-    border: none;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0;
-    margin: 0;
-
-    & :is(select, button) {
-      min-width: 3rem;
-
-      &:is(select) {
-        flex-grow: 2;
-      }
-
-      &:is(button) {
-        flex-grow: 0;
-      }
-    }
-  }
+  gap: var(--padding);
 `;
 
 interface Props {};
@@ -39,21 +19,20 @@ interface Props {};
 const top60 = Object.keys(xkcd).slice(-60);
 const colorList = Object.keys(xkcd).sort();
 
-console.log(top60);
-
 const InputLeft: React.FC<Props> = () => {
   return (
     <StyledForm>
-      <fieldset>
-        <legend>Candidates</legend>
-        <select>
-          {colorList.map((key) => (
-            <option key={key} value={key}>{key}</option>
-          ))}
-        </select>
-        <button>add</button>
-        <button>clear</button>
-      </fieldset>
+      <RosterControls
+        options={colorList}
+        name="candidates"
+      >
+      </RosterControls>
+
+      <RosterControls
+        options={colorList}
+        name="voters"
+      >
+      </RosterControls>
     </StyledForm>
   );
 };
