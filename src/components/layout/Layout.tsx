@@ -21,9 +21,9 @@ const StyledLayout = styled.div`
     align-items: center;
 
     & > * {
-      min-width: calc(100px + 60vw);
-      width: calc(150px + 40vw);
-      max-width: calc(900px + 10vw);
+      min-width: calc(6rem + 60vw);
+      width: calc(12rem + 30vw);
+      max-width: calc(850px + 25vw);
     }
   }
 
