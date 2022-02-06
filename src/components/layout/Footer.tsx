@@ -8,7 +8,7 @@ const StyledFooter = styled.footer`
     gap: 0.25rem;
 
     opacity: 0.5;
-    transition: opacity 0.15s;
+    transition: opacity 0.1s;
 
     &:hover {
       opacity: 1;
