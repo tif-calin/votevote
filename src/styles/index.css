@@ -21,6 +21,11 @@ body {
   font-family: var(--font-sans);
 }
 
+hr {
+  width: 100%;
+}
+
+/* Interaction */
 a {
   color: inherit;
   text-decoration: none;
@@ -28,8 +33,31 @@ a {
 
 summary, button, input[type=radio]:not(:disabled), input[type=checkbox]:not(:disabled) {
   cursor: pointer;
+}  
+
+button, select {
+  max-width: 100%;
+  padding: 0.15rem 0.2rem;
+  line-height: 1rem;
+  border: none;
+  transition: box-shadow 0.1s;
+  border-radius: 0.15rem;
+  background: none;
+  backdrop-filter: invert(0.05);
 }
 
-hr {
-  width: 100%;
+button {
+  border: 1px solid hsl(var(--shadow-color));
+}
+
+button:hover {
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+select {
+  width: 6rem;
+}
+
+select:hover {
+  box-shadow: var(--shadow-inset-medium);
 }
