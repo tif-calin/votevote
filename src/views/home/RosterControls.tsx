@@ -28,27 +28,48 @@ const Roster = styled.fieldset`
       flex-grow: 0;
     }
   }
+
+  & > output {
+    width: 100%;
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
 `;
 
 interface Props {
   children: React.ReactNode;
   options: string[];
   name: string;
+  add: (e: any) => void;
+  remove: (str: string) => void;
+  clear: () => void;
+  selected: string;
+  setSelected: (str: string) => void;
 };
 
-const RosterControls: React.FC<Props> = ({ children, options, name }) => {
+const RosterControls: React.FC<Props> = ({ children, options, name, add, remove, clear, selected, setSelected }) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setSelected(e.target.value);
+  };
+
   return (
-    <Roster name={name}>
+    <Roster name={name} onSubmit={e => e.preventDefault()}>
       <legend>{name}</legend>
-      <select name={name}>
+      <select 
+        name={name}
+        value={selected}
+        onChange={handleSelect}
+      >
         {options.map((key) => (
           <option key={key} value={key}>
             {key}
           </option>
         ))}
       </select>
-      <button name={name}>add</button>
-      <button name={name}>clear</button>
+      <button name={name} onClick={add}>add</button>
+      <button name={name} onClick={clear}>clear</button>
       <output>
         {children}
       </output>
