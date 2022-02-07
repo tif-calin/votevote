@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/layout';
 import './styles/index.css';
 import HomePage from './views/home';
@@ -11,6 +11,7 @@ const App = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Layout>
     </Router>
