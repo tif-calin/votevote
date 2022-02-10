@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PluralityBlock from './blocks/PluralityBlock';
 
 const Container = styled.div`
   display: flex;
@@ -7,8 +8,7 @@ const Container = styled.div`
   min-width: 200px;
   flex-basis: 55%;
   flex-grow: 1;
-
-  background: #33cc;
+  padding: var(--padding);
 `;
 
 interface Props {};
@@ -16,7 +16,7 @@ interface Props {};
 const OutputRight: React.FC<Props> = () => {
   return (
     <Container>
-
+      <PluralityBlock />
     </Container>
   );
 };
