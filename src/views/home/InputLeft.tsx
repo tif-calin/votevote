@@ -72,8 +72,6 @@ const colorList = Object.keys(xkcd).sort();
 
 const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
-console.log(ballotMaker(['red', 'yellow', 'green', 'blue'], ['yellow', 'red']));
-
 const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   fnc();
@@ -150,7 +148,10 @@ const InputLeft: React.FC<Props> = () => {
         </VoterDisplay>
       </RosterControls>
 
-      <button type="submit" onClick={() => elect(candidates, voters, ballotMaker)}>Do the thing!</button>
+      <button 
+        type="submit" 
+        onClick={() => elect(candidates, voters, ballotMaker)}
+      >Do the thing!</button>
     </StyledForm>
   );
 };
