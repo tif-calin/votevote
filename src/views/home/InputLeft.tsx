@@ -82,7 +82,7 @@ const InputLeft: React.FC<Props> = () => {
     roster: candidates,
     add: addCandidate,
     clear: clearCandidates,
-    remove: removeCandidate,
+    // remove: removeCandidate,
     selected: selectedCandidate,
     setSelected: setSelectedCandidate,
   } = useRoster(['red', 'yellow', 'green', 'blue', 'purple'], 'acid green');
@@ -91,14 +91,14 @@ const InputLeft: React.FC<Props> = () => {
     roster: voters,
     add: addVoter,
     clear: clearVoters,
-    setN: setVoterN,
+    // setN: setVoterN,
     selected: selectedVoter,
     setSelected: setSelectedVoter,
     selectedN, 
     setSelectedN,
   } = useWeightedRoster(top12.reduce((a, c) => ({ ...a, [c]: c.length }), {}), 'acid green');
 
-  const { election, elect } = useElection();
+  const { /*election,*/ elect } = useElection();
 
   return (
     <StyledForm

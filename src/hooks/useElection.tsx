@@ -24,7 +24,8 @@ const useElection = () => {
 
   return {
     election,
-    elect
+    elect,
+    electionOutcomes
   };
 };
 
