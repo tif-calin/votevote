@@ -34,6 +34,7 @@ const Roster = styled.fieldset`
     display: flex;
     gap: 0.25rem;
     flex-wrap: wrap;
+    justify-content: center;
   }
 `;
 
@@ -41,14 +42,15 @@ interface Props {
   children: React.ReactNode;
   options: string[];
   name: string;
-  add: (e: any) => void;
-  remove: (str: string) => void;
-  clear: () => void;
+  add: (e?: any) => void;
+  clear: (e?: any) => void;
   selected: string;
   setSelected: (str: string) => void;
+  selectedN?: number;
+  setSelectedN?: (n: number) => void;
 };
 
-const RosterControls: React.FC<Props> = ({ children, options, name, add, remove, clear, selected, setSelected }) => {
+const RosterControls: React.FC<Props> = ({ children, options, name, add, clear, selected, setSelected, selectedN, setSelectedN }) => {
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setSelected(e.target.value);
@@ -68,6 +70,13 @@ const RosterControls: React.FC<Props> = ({ children, options, name, add, remove,
           </option>
         ))}
       </select>
+      {selectedN && setSelectedN ? (
+        <input 
+          type="number"
+          value={selectedN}
+          onChange={e => setSelectedN(parseInt(e.target.value))}
+        />
+      ) : null}
       <button name={name} onClick={add}>add</button>
       <button name={name} onClick={clear}>clear</button>
       <output>

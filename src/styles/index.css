@@ -21,8 +21,14 @@ body {
   font-family: var(--font-sans);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 hr {
   width: 100%;
+  border: none;
+  border-top: 1px solid hsl(var(--shadow-color));
 }
 
 /* Interaction */
@@ -35,7 +41,7 @@ summary, button, input[type=radio]:not(:disabled), input[type=checkbox]:not(:dis
   cursor: pointer;
 }  
 
-button, select {
+button, select, input[type="number"] {
   max-width: 100%;
   padding: 0.15rem 0.2rem;
   line-height: 1rem;
@@ -44,6 +50,10 @@ button, select {
   border-radius: 0.15rem;
   background: none;
   backdrop-filter: invert(0.05);
+}
+
+input[type="number"] {
+  width: 3rem;
 }
 
 button {
@@ -58,6 +68,6 @@ select {
   width: 6rem;
 }
 
-select:hover {
+select:hover, input:hover {
   box-shadow: var(--shadow-inset-medium);
 }
