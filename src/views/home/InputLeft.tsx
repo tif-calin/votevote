@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
-import useElection from '../../hooks/useElection';
 import useRoster, { useWeightedRoster } from '../../hooks/useRoster';
 import { votersToBallots } from '../../services/color/colorDistance';
 import RosterControls from './RosterControls';
@@ -64,20 +63,20 @@ const VoterDisplay = styled.ul`
   }
 `;
 
-interface Props {};
+interface Props {
+  elect: (candidates: string[], voters: { [key: string]: number }) => void;
+};
 
 // const top60 = Object.keys(xkcd).slice(-60);
 const top12 = Object.keys(xkcd).slice(-12);
 const colorList = Object.keys(xkcd).sort();
-
-const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
 const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   fnc();
 };
 
-const InputLeft: React.FC<Props> = () => {
+const InputLeft: React.FC<Props> = ({ elect }) => {
   const { 
     roster: candidates,
     add: addCandidate,
@@ -97,8 +96,6 @@ const InputLeft: React.FC<Props> = () => {
     selectedN, 
     setSelectedN,
   } = useWeightedRoster(top12.reduce((a, c) => ({ ...a, [c]: c.length }), {}), 'acid green');
-
-  const { /*election,*/ elect } = useElection();
 
   return (
     <StyledForm
@@ -150,7 +147,7 @@ const InputLeft: React.FC<Props> = () => {
 
       <button 
         type="submit" 
-        onClick={() => elect(candidates, voters, ballotMaker)}
+        onClick={() => elect(candidates, voters)}
       >Do the thing!</button>
     </StyledForm>
   );

@@ -18,7 +18,9 @@ const useElection = () => {
 
   const electionOutcomes = React.useMemo(() => {
     if (election) {
-      console.log(election.fptp());
+      return {
+        fptp: election.fptp(),
+      }
     }
   }, [election]);
 
