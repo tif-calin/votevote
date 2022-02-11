@@ -1,4 +1,4 @@
-const xkcd = {
+const xkcd: { [color: string]: { hex: string, rgb: number[], hsl: number[] } } = {
   'cloudy blue': {
     hex: '#acc2d9',
     rgb: [172,194,217],
