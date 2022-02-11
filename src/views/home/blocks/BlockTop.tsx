@@ -48,7 +48,7 @@ const BlockTop: React.FC<Props> = ({ title, options, selected, setSelected }) =>
             key={i}
             onClick={() => setSelected(key)}
           >
-            <input type="radio" name={title.toLowerCase()} value={key} checked={key === selected} />
+            <input type="radio" name={title.toLowerCase()} value={key} defaultChecked={key === selected} />
             <span>{key}</span>
           </label>
         ))}

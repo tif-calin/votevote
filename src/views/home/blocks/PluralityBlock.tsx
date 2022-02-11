@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import SimplePositiveBarChart from '../../../components/charts/SimplePositiveBarChart';
 import BlockBottom from './BlockBottom';
 import BlockTop from './BlockTop';
 
@@ -13,13 +14,14 @@ const BlockMiddle = styled.div`
   min-height: calc(200px + 5vh);
   max-height: calc(250px + 15vh);
   width: 100%;
+  overflow: hidden;
 
   border: 1px solid hsl(var(--shadow-color));; 
   border-radius: 0.15rem;
 `;
 
 interface Props {
-  
+  data: { [methodKey: string]: { [candidateKey: string]: number } };
 };
 
 const methods = ['fptp', 'veto', 'signed'];
@@ -29,7 +31,7 @@ const explanations: { [key: string]: string } = {
   signed: 'What if you could choose whether you want to vote FOR a candidate or AGAINST a candidate?'
 };
 
-const PluralityBlock: React.FC<Props> = () => {
+const PluralityBlock: React.FC<Props> = ({ data }) => {
   const [selectedMethod, setSelectedMethod] = React.useState<string>(methods[0]);
   const explanation = React.useMemo(() => explanations[selectedMethod], [selectedMethod]);
 
@@ -40,7 +42,11 @@ const PluralityBlock: React.FC<Props> = () => {
       selected={selectedMethod}
       setSelected={setSelectedMethod}
     />
-    <BlockMiddle />
+    <BlockMiddle>
+      {data[selectedMethod] ? <SimplePositiveBarChart
+        data={data[selectedMethod]}
+      /> : <div style={{ padding: "1rem" }}>No data...</div>}
+    </BlockMiddle>
     <BlockBottom
       explanation={explanation}
     />
