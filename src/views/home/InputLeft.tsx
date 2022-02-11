@@ -19,7 +19,6 @@ const Candidate = styled.div`
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 0.25rem;
-  cursor: pointer;
   transition: all 0.1s;
   overflow: hidden;
   border: 1px solid hsl(var(--shadow-color));
@@ -35,10 +34,25 @@ const Candidate = styled.div`
     opacity: 0;
     backdrop-filter: contrast(0.25);
   }
+`;
 
-  &:hover {
-    border: none;
-    & span { opacity: 1; }
+const CandidateDisplay = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+
+  & > div {
+    cursor: pointer;
+
+    &:hover {
+      border: none;
+      & span { opacity: 1; }
+    }
   }
 `;
 
@@ -84,10 +98,16 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
     roster: candidates,
     add: addCandidate,
     clear: clearCandidates,
-    // remove: removeCandidate,
+    remove: removeCandidate,
     selected: selectedCandidate,
     setSelected: setSelectedCandidate,
   } = useRoster(initialCandidates, 'acid green');
+
+  const handleAddCandidate = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    addCandidate();
+    setSelectedCandidate(colorList.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
+  }, [addCandidate, selectedCandidate, setSelectedCandidate]);
 
   const {
     roster: voters,
@@ -105,31 +125,33 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
       onSubmit={e => e.preventDefault()}
     >
       <RosterControls
-        options={colorList}
+        options={colorList.filter(c => !candidates.includes(c))}
         name="candidates"
-        add={preventDefault(addCandidate)}
+        add={handleAddCandidate}
         clear={preventDefault(clearCandidates)}
         selected={selectedCandidate}
         setSelected={setSelectedCandidate}
       >
-        {candidates.map((color) => (
-          <Candidate
-            key={color}
-            title={color}
-            style={{
-              backgroundColor: xkcd[color as keyof typeof xkcd].hex,
-            }}
-          >
-            <span>x</span>
-          </Candidate>
-        ))}
+        <CandidateDisplay>
+          {candidates.map((color) => (
+            <Candidate
+              key={color} title={color}
+              onClick={() => removeCandidate(color)}
+              style={{
+                backgroundColor: xkcd[color as keyof typeof xkcd].hex,
+              }}
+            >
+              <span>x</span>
+            </Candidate>
+          ))}
+        </CandidateDisplay>
       </RosterControls>
 
       <RosterControls
         options={colorList}
         name="voters"
-        add={addVoter}
-        clear={clearVoters}
+        add={preventDefault(addVoter)}
+        clear={preventDefault(clearVoters)}
         selected={selectedVoter}
         setSelected={setSelectedVoter}
         selectedN={selectedN}

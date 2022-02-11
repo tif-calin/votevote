@@ -8,7 +8,7 @@ import BlockTop from './BlockTop';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: var(--padding);
+  gap: calc(var(--padding) / 2);
 `;
 
 const BlockMiddle = styled.div`

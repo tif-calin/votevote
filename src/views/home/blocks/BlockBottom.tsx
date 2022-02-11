@@ -8,16 +8,22 @@ const Explanation = styled.details`
   border: 1px solid #0000; 
   border-radius: 0.15rem;
 
+  & p { 
+    color: #0000;
+    transition: color 0.1s;
+  }
+
   &[open] {
     border-color: hsl(var(--shadow-color));
 
     & summary { 
       border-bottom: 1px solid hsl(var(--shadow-color)); 
       padding-bottom: 0.25rem;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
     }
 
     & p {
+      color: inherit;
     }
   }
 `;
@@ -32,7 +38,7 @@ const BlockBottom: React.FC<Props> = ({ explanation }) => {
   else return (
     <Explanation>
       <summary>Explanation</summary>
-      {explanation}
+      <p>{explanation}</p>
     </Explanation>
   );
 };
