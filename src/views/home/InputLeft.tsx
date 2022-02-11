@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
 import useRoster, { useWeightedRoster } from '../../hooks/useRoster';
-import { votersToBallots } from '../../services/color/colorDistance';
 import RosterControls from './RosterControls';
 
 const StyledForm = styled.form`
@@ -68,7 +67,12 @@ interface Props {
 };
 
 // const top60 = Object.keys(xkcd).slice(-60);
-const top12 = Object.keys(xkcd).slice(-12);
+const initialCandidates = [
+  'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
+  // 'pink', 'coral', 'lemon', 'pistachio', 'azure',
+  // 'amethyst', 'beige', 'blush', 'lavender', 'melon', 'orange', 'pink', 'rose', 'peach', 'lime', 'mint', 'seafoam', 'azure', 'cream', 'lemon', 'coral', 'pistachio',
+];
+const top16 = Object.keys(xkcd).slice(-16);
 const colorList = Object.keys(xkcd).sort();
 
 const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
@@ -84,7 +88,7 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
     // remove: removeCandidate,
     selected: selectedCandidate,
     setSelected: setSelectedCandidate,
-  } = useRoster(['red', 'yellow', 'green', 'blue', 'purple'], 'acid green');
+  } = useRoster(initialCandidates, 'acid green');
 
   const {
     roster: voters,
@@ -95,7 +99,7 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
     setSelected: setSelectedVoter,
     selectedN, 
     setSelectedN,
-  } = useWeightedRoster(top12.reduce((a, c) => ({ ...a, [c]: c.length }), {}), 'acid green');
+  } = useWeightedRoster(top16.reduce((a, c) => ({ ...a, [c]: c.length }), {}), 'acid green');
 
   return (
     <StyledForm
