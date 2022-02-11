@@ -69,8 +69,7 @@ interface Props {
 // const top60 = Object.keys(xkcd).slice(-60);
 const initialCandidates = [
   'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
-  // 'pink', 'coral', 'lemon', 'pistachio', 'azure',
-  // 'amethyst', 'beige', 'blush', 'lavender', 'melon', 'orange', 'pink', 'rose', 'peach', 'lime', 'mint', 'seafoam', 'azure', 'cream', 'lemon', 'coral', 'pistachio',
+  // 'amethyst', 'azure', 'beige', 'blush', 'coral', 'lavender', 'lemon', 'melon', 'orange', 'pink', 'rose', 'peach', 'lime', 'mint', 'seafoam', 'cream', 'pistachio',
 ];
 const top16 = Object.keys(xkcd).slice(-16);
 const colorList = Object.keys(xkcd).sort();
