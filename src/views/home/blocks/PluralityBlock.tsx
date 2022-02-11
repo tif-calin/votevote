@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SimplePositiveBarChart from '../../../components/charts/SimplePositiveBarChart';
+import xkcd from '../../../data/xkcd';
 import BlockBottom from './BlockBottom';
 import BlockTop from './BlockTop';
 
@@ -34,6 +35,10 @@ const explanations: { [key: string]: string } = {
 const PluralityBlock: React.FC<Props> = ({ data }) => {
   const [selectedMethod, setSelectedMethod] = React.useState<string>(methods[0]);
   const explanation = React.useMemo(() => explanations[selectedMethod], [selectedMethod]);
+  const barStyles = React.useMemo(() => {
+    if (data?.[selectedMethod]) return Object.keys(data[selectedMethod]).reduce((a, c: string) => ({ ...a, [c]: { fill: xkcd[c].hex } }), {});
+    else return {};
+  }, [data, selectedMethod]);
 
   return (<Container>
     <BlockTop 
@@ -45,6 +50,7 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
     <BlockMiddle>
       {data[selectedMethod] ? <SimplePositiveBarChart
         data={data[selectedMethod]}
+        barStyles={barStyles}
       /> : <div style={{ padding: "1rem" }}>No data...</div>}
     </BlockMiddle>
     <BlockBottom
