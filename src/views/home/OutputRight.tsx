@@ -11,12 +11,21 @@ const Container = styled.div`
   padding: var(--padding);
 `;
 
-interface Props {};
+interface Props {
+  data: any
+};
 
-const OutputRight: React.FC<Props> = () => {
+const OutputRight: React.FC<Props> = ({ data }) => {
+  const dataPlurality = React.useMemo(() => {
+    const { fptp, veto, signed } = data || {};
+    return { fptp, veto, signed };
+  }, [data]);
+
   return (
     <Container>
-      <PluralityBlock />
+      <PluralityBlock 
+        data={dataPlurality}
+      />
     </Container>
   );
 };

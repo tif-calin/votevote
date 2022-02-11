@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import xkcd from '../../data/xkcd';
+import useElection from '../../hooks/useElection';
+import { votersToBallots } from '../../services/color/colorDistance';
 import InputLeft from './InputLeft';
 import OutputRight from './OutputRight';
 
@@ -21,11 +24,19 @@ const Page = styled.div`
 
 interface Props {};
 
+const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
+
 const HomePage: React.FC<Props> = () => {
+  const { /*election,*/ elect, electionOutcomes: data } = useElection();
+
   return (
     <Page>
-      <InputLeft />
-      <OutputRight />
+      <InputLeft 
+        elect={(c, v) => elect(c, v, ballotMaker)}
+      />
+      <OutputRight 
+        data={data}
+      />
     </Page>
   );
 };
