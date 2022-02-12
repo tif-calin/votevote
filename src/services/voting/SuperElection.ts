@@ -83,6 +83,7 @@ const scoredBallotToRankedBallots = (scoredBallot: { [candidate: string]: number
 type Cache = {
   [key: string]: {
     firstVotes?: { [key: string]: number };
+    lastVotes?: { [key: string]: number };
   }
 };
 
@@ -142,7 +143,7 @@ class SuperElection {
 
   fptp(): { [key: string]: number } | undefined {
     const allCands = serializeList(this.candidates);
-    if (!this._cache_[allCands]) this._cache_[allCands] = { };
+    if (!this._cache_[allCands]) this._cache_[allCands] = {};
 
     if (this._cache_[allCands]?.firstVotes) {
       const firstVotes = this._cache_[allCands].firstVotes;
@@ -158,6 +159,25 @@ class SuperElection {
 
       this._cache_[allCands].firstVotes = firstVotes;
       return this.fptp();
+    }
+  }
+
+  veto(): { [key: string]: number } | undefined {
+    const allCands = serializeList(this.candidates);
+    if (!this._cache_[allCands]) this._cache_[allCands] = {};
+
+    if (this._cache_[allCands]?.lastVotes) {
+      const lastVotes = this._cache_[allCands].lastVotes;
+      return lastVotes;
+    } else {
+      const lastVotes: { [key: string]: number } = {};
+
+      Object.values(this.rankedBallots).forEach(({ weight, ranked }) => {
+        if (ranked.at(-1)) lastVotes[ranked.at(-1) as string] = ~~lastVotes[ranked.at(-1) as string] - weight;
+      });
+
+      this._cache_[allCands].lastVotes = lastVotes;
+      return this.veto();
     }
   }
 };
