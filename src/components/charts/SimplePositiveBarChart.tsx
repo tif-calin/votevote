@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import * as d3 from 'd3';
 import useChartDimensions from '../../hooks/useChartDimensions';
+import YAxisLinear from './components/YAxisLinear';
+import Bar from './components/Bar';
 
 const Container = styled.div`
   height: 100%;
@@ -43,10 +45,6 @@ const Container = styled.div`
       opacity: 1;
     }
   }
-
-  .y-axis {
-    font-size: 0.8rem;
-  }
 `;
 
 interface Props {
@@ -80,21 +78,15 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
       >
         <g className="plot">
           {Object.entries(data).map(([name, score]) => {
-            return <g className="bar" key={name}>
-              <rect
-                x={xScale(name)} y={yScale(score)}
+            return ( 
+              <Bar key={name}
+                name={name}
+                x={xScale(name) || 0} y={yScale(score)}
                 width={xScale.bandwidth()}
-                height={height - yScale(score)}
+                floor={height || 0}
                 {...(barStyles?.[name] || {})}
               />
-              <text 
-                transform={`
-                  translate(${(xScale(name) || 0) + xScale.bandwidth() - 6}, ${height - 4}) 
-                  rotate(-90) 
-                  scale(${xScale.bandwidth() / 20})
-                `}
-              >{name}</text>
-            </g>;
+            );
           })}
         </g>
 
@@ -109,7 +101,7 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
 
             return (
               <g 
-                className="x-tick" 
+                className="x-tick"  key={name}
                 transform={`translate(${xOffset},0)`}
                 opacity={(i % every) ? 0 : 1}
               >
@@ -126,20 +118,11 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
           })}
         </g>
 
-        <g className="y-axis">
-          <line x1={0} y1={0} x2={0} y2={height} />
-          {yTicks.map((tick: number) => {
-            return (
-              <g className="y-tick" transform={`translate(0,${yScale(tick)})`}>
-                <line x2={-4} />
-                <text
-                  x={-8} y="0.25rem"
-                  textAnchor="end"
-                >{tick}</text>
-              </g>
-            );
-          })}
-        </g>
+        <YAxisLinear
+          height={height}
+          yTicks={yTicks}
+          scale={yScale}
+        />
       </svg>
     </Container>
   );
