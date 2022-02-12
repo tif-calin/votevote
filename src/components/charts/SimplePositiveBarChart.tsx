@@ -20,8 +20,28 @@ const Container = styled.div`
     overflow: visible;
   }
 
-  & rect {
-    /* rx: 1.5; ry: 1.5; */
+  & .bar {
+    & > rect {
+      transition: all 0.1s;
+    }
+
+    & > text {
+      font-weight: 500;
+      fill: var(--color-white);
+      opacity: 0;
+      stroke: #fff;
+      mix-blend-mode: difference;
+
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &:hover > rect {
+      stroke: var(--color-white);
+    }
+
+    &:hover > text {
+      opacity: 1;
+    }
   }
 
   .y-axis {
@@ -51,7 +71,6 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
   ;
 
   const yTicks = yScale.nice().ticks();
-  console.log(yTicks);
 
   return (
     <Container ref={ref}>
@@ -61,23 +80,38 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
       >
         <g className="plot">
           {Object.entries(data).map(([name, score]) => {
-            return <rect
-              key={name} className="bar"
-              x={xScale(name)} y={yScale(score)}
-              width={xScale.bandwidth()}
-              height={height - yScale(score)}
-              {...(barStyles?.[name] || {})}
-            />;
+            return <g className="bar" key={name}>
+              <rect
+                x={xScale(name)} y={yScale(score)}
+                width={xScale.bandwidth()}
+                height={height - yScale(score)}
+                {...(barStyles?.[name] || {})}
+              />
+              <text 
+                transform={`
+                  translate(${(xScale(name) || 0) + xScale.bandwidth() - 6}, ${height - 4}) 
+                  rotate(-90) 
+                  scale(${xScale.bandwidth() / 20})
+                `}
+              >{name}</text>
+            </g>;
           })}
         </g>
+
         <g className="x-axis" transform={`translate(0,${height})`}>
           <line x2={width} />
-          {xScale.domain().map((name: string) => {
+          {xScale.domain().map((name: string, i) => {
             const xOffset = Number(xScale(name)) + xScale.bandwidth() / 2;
+            
+            const labelCount = xScale.domain().length;
+            const howManyLabelsToShow = Math.min(labelCount, Math.ceil(width / 96));
+            const every = Math.round(labelCount / howManyLabelsToShow);
+
             return (
               <g 
                 className="x-tick" 
                 transform={`translate(${xOffset},0)`}
+                opacity={(i % every) ? 0 : 1}
               >
                 <line y2={8} strokeDasharray="2 2" />
                 <text 
@@ -91,6 +125,7 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
             );
           })}
         </g>
+
         <g className="y-axis">
           <line x1={0} y1={0} x2={0} y2={height} />
           {yTicks.map((tick: number) => {
