@@ -21,30 +21,6 @@ const Container = styled.div`
     max-height: 100%;
     overflow: visible;
   }
-
-  & .bar {
-    & > rect {
-      transition: all 0.1s;
-    }
-
-    & > text {
-      font-weight: 500;
-      fill: var(--color-white);
-      opacity: 0;
-      stroke: #fff;
-      mix-blend-mode: difference;
-
-      transition: opacity 0.2s ease-in-out;
-    }
-
-    &:hover > rect {
-      stroke: var(--color-white);
-    }
-
-    &:hover > text {
-      opacity: 1;
-    }
-  }
 `;
 
 interface Props {
