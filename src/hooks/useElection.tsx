@@ -13,15 +13,15 @@ const useElection = () => {
     const ballots = ballotMaker(Object.keys(voters), candidates);
     const newElection = new SuperElection(candidates, ballots, weights);
     setElection(newElection);
-    console.log(newElection);
   };
 
   const electionOutcomes = React.useMemo(() => {
     if (election) {
       return {
         fptp: election.fptp(),
+        veto: election.veto(),
       }
-    }
+    } else return {};
   }, [election]);
 
   return {
