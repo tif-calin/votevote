@@ -151,7 +151,7 @@ class SuperElection {
       // const topScore = Math.max(...Object.values(firstVotes));
       // return this.candidates.filter(c => firstVotes[c] === topScore);
     } else {
-      const firstVotes: { [key: string]: number } = {};
+      const firstVotes: { [key: string]: number } = this.candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
 
       Object.values(this.rankedBallots).forEach(({ weight, ranked }) => {
         firstVotes[ranked[0]] = ~~firstVotes[ranked[0]] + weight;
@@ -170,7 +170,7 @@ class SuperElection {
       const lastVotes = this._cache_[allCands].lastVotes;
       return lastVotes;
     } else {
-      const lastVotes: { [key: string]: number } = {};
+      const lastVotes: { [key: string]: number } = this.candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});;
 
       Object.values(this.rankedBallots).forEach(({ weight, ranked }) => {
         if (ranked.at(-1)) lastVotes[ranked.at(-1) as string] = ~~lastVotes[ranked.at(-1) as string] - weight;

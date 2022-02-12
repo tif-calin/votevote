@@ -6,7 +6,9 @@
   --font-sans: "Josefin Sans", sans-serif;
 
   --color-white: #fffafa;
+  --color-white-rgb: 255, 250, 250;
   --color-black: #1f373f;
+  --color-black-rgb: 31, 55, 63;
 
   background-color: var(--color-white);
   color: var(--color-black);
