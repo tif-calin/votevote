@@ -50,8 +50,6 @@ const NegativeBarChart: React.FC<Props> = ({ data, barStyles }) => {
 
   const yTicks = yScale.nice().ticks();
 
-  console.log(winners);
-
   return (
     <Container ref={ref}>
       <svg

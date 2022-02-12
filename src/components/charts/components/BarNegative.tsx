@@ -33,7 +33,7 @@ const Container = styled.g`
   }
 
   &:hover > rect {
-    stroke: var(--color-white);
+    stroke: #fff0;
   }
 
   &:hover > text {
