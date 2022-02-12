@@ -10,8 +10,8 @@ interface Props {
 };
 
 const Container = styled.g`
-  & text {
-
+  & text.winner {
+    font-weight: 350;
   }
 `;
 
@@ -35,7 +35,7 @@ const XAxisBands: React.FC<Props> = ({
             <text
               y={20}
               textAnchor="middle"
-              style={{ fontWeight: name === winner ? 350 : 100 }}
+              className={winner === name ? 'winner' : ''}
             >{name}</text>
           </g>
         );
