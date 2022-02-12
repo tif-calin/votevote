@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import useChartDimensions from '../../hooks/useChartDimensions';
 import YAxisLinear from './components/YAxisLinear';
 import Bar from './components/Bar';
+import XAxisBands from './components/XAxisBands';
 
 const Container = styled.div`
   height: 100%;
@@ -11,7 +12,6 @@ const Container = styled.div`
   padding: 1rem;
   padding-bottom: 2rem;
   padding-left: 2rem;
-
   font-weight: 100;
 
   & > svg {
@@ -31,7 +31,9 @@ interface Props {
 const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
   const [ref, { height, width }] = useChartDimensions();
 
-  const maxScore = React.useMemo(() => Math.max(...Object.values(data)), [data]);
+  const [winner, maxScore] = React.useMemo(
+    () => Object.entries(data).reduce((a, [k, v]) => a[1] > v ? a : [k, v])
+  , [data]);
 
   const xScale = d3.scaleBand()
     .domain(Object.keys(data))
@@ -57,8 +59,8 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
             return ( 
               <Bar key={name}
                 name={name}
-                x={xScale(name) || 0} y={yScale(score)}
-                width={xScale.bandwidth()}
+                x={xScale(name) || 0} y={yScale(score) || 0}
+                width={xScale.bandwidth() || 0}
                 floor={height || 0}
                 {...(barStyles?.[name] || {})}
               />
@@ -66,33 +68,12 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
           })}
         </g>
 
-        <g className="x-axis" transform={`translate(0,${height})`}>
-          <line x2={width} />
-          {xScale.domain().map((name: string, i) => {
-            const xOffset = Number(xScale(name)) + xScale.bandwidth() / 2;
-            
-            const labelCount = xScale.domain().length;
-            const howManyLabelsToShow = Math.min(labelCount, Math.ceil(width / 96));
-            const every = Math.round(labelCount / howManyLabelsToShow);
-
-            return (
-              <g 
-                className="x-tick"  key={name}
-                transform={`translate(${xOffset},0)`}
-                opacity={(i % every) ? 0 : 1}
-              >
-                <line y2={8} strokeDasharray="2 2" />
-                <text 
-                  y={20}
-                  textAnchor="middle"
-                  style={{ 
-                    fontWeight: data[name] === maxScore ? 350 : 100,
-                  }}
-                >{name}</text>
-              </g>
-            );
-          })}
-        </g>
+        <XAxisBands 
+          height={height} width={width}
+          barWidth={xScale.bandwidth()}
+          domain={xScale.domain().map(name => [name, xScale(name) || 0])}
+          winner={winner}
+        />
 
         <YAxisLinear
           height={height}
