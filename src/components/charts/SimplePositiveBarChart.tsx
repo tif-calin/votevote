@@ -31,12 +31,14 @@ interface Props {
 const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
   const [ref, { height, width }] = useChartDimensions();
 
-  const [winner, maxScore] = React.useMemo(
-    () => Object.entries(data).reduce((a, [k, v]) => a[1] > v ? a : [k, v])
-  , [data]);
+  const [maxScore, winners] = React.useMemo(() => {
+    const maxScore = Math.max(...Object.values(data));
+    const winners = Object.keys(data).filter(c => data[c] === maxScore);
+    return [maxScore, winners];
+  }, [data]);
 
   const xScale = d3.scaleBand()
-    .domain(Object.keys(data))
+    .domain(Object.keys(data).sort())
     .range([0, width])
     .padding(0.15);
   ;
@@ -62,6 +64,7 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
                 x={xScale(name) || 0} y={yScale(score) || 0}
                 width={xScale.bandwidth() || 0}
                 floor={height || 0}
+                isWinner={score === maxScore}
                 {...(barStyles?.[name] || {})}
               />
             );
@@ -72,7 +75,7 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
           height={height} width={width}
           barWidth={xScale.bandwidth()}
           domain={xScale.domain().map(name => [name, xScale(name) || 0])}
-          winner={winner}
+          winners={winners}
         />
 
         <YAxisLinear

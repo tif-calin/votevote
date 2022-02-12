@@ -7,7 +7,6 @@ interface Props {
   x: number;
   y: number;
   width: number;
-  floor: number;
   isWinner?: boolean;
 };
 
@@ -42,26 +41,25 @@ const Container = styled.g`
   }
 `;
 
-const Bar: React.FC<Props> = ({ name, x, y, width, floor, isWinner, ...style }) => {
+const BarNegative: React.FC<Props> = ({ name, x, y, width, isWinner, ...style }) => {
   return (
     <Container 
       className={isWinner ? 'bar winner' : 'bar'}
-      transform={`translate(${x}, ${floor})`}
+      transform={`translate(${x}, 0)`}
     >
       <rect
-        y={y - floor}
-        width={width} height={floor - y}
+        width={width} height={y}
         {...style}
       />
       <text
         transform={`
-          translate(${width - 6}, ${-4}) 
+          translate(${6}, ${4}) 
           rotate(-90)
-          scale(${width / 20})
+          scale(${-width / 20})
         `}
       >{name}</text>
     </Container>
   );
 };
 
-export default Bar;
+export default BarNegative;

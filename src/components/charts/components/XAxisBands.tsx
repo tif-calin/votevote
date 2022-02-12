@@ -6,6 +6,7 @@ interface Props {
   height: number;
   width: number;
   barWidth: number;
+  winners: string[];
   domain: [string, number][];
 };
 
@@ -18,24 +19,29 @@ const Container = styled.g`
 const XAxisBands: React.FC<Props> = ({ 
   domain, 
   barWidth, height, width, 
-  winner 
+  winners 
 }) => {
+  const direction = height < 1 ? -1 : 1;
   return (
     <Container className="x-axis" transform={`translate(0, ${height})`} >
       <line x2={width} />
       {domain.map(([name, x], i) => {
-        const every = 1;
+
+        const labelCount = domain.length;
+        const howManyLabels = Math.min(labelCount, Math.floor(width / 80));
+        const every = Math.round(labelCount / howManyLabels);
         return (
           <g key={name}
             className="x-tick"
             transform={`translate(${x + (barWidth / 2)}, 0)`}
             opacity={(i % every) ? 0 : 1}
           >
-            <line y2={8} strokeDasharray="2 2" />
+            <line y2={direction * 8} strokeDasharray="2 2" />
             <text
-              y={20}
+              y={direction * 16}
               textAnchor="middle"
-              className={winner === name ? 'winner' : ''}
+              alignmentBaseline='middle'
+              className={winners.includes(name) ? 'winner' : ''}
             >{name}</text>
           </g>
         );
