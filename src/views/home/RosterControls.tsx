@@ -36,6 +36,17 @@ const Roster = styled.fieldset`
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  & button.symbol {
+    padding: 0;
+    padding-top: 0.2rem;
+    min-width: unset;
+    width: 1.5rem;
+    height: calc(1rem + 2 * 0.15rem);
+    line-height: 1;
+    vertical-align: sub;
+    color: rgba(var(--color-black-rgb), 0.95);
+  }
 `;
 
 interface Props {
@@ -59,6 +70,10 @@ const RosterControls: React.FC<Props> = ({ children, options, name, add, clear, 
   return (
     <Roster name={name} onSubmit={e => e.preventDefault()}>
       <legend>{name}</legend>
+      <button 
+        className="symbol"
+        onClick={() => setSelected(options[Math.floor(Math.random() * options.length)])}
+      >&#x1f500;&#xFE0E;</button>
       <select 
         name={name}
         value={selected}
@@ -70,15 +85,15 @@ const RosterControls: React.FC<Props> = ({ children, options, name, add, clear, 
           </option>
         ))}
       </select>
-      {selectedN && setSelectedN ? (
+      {setSelectedN ? (
         <input 
           type="number"
           value={selectedN}
           onChange={e => setSelectedN(parseInt(e.target.value))}
         />
       ) : null}
-      <button name={name} onClick={add}>add</button>
-      <button name={name} onClick={clear}>clear</button>
+      <button onClick={add}>add</button>
+      <button onClick={clear}>clear</button>
       <output>
         {children}
       </output>
