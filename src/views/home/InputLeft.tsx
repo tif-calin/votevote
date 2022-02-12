@@ -135,7 +135,7 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
         <CandidateDisplay>
           {candidates.map((color) => (
             <Candidate
-              key={color} title={color}
+              key={`${color}-candidate`} title={color}
               onClick={() => removeCandidate(color)}
               style={{
                 backgroundColor: xkcd[color as keyof typeof xkcd].hex,

@@ -27,7 +27,8 @@ interface Props {};
 const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
 const HomePage: React.FC<Props> = () => {
-  const { /*election,*/ elect, electionOutcomes: data } = useElection();
+  const { elect, electionOutcomes: data } = useElection();
+  console.log(data);
 
   return (
     <Page>
