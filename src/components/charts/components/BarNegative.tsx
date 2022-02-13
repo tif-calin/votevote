@@ -13,7 +13,6 @@ interface Props {
 const BarNegative: React.FC<Props> = ({ 
   name, x, y, width, isWinner, ...style 
 }) => {
-  console.log(y);
   return (
     <Bar 
       isWinner={isWinner}
