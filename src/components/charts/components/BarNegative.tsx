@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import Bar from './Bar';
 
 interface Props {
   [styleProp: string]: string | number | boolean | undefined;
@@ -10,40 +10,12 @@ interface Props {
   isWinner?: boolean;
 };
 
-const Container = styled.g`
-  &.winner {
-    & rect {
-      stroke-width: 6;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    }
-  }
-
-  & > rect {
-    transition: all 0.1s;
-  }
-
-  & > text.bar-label {
-    fill: var(--color-white);
-    opacity: 0;
-    stroke: #fff;
-    mix-blend-mode: difference;
-
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  &:hover > rect {
-    stroke: #fff0;
-  }
-
-  &:hover > text {
-    opacity: 1;
-  }
-`;
-
-const BarNegative: React.FC<Props> = ({ name, x, y, width, isWinner, ...style }) => {
+const BarNegative: React.FC<Props> = ({ 
+  name, x, y, width, isWinner, ...style 
+}) => {
   return (
-    <Container 
-      className={isWinner ? 'bar winner' : 'bar'}
+    <Bar 
+      isWinner={isWinner}
       transform={`translate(${x}, 0)`}
     >
       <rect
@@ -58,7 +30,7 @@ const BarNegative: React.FC<Props> = ({ name, x, y, width, isWinner, ...style })
           scale(${-width / 20})
         `}
       >{name}</text>
-    </Container>
+    </Bar>
   );
 };
 
