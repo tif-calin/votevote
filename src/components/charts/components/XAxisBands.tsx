@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface Props {
   [prop: string]: any;
-  height: number;
+  yLevel: number;
   width: number;
   barWidth: number;
   winners: string[];
@@ -18,12 +18,12 @@ const Container = styled.g`
 
 const XAxisBands: React.FC<Props> = ({ 
   domain, 
-  barWidth, height, width, 
+  barWidth, yLevel, width, 
   winners 
 }) => {
-  const direction = height < 1 ? -1 : 1;
+  const direction = yLevel < 1 ? -1 : 1;
   return (
-    <Container className="x-axis" transform={`translate(0, ${height})`} >
+    <Container className="x-axis" transform={`translate(0, ${yLevel})`} >
       <line x2={width} />
       {domain.map(([name, x], i) => {
 

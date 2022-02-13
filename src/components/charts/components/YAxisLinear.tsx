@@ -1,30 +1,28 @@
 import React from 'react';
-import * as d3 from 'd3';
 import styled from 'styled-components';
 
 interface Props {
   height: number;
-  yTicks: number[];
-  scale: d3.ScaleLinear<number, number, never>;
+  ticks: number[][];
 };
 
 const Container = styled.g`
   font-size: 0.8rem;
 `;
 
-const YAxisLinear: React.FC<Props> = ({ height, yTicks, scale }) => {
+const YAxisLinear: React.FC<Props> = ({ height, ticks }) => {
   return (
     <Container className="y-axis">
       <line x1={0} y1={0} x2={0} y2={height} />
-      {yTicks.map((tick: number) => {
+      {ticks.map(([tick, y]) => {
         return (
           <g key={tick} 
             className="y-tick" 
-            transform={`translate(0,${scale(tick)})`}
+            transform={`translate(0,${y})`}
           >
             <line x2={-4} />
             <text
-              x={-8} y="0.25rem"
+              x={-6} y="0.25rem"
               textAnchor="end"
             >{tick}</text>
           </g>

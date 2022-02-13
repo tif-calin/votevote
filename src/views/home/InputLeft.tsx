@@ -180,7 +180,7 @@ const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
         </VoterDisplay>
       </RosterControls>
 
-      {auto && <button 
+      {!auto && <button 
         type="submit" 
         onClick={() => elect(candidates, voters)}
       >Do the thing!</button>}
