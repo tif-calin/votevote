@@ -1,6 +1,5 @@
 import React from 'react';
 import NegativeBarChart from '../../../components/charts/NegativeBarChart';
-import PositiveBarChart from '../../../components/charts/PositiveBarChart';
 import SignedBarChart from '../../../components/charts/SignedBarChart';
 import xkcd from '../../../data/xkcd';
 import Block from './Block';
@@ -12,7 +11,7 @@ interface Props {
 const info: { [key: string]: { explanation?: string, visualization?: React.FC<any>, } } = {
   fptp: {
     explanation: 'First Past the Post, aka Plurality, is one of the most common voting methods. Every voter votes for a single candidate and the candidate with the most votes wins.',
-    visualization: PositiveBarChart,
+    visualization: SignedBarChart,
   },
   veto: {
     explanation: 'Veto is essentially the same except instead of voting FOR a candidate, you vote against a candidate. The least hated candidate wins.',
@@ -32,8 +31,9 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
   const [selectedMethod, setSelectedMethod] = React.useState<string>('fptp');
 
   const Chart = React.useMemo(() => {
-    return info?.[selectedMethod]?.visualization || PositiveBarChart
+    return info?.[selectedMethod]?.visualization || SignedBarChart
   }, [selectedMethod]);
+
 
   const bars = React.useMemo(() => {
     return Object.keys(data?.fptp || {}).reduce((acc, c) => {
@@ -48,6 +48,8 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
       };
     }, {});
   }, [data, selectedMethod]);
+
+  if (!data?.[selectedMethod]) return null;
 
   return (
     <Block
@@ -65,4 +67,7 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
   );
 };
 
+const MemoizedPluralityBlock = React.memo(PluralityBlock);
+
 export default PluralityBlock;
+export { MemoizedPluralityBlock };

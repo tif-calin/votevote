@@ -30,4 +30,7 @@ const OutputRight: React.FC<Props> = ({ data }) => {
   );
 };
 
+const MemoizedOutputRight = React.memo(OutputRight);
+
 export default OutputRight;
+export { MemoizedOutputRight };

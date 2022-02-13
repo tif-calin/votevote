@@ -4,7 +4,7 @@ import xkcd from '../../data/xkcd';
 import useElection from '../../hooks/useElection';
 import { votersToBallots } from '../../services/color/colorDistance';
 import { MemoizedInputLeft } from './InputLeft';
-import OutputRight from './OutputRight';
+import { MemoizedOutputRight } from './OutputRight';
 
 const Page = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ const HomePage: React.FC<Props> = () => {
       <MemoizedInputLeft
         elect={handleElect}
       />
-      <OutputRight 
+      <MemoizedOutputRight 
         data={data}
       />
     </Page>
