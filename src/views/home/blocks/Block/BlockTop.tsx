@@ -37,13 +37,15 @@ interface Props {
   [key: string]: any;
 };
 
-const BlockTop: React.FC<Props> = ({ title, options, selected, setSelected }) => {
+const BlockTop: React.FC<Props> = ({ 
+  title, options, selected, setSelected 
+}) => {
 
   return (<>
     <Top>
       <h3>{title}</h3>
       <form name={`${title.toLowerCase()}-options`}>
-        {options.map((key: string, i: number) => (
+        {options?.map((key: string, i: number) => (
           <label 
             key={i}
             onClick={() => setSelected(key)}
