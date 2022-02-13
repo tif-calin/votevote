@@ -22,6 +22,7 @@ const useElection = () => {
         veto: election.veto(),
         signed: election.signed(),
         vfa: election.vfa(),
+        irv: election.irv(),
       }
     } else return {};
   }, [election]);

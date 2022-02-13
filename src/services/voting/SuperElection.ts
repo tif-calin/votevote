@@ -85,7 +85,11 @@ const scoredBallotToRankedBallots = (scoredBallot: { [candidate: string]: number
 type Cache = {
   [key: string]: {
     firstVotes?: { [key: string]: number };
+    firstVotesBest?: number;
+    firstVotesWorst?: number;
     lastVotes?: { [key: string]: number };
+    lastVotesBest?: number;
+    lastVotesWorst?: number;
   }
 };
 
@@ -131,6 +135,9 @@ class SuperElection {
       this.ballots[sb].lowestScore = ls;
     });
 
+    const allCands = serializeList(this.candidates);
+    if (!this._cache_[allCands]) this._cache_[allCands] = {};
+
     this.updateRankedBallots();
   }
 
@@ -147,33 +154,52 @@ class SuperElection {
     });
   }
 
-  fptp(): { [key: string]: number } | undefined {
-    const allCands = serializeList(this.candidates);
-    if (!this._cache_[allCands]) this._cache_[allCands] = {};
+  getFirstVotesWorst(candidates: string[]) {
+    const serializedCandidateSet = serializeList(candidates);
+    if (!this._cache_[serializedCandidateSet]) {
+      this._cache_[serializedCandidateSet] = {
+        firstVotes: this.fptp(candidates)
+      };
+    }
 
-    if (this._cache_[allCands]?.firstVotes) {
-      const firstVotes = this._cache_[allCands].firstVotes;
+    const cache = this._cache_[serializedCandidateSet];
+    if (cache.firstVotesWorst) return cache.firstVotesWorst;
+    else {
+      const firstVotes = this.fptp(candidates) as { [key: string]: number } ;
+      const firstVotesWorst = Math.min(...Object.values(firstVotes));
+      cache.firstVotesWorst = firstVotesWorst;
+      return firstVotesWorst;
+    }
+  }
+
+  fptp(candidates = this.candidates): { [key: string]: number } | undefined {
+    const ser = serializeList(candidates);
+    if (!this._cache_[ser]) this._cache_[ser] = {};
+    const allCandsCache = this._cache_[serializeList(candidates)];
+
+    if (allCandsCache?.firstVotes) {
+      const firstVotes = allCandsCache.firstVotes;
       return firstVotes;
-      // const topScore = Math.max(...Object.values(firstVotes));
-      // return this.candidates.filter(c => firstVotes[c] === topScore);
     } else {
-      const firstVotes: { [key: string]: number } = this.candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+      const firstVotes: { [key: string]: number } = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
 
       Object.values(this.rankedBallots).forEach(({ weight, ranked }) => {
-        firstVotes[ranked[0]] = ~~firstVotes[ranked[0]] + weight;
+        const firstChoice = ranked.find(c => candidates.includes(c));
+        if (firstChoice)
+          firstVotes[firstChoice] = ~~firstVotes[firstChoice] + weight
+        ;
       });
 
-      this._cache_[allCands].firstVotes = firstVotes;
-      return this.fptp();
+      allCandsCache.firstVotes = firstVotes;
+      return this.fptp(candidates);
     }
   }
 
   veto(): { [key: string]: number } | undefined {
-    const allCands = serializeList(this.candidates);
-    if (!this._cache_[allCands]) this._cache_[allCands] = {};
+    const allCandsCache = this._cache_[serializeList(this.candidates)];
 
-    if (this._cache_[allCands]?.lastVotes) {
-      const lastVotes = this._cache_[allCands].lastVotes;
+    if (allCandsCache?.lastVotes) {
+      const lastVotes = allCandsCache.lastVotes;
       return lastVotes;
     } else {
       const lastVotes: { [key: string]: number } = this.candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});;
@@ -182,15 +208,12 @@ class SuperElection {
         if (ranked.at(-1)) lastVotes[ranked.at(-1) as string] = ~~lastVotes[ranked.at(-1) as string] - weight;
       });
 
-      this._cache_[allCands].lastVotes = lastVotes;
+      allCandsCache.lastVotes = lastVotes;
       return this.veto();
     }
   }
 
   signed(): { [key: string]: number } | undefined {
-    const allCands = serializeList(this.candidates);
-    if (!this._cache_[allCands]) this._cache_[allCands] = {};
-
     const signedScores: { [key: string]: number } = this.candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
 
     Object.values(this.ballots).forEach(({ base, highestScore, lowestScore, _weight_: weight }) => {
@@ -216,19 +239,54 @@ class SuperElection {
   }
 
   vfa(): { [key: string]: number } | undefined {
-    const allCands = serializeList(this.candidates);
-    if (!this._cache_[allCands]) this._cache_[allCands] = {};
+    const allCandsCache = this._cache_[serializeList(this.candidates)];
 
-    if (!this._cache_[allCands]?.lastVotes) this.veto();
-    if (!this._cache_[allCands]?.firstVotes) this.fptp();
+    if (!allCandsCache?.lastVotes) this.veto();
+    if (!allCandsCache?.firstVotes) this.fptp();
 
     const vfaScores = this.candidates.reduce((a, c) => {
-      const fv = this._cache_[allCands]?.firstVotes?.[c] || 0;
-      const lv = this._cache_[allCands]?.lastVotes?.[c] || 0;
+      const fv = allCandsCache?.firstVotes?.[c] || 0;
+      const lv = allCandsCache?.lastVotes?.[c] || 0;
       return { ...a, [c]: fv + lv };
     }, {});
 
     return vfaScores;
+  }
+  
+  irv(candidates = this.candidates): { [key: string]: number }[] | undefined {
+    const rounds: { [key: string]: number }[] = [];
+
+    const majority = Object
+      .values(this.ballots)
+      .reduce((a, { _weight_ }) => a + _weight_, 0) / 2
+    ;
+
+    let cands = [...candidates];
+    const dropped = new Set<string>();
+
+    let isOver = false;
+    while (!isOver) {
+      const firstVotes = this.fptp(cands) as { [key: string]: number };
+      const goodScore = Math.max(...Object.values(firstVotes));
+
+      if (goodScore > majority) {
+        isOver = true;
+      } else {
+        const badScore = this.getFirstVotesWorst(cands);
+  
+        cands = cands.filter(c => {
+          if (firstVotes[c] <= badScore) {
+            dropped.add(c);
+            return false;
+          } else return true;
+        });
+      }
+
+      rounds.push(firstVotes);
+      if (rounds.length > candidates.length) break;
+    }
+
+    return rounds;
   }
 };
 
