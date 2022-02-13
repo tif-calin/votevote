@@ -97,7 +97,6 @@ const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
 };
 
 const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
-
   const { 
     roster: candidates,
     add: addCandidate,
@@ -189,4 +188,7 @@ const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
   );
 };
 
+const MemoizedInputLeft = React.memo(InputLeft);
+
 export default InputLeft;
+export { MemoizedInputLeft };

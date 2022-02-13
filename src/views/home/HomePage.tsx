@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
 import useElection from '../../hooks/useElection';
 import { votersToBallots } from '../../services/color/colorDistance';
-import InputLeft from './InputLeft';
+import InputLeft, { MemoizedInputLeft } from './InputLeft';
 import OutputRight from './OutputRight';
 
 const Page = styled.div`
@@ -31,10 +31,12 @@ const HomePage: React.FC<Props> = () => {
   const { elect, electionOutcomes: data } = useElection();
   console.log(data);
 
+  const handleElect = React.useCallback((c, v) => elect(c, v, ballotMaker), [elect]);
+
   return (
     <Page>
-      <InputLeft 
-        elect={(c, v) => elect(c, v, ballotMaker)}
+      <MemoizedInputLeft
+        elect={handleElect}
       />
       <OutputRight 
         data={data}
