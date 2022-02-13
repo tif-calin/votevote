@@ -30,7 +30,6 @@ const NegativeBarChart: React.FC<Props> = ({ data, barStyles }) => {
   return (
     <BarChart
       passedRef={ref} height={height} width={width}
-      isNegative={true}
       xScale={xScale}
       yScale={yScale}
       winners={winners}
