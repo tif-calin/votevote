@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import IRVBlock from './blocks/IRVBlock';
+import { MemoizedIRVBlock } from './blocks/IRVBlock';
 import PluralityBlock from './blocks/PluralityBlock';
 
 const Container = styled.div`
@@ -23,8 +23,8 @@ const OutputRight: React.FC<Props> = ({ data }) => {
       <PluralityBlock 
         data={data}
       />
-      <IRVBlock
-        // data={data}
+      <MemoizedIRVBlock
+        data={data}
       />
     </Container>
   );

@@ -34,7 +34,6 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
     return info?.[selectedMethod]?.visualization || SignedBarChart
   }, [selectedMethod]);
 
-
   const bars = React.useMemo(() => {
     return Object.keys(data?.fptp || {}).reduce((acc, c) => {
       return { 
@@ -50,7 +49,6 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
   }, [data, selectedMethod]);
 
   if (!data?.[selectedMethod]) return null;
-
   return (
     <Block
       title="Plurality"
