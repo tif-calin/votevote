@@ -282,7 +282,9 @@ class SuperElection {
         });
       }
 
-      rounds.push(firstVotes);
+      rounds.push(candidates.reduce((a, c) => ({
+        ...a, [c]: firstVotes[c] || 0
+      }), {}));
       if (rounds.length > candidates.length) break;
     }
 
