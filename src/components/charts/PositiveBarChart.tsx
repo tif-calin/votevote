@@ -1,7 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import useChartDimensions from '../../hooks/useChartDimensions';
-import Bar from './components/Bar';
+import Bar from './components/BarPositive';
 import BarChart from './BarChart';
 
 interface Props {
