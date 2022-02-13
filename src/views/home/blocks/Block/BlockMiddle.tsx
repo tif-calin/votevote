@@ -11,12 +11,18 @@ const Container = styled.div`
 
   border: 1px solid hsl(var(--shadow-color));; 
   border-radius: 0.15rem;
+
+  & .no-chart {
+    padding: 1rem;
+  }
 `;
 
 const BlockMiddle: React.FC<Props> = ({ children }) => {
   return (
     <Container>
-      {children}
+      {children || <div className="no-chart">
+        Not yet implemented :(
+      </div>}
     </Container>
   );
 };

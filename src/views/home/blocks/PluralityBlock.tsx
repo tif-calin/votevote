@@ -45,7 +45,7 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
       {data[selectedMethod] ? <Chart
         data={data[selectedMethod]}
         barStyles={barStyles}
-      /> : <div style={{ padding: "1rem" }}>No data...</div>}
+      /> : null}
     </Block>
   );
 };
