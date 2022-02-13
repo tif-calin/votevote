@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
 import useElection from '../../hooks/useElection';
 import { votersToBallots } from '../../services/color/colorDistance';
-import InputLeft, { MemoizedInputLeft } from './InputLeft';
+import { MemoizedInputLeft } from './InputLeft';
 import OutputRight from './OutputRight';
 
 const Page = styled.div`
