@@ -29,9 +29,8 @@ const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(
 
 const HomePage: React.FC<Props> = () => {
   const { election, elect, electionOutcomes: data } = useElection();
-  console.log(data);
+  if (data?.fptp) console.log(data);
   const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
-  console.log(auto, election);
 
   const handleElect = React.useCallback((c, v) => elect(c, v, ballotMaker), [elect]);
 
