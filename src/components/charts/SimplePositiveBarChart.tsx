@@ -12,7 +12,11 @@ const Container = styled.div`
   padding: 1rem;
   padding-bottom: 2rem;
   padding-left: 2rem;
-  font-weight: 100;
+
+  & text {
+    font-weight: 400;
+    stroke: none;
+  }
 
   & > svg {
     width: 100%;

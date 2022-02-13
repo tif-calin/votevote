@@ -12,7 +12,7 @@ interface Props {
 
 const Container = styled.g`
   & text.winner {
-    font-weight: 350;
+    stroke: currentColor;
   }
 `;
 

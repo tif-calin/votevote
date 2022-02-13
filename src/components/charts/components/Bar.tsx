@@ -23,8 +23,7 @@ const Container = styled.g`
     transition: all 0.1s;
   }
 
-  & > text {
-    font-weight: 500;
+  & > text.bar-label {
     fill: var(--color-white);
     opacity: 0;
     stroke: #fff;
@@ -54,6 +53,7 @@ const Bar: React.FC<Props> = ({ name, x, y, width, floor, isWinner, ...style }) 
         {...style}
       />
       <text
+        className="bar-label"
         transform={`
           translate(${width - 6}, ${-4}) 
           rotate(-90)
