@@ -1,13 +1,13 @@
 import React from 'react';
 
 const useRoster = (arr: string[] = [], initiallySelected = '') => {
-  const [roster, setRoster] = React.useState<string[]>(arr);
+  const [roster, setRoster] = React.useState<string[]>(arr.sort());
   const [selected, setSelected] = React.useState<string>(initiallySelected);
 
   const add = React.useCallback((item = selected) => {
     setRoster(current => current.includes(item)
       ? current
-      : [...current, item ]
+      : [...current, item ].sort()
     );
   }, [selected]);
 
