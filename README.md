@@ -1,7 +1,29 @@
 # votevote
 
 ## To-do
- - [ ] fix SPA for gh-pages (https://github.com/rafgraph/spa-github-pages) 
+### Smol
+ - [ ] make `signed` method return the number of votes for and against each candidate
+   - [ ] show marks on its graphic
+ - [ ] mark the negative and positive votes for `vfa` 
+ - input
+   - [ ] allow modification of the number for each voter
+   - [ ] on hover over voters, show their ballots
+   - [ ] allow other datasets (colors:xkcd, colors:culi, colors:html, cities)
+   - [ ] allow for CUSTOM voters
+ - [ ] useLocalStorage to save inputs. Also, add a reset button
+ - [ ] start keeping a changelog
+
+### Biggo 
+ - **Build as static site**
+   - [ ] fix SPA for gh-pages (https://github.com/rafgraph/spa-github-pages) 
+ - **Testing**
+   - [ ] unit testing for each method
+ - **Docs**
+
+### Sidequests
+ - disttint page 
+ - allsvote page
+
 
 ## list of voting methods
 
