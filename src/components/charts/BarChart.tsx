@@ -10,6 +10,7 @@ interface Props {
 
   xScale: d3.ScaleBand<string>;
   yScale: d3.ScaleLinear<number, number>;
+  yTicks?: number[];
   winners: string[];
 };
 
@@ -35,9 +36,9 @@ const Container = styled.div`
 
 const BarChart: React.FC<Props> = ({ 
   children, passedRef, height, width,
-  xScale, yScale, winners
+  xScale, yScale, yTicks, winners
 }) => {
-  const yTicks = yScale.nice().ticks();
+  yTicks = (yTicks || (yScale as any).nice().ticks()) as number[];
 
   const yLevel = yScale(0);
 

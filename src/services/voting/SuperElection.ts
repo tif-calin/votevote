@@ -197,15 +197,19 @@ class SuperElection {
       const hsDist = Math.abs(0.5 - highestScore);
       const lsDist = Math.abs(0.5 - lowestScore);
 
-      let winners: string[];
+      let winners: string[] = [];
+      let losers: string[] = [];
       if (hsDist === lsDist) {
-        winners = this.candidates.filter(c => base[c] === highestScore || base[c] === lowestScore);
+        winners = this.candidates.filter(c => base[c] === highestScore);
+        losers = this.candidates.filter(c => base[c] === lowestScore);
+      } else if (hsDist > lsDist) {
+        winners = this.candidates.filter(c => base[c] === highestScore);
       } else {
-        const mostPolarized = hsDist > lsDist ? highestScore : lowestScore;
-        winners = this.candidates.filter(c => base[c] === mostPolarized);
+        losers = this.candidates.filter(c => base[c] === lowestScore);
       }
 
-      winners.forEach(w => signedScores[w] += (weight / winners.length));
+      winners.forEach(w => signedScores[w] += (weight / (winners.length + losers.length)));
+      losers.forEach(l => signedScores[l] -= (weight / (losers.length + winners.length)));
     });
 
     return signedScores;
@@ -221,7 +225,7 @@ class SuperElection {
     const vfaScores = this.candidates.reduce((a, c) => {
       const fv = this._cache_[allCands]?.firstVotes?.[c] || 0;
       const lv = this._cache_[allCands]?.lastVotes?.[c] || 0;
-      return { ...a, [c]: fv - lv };
+      return { ...a, [c]: fv + lv };
     }, {});
 
     return vfaScores;

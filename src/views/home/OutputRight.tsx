@@ -18,17 +18,13 @@ interface Props {
 };
 
 const OutputRight: React.FC<Props> = ({ data }) => {
-  const dataPlurality = React.useMemo(() => {
-    const { fptp, veto, signed } = data || {};
-    return { fptp, veto, signed };
-  }, [data]);
-
   return (
     <Container>
       <PluralityBlock 
-        data={dataPlurality}
+        data={data}
       />
       <IRVBlock
+        // data={data}
       />
     </Container>
   );

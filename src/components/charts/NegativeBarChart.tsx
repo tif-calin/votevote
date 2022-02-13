@@ -5,19 +5,23 @@ import BarNegative from './components/BarNegative';
 import BarChart from './BarChart';
 
 interface Props {
-  data: { [key: string]: number };
-  barStyles: { [key: string]: { fill: string, [prop: string]: string } };
+  bars: { [key: string]: {
+    score: number,
+    style: { [key: string]: { fill: string, [prop: string]: string } }
+  }}
 };
 
-const NegativeBarChart: React.FC<Props> = ({ data, barStyles }) => {
+const NegativeBarChart: React.FC<Props> = ({ bars }) => {  
   const [ref, { height, width }] = useChartDimensions();
 
-  const minScore = React.useMemo(() => Math.min(...Object.values(data)), [data]);
-  const maxScore = React.useMemo(() => Math.max(...Object.values(data)), [data]);
-  const winners = React.useMemo(() => Object.keys(data).filter(c => data[c] === maxScore), [data, maxScore]);
+  const scores = Object.values(bars).map(bar => bar.score);
+
+  const minScore = React.useMemo(() => Math.min(...scores), [scores]);
+  const maxScore = React.useMemo(() => Math.max(...scores), [scores]);
+  const winners = React.useMemo(() => Object.keys(bars).filter(c => bars[c].score === maxScore), [bars, maxScore]);
 
   const xScale = d3.scaleBand()
-    .domain(Object.keys(data).sort())
+    .domain(Object.keys(bars).sort())
     .range([0, width])
     .padding(0.15);
   ;
@@ -34,14 +38,14 @@ const NegativeBarChart: React.FC<Props> = ({ data, barStyles }) => {
       yScale={yScale}
       winners={winners}
     >
-      {Object.entries(data).map(([name, score]) => {
+      {Object.entries(bars).map(([name, { score, style }]) => {
         return ( 
           <BarNegative key={name}
             name={name}
             x={xScale(name) || 0} y={yScale(score) || 0}
             width={xScale.bandwidth() || 0}
             isWinner={winners.includes(name)}
-            {...(barStyles?.[name] || {})}
+            {...(style || {})}
           />
         );
       })}

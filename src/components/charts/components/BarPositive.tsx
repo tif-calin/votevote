@@ -14,20 +14,26 @@ interface Props {
 const BarPositive: React.FC<Props> = ({ 
   name, x, y, width, floor, isWinner, ...style 
 }) => {
+  if (y > floor) {
+    const temp = y;
+    y = floor;
+    floor = temp;
+  }
+
   return (
     <Bar 
       isWinner={isWinner}
-      transform={`translate(${x}, ${floor})`}
+      transform={`translate(${x}, 0)`}
     >
       <rect
-        y={y - floor}
+        y={y}
         width={width} height={floor - y}
         {...style}
       />
       <text
         className="bar-label"
         transform={`
-          translate(${width - 6}, ${-4}) 
+          translate(${width - 6}, ${floor -4}) 
           rotate(-90)
           scale(${width / 20})
         `}

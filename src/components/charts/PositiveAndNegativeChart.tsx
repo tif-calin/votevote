@@ -2,11 +2,13 @@ import React from 'react';
 import * as d3 from 'd3';
 import useChartDimensions from '../../hooks/useChartDimensions';
 import BarChart from './BarChart';
+import BarSigned from './components/BarSigned';
 
 interface Props {
   bars: { [key: string]: {
     positive: number,
     negative: number,
+    score: number,
     style: { [key: string]: { fill: string, [prop: string]: string } }
   }}
 };
@@ -40,7 +42,7 @@ const PositiveAndNegativeChart: React.FC<Props> = ({ bars }) => {
   ;
 
   const yScale = d3.scaleLinear()
-    .domain([maxScore * 1.25, minScore * 1.25])
+    .domain([minScore * 1.25, maxScore * 1.25])
     .range([height, 0])
   ;
 
@@ -51,7 +53,23 @@ const PositiveAndNegativeChart: React.FC<Props> = ({ bars }) => {
       yScale={yScale}
       winners={winners}
     >
-      <rect/>
+      {Object.entries(bars).map(([name, {positive, score, negative, style}]) => {
+        const barWidth = xScale.bandwidth() || 0;
+        const x = xScale(name) || 0;
+
+        return (
+          <BarSigned key={`${name}`}
+            name={name}
+            x={x} 
+            ceil={yScale(positive) || 0}
+            score={yScale(score) || 0}
+            width={barWidth}
+            floor={yScale(negative) || 0}
+            isWinner={positive === maxScore}
+            {...style}
+          />
+        );
+      })}
     </BarChart>
   );
 };

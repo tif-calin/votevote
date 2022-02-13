@@ -24,7 +24,9 @@ const colorDistance = (voter: string, candidate: string, dict: { [key:string]: {
   const rgbDist = rgbDistance(dict[voter].rgb, dict[candidate].rgb);
   const hslDist = hslDistance(dict[voter].hsl, dict[candidate].hsl);
 
-  return (rgbDist + hslDist) / 2;
+  const dist = (rgbDist + hslDist) / 2;
+  return dist;
+  // return Math.pow(dist, 1 / dist);
 };
 
 const votersToBallots = (voters: string[], candidates: string[], dict: { [key:string]: { hex: string, rgb: number[], hsl: number[] } }) => {

@@ -1,16 +1,20 @@
 import React from 'react';
 import * as d3 from 'd3';
 import useChartDimensions from '../../hooks/useChartDimensions';
-import Bar from './components/BarPositive';
+import BarPositive from './components/BarPositive';
 import BarChart from './BarChart';
 
 interface Props {
-  data: { [key: string]: number };
-  barStyles: { [key: string]: { fill: string, [prop: string]: string } };
+  bars: { [key: string]: {
+    score: number,
+    style: { [key: string]: { fill: string, [prop: string]: string } }
+  }}
 };
 
-const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
+const SimplePositiveBarChart: React.FC<Props> = ({ bars }) => {
   const [ref, { height, width }] = useChartDimensions();
+
+  const data: { [key: string]: number } = Object.entries(bars).reduce((a, [n, { score }]) => ({...a, [n]: score }), {});
 
   const [maxScore, winners] = React.useMemo(() => {
     const maxScore = Math.max(...Object.values(data));
@@ -38,13 +42,13 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
     >
       {Object.entries(data).map(([name, score]) => {
         return ( 
-          <Bar key={name}
+          <BarPositive key={name}
             name={name}
             x={xScale(name) || 0} y={yScale(score) || 0}
             width={xScale.bandwidth() || 0}
             floor={height || 0}
             isWinner={score === maxScore}
-            {...(barStyles?.[name] || {})}
+            {...(bars?.[name].style || {})}
           />
         );
       })}
