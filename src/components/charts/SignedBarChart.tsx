@@ -55,13 +55,13 @@ const SignedBarChart: React.FC<Props> = ({ bars }) => {
         let y = yScale(score);
         let floor = yScale(0);
         return (
-          <BarPositive key={name}
+          x ? <BarPositive key={name}
             name={name}
             width={barWidth}
             x={x} y={y} floor={floor}
             isWinner={score === maxScore}
             {...style}
-          />
+          /> : null
         );
       })}
     </BarChart>

@@ -39,14 +39,15 @@ const NegativeBarChart: React.FC<Props> = ({ bars }) => {
       winners={winners}
     >
       {Object.entries(bars).map(([name, { score, style }]) => {
+        const x = xScale(name) || 0;
         return ( 
-          <BarNegative key={name}
+          x ? <BarNegative key={name}
             name={name}
-            x={xScale(name) || 0} y={yScale(score) || 0}
+            x={x} y={yScale(score) || 0}
             width={xScale.bandwidth() || 0}
             isWinner={winners.includes(name)}
             {...(style || {})}
-          />
+          /> : null
         );
       })}
     </BarChart>
