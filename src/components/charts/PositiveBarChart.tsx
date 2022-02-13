@@ -25,14 +25,13 @@ const SimplePositiveBarChart: React.FC<Props> = ({ data, barStyles }) => {
   ;
   
   const yScale = d3.scaleLinear()
-    .domain([0,Math.round(maxScore * 1.25)])
+    .domain([0, Math.round(maxScore * 1.25)])
     .range([height, 0])
   ;
 
   return (
     <BarChart
       passedRef={ref} height={height} width={width}
-      isNegative={false}
       xScale={xScale}
       yScale={yScale}
       winners={winners}
