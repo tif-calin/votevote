@@ -80,12 +80,13 @@ const VoterDisplay = styled.ul`
 
 interface Props {
   elect: (candidates: string[], voters: { [key: string]: number }) => void;
+  auto?: boolean;
 };
 
 // const top60 = Object.keys(xkcd).slice(-60);
 const initialCandidates = [
   'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
-  // 'amethyst', 'azure', 'beige', 'blush', 'coral', 'lavender', 'lemon', 'melon', 'orange', 'pink', 'rose', 'peach', 'lime', 'mint', 'seafoam', 'cream', 'pistachio',
+  // 'amethyst', 'azure', 'beige', 'blush', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
 ];
 const top16 = Object.keys(xkcd).slice(-16);
 const colorList = Object.keys(xkcd).sort();
@@ -95,7 +96,8 @@ const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
   fnc();
 };
 
-const InputLeft: React.FC<Props> = ({ elect }) => {
+const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
+
   const { 
     roster: candidates,
     add: addCandidate,
@@ -121,6 +123,10 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
     selectedN, 
     setSelectedN,
   } = useWeightedRoster(top16.reduce((a, c) => ({ ...a, [c]: c.length }), {}), 'acid green');
+
+  React.useEffect(() => {
+    if (auto) elect(candidates, voters);
+  }, [auto, candidates, voters, elect]);
 
   return (
     <StyledForm
@@ -175,10 +181,10 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
         </VoterDisplay>
       </RosterControls>
 
-      <button 
+      {auto && <button 
         type="submit" 
         onClick={() => elect(candidates, voters)}
-      >Do the thing!</button>
+      >Do the thing!</button>}
     </StyledForm>
   );
 };
