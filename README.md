@@ -4,18 +4,31 @@
  - [ ] fix SPA for gh-pages (https://github.com/rafgraph/spa-github-pages) 
 
 ## list of voting methods
+
+plurality: fptp, veto, signed
+contingent: contingent, supplementary, srilankancontingent
+instant runoff: irv, coombs, fabirv
+condorcet: copeland, kemenyyoung
+positional: borda
+approval: approval, combinedApproval, vfa
+bucklin: fallback, bucklin, vfar
+hybrid: star, threeTwoOne
+weighted: cumulative, quadratic
+other: majorityJudgement
+
+
  - [x] firstPastThePost
  - [x] contingent
- - [ ] supplementary
- - [ ] sriLankanContingent 
+ - [x] supplementary
+ - [x] sriLankanContingent 
  - [x] irv (aka rankedChoice, alternativeVote, hare)
  - [x] irvCoombs (aka coombs)
  - [x] fabIRV (aka front and back irv)
  - [x] copeland
  - [x] lullCopeland
  - [x] kemenyYoung (aka medianRelation)
- - [x] vfa (aka voteForXorAgainst)
- - [x] vfaRunoff 
+ - [x] vfa (aka voteForAndAgainst, venzkeDisqualification)
+ - [x] vfaRunoff (aka vfar)
  - [ ] minimax
  - [ ] nanson
  - [ ] baldwin
