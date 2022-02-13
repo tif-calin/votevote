@@ -1,6 +1,7 @@
 import React from 'react';
 import NegativeBarChart from '../../../components/charts/NegativeBarChart';
-import SimplePositiveBarChart from '../../../components/charts/SimplePositiveBarChart';
+import PositiveAndNegativeChart from '../../../components/charts/PositiveAndNegativeChart';
+import SimplePositiveBarChart from '../../../components/charts/PositiveBarChart';
 import xkcd from '../../../data/xkcd';
 import Block from './Block';
 
@@ -14,17 +15,22 @@ const info: { [key: string]: { explanation?: string, visualization?: React.FC<an
   },
   veto: {
     explanation: 'Veto is essentially the same except instead of voting FOR a candidate, you vote against a candidate. The least hated candidate wins.',
-    visualization: NegativeBarChart
+    visualization: NegativeBarChart,
   },
   signed: {
-    explanation: 'What if you could choose whether you want to vote FOR a candidate or AGAINST a candidate?'
+    explanation: 'What if you could choose whether you want to vote FOR a candidate or AGAINST a candidate?',
+    visualization: PositiveAndNegativeChart,
   },
-}
+  vfa: {
+    explanation: 'Vote For or Against is similar to Signed, but you don\'t have to choose! In fact, you\'re required to vote both FOR a candidate as well as against another.',
+    visualization: PositiveAndNegativeChart,
+  }
+};
 
 const PluralityBlock: React.FC<Props> = ({ data }) => {
   const [selectedMethod, setSelectedMethod] = React.useState<string>('fptp');
 
-  const barStyles = React.useMemo(() => {
+  const barStyles: { [key: string]: any } = React.useMemo(() => {
     return (data?.[selectedMethod]) 
       ? Object.keys(data[selectedMethod]).reduce((a, c: string) => ({ ...a, [c]: { fill: xkcd[c]?.hex } }), {})
       : {}
@@ -35,6 +41,15 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
     return info?.[selectedMethod]?.visualization || SimplePositiveBarChart
   }, [selectedMethod]);
 
+  const bars = Object.keys(data?.fptp || {}).reduce((a, c) => ({
+    ...a,
+    [c]: {
+      positive: data.fptp[c],
+      negative: data.veto[c],
+      style: barStyles[c]
+    }
+  }), {});
+
   return (
     <Block
       title="Plurality"
@@ -42,10 +57,14 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
       method={selectedMethod}
       setMethod={setSelectedMethod}
     >
-      {data[selectedMethod] ? <Chart
-        data={data[selectedMethod]}
-        barStyles={barStyles}
-      /> : null}
+      {
+        selectedMethod === 'signed'
+          ? <PositiveAndNegativeChart bars={bars} />
+          : data[selectedMethod] ? <Chart
+            data={data[selectedMethod]}
+            barStyles={barStyles}
+          /> : null
+      }
     </Block>
   );
 };

@@ -20,6 +20,8 @@ const useElection = () => {
       return {
         fptp: election.fptp(),
         veto: election.veto(),
+        signed: election.signed(),
+        vfa: election.vfa(),
       }
     } else return {};
   }, [election]);

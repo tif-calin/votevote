@@ -28,7 +28,7 @@ const getPermutations = (arr: string[]): string[][] => {
 /**
  * Convert a scored ballot to its ranked counterpart(s). Returns an array of all possible permutations.
  * @param {Object.<string, number>} scoredBallot - each candidate is given a score in the range of [0, 1]
- * @returns {Array.<Array.<string>>} an array of equivalent ranked ballots
+ * @returns {[Array.<Array.<string>>, number, number]} [an array of equivalent ranked ballots, the highest score, the lowest score]
  * 
  * @example
  * rankedBallots({ 
@@ -43,7 +43,7 @@ const getPermutations = (arr: string[]): string[][] => {
  *   ['blue', 'red', 'green', 'cyan'],
  * ]
  */
-const scoredBallotToRankedBallots = (scoredBallot: { [candidate: string]: number }) => {
+const scoredBallotToRankedBallots = (scoredBallot: { [candidate: string]: number }): [string[][], number, number] => {
   // organize the candidates by their scores
   const byScore = Object.keys(scoredBallot).reduce((acc, candidate) => {
     const score = scoredBallot[candidate];
@@ -55,10 +55,12 @@ const scoredBallotToRankedBallots = (scoredBallot: { [candidate: string]: number
   }, {} as { [key: number]: string[] });
 
   // get list of all scores and sort it
-  const scores = Object.keys(byScore).map(s => Number(s)).sort((a, b) => a - b);
+  const scores = Object.keys(byScore).map(s => Number(s)).sort((a, b) => b - a);
+  const highestScore = scores[0];
+  const lowestScore = scores[scores.length - 1];
 
   // make an array of arrays with each subarray containing all candidates with that score
-  const bigRank = scores.map((score) => byScore[score]).reverse();
+  const bigRank = scores.map((score) => byScore[score]);
 
   // get all possible permutations
   let ballots: string[][] = [[]];
@@ -77,7 +79,7 @@ const scoredBallotToRankedBallots = (scoredBallot: { [candidate: string]: number
     ballots = newBallots;
   };
 
-  return ballots;
+  return [ballots, highestScore, lowestScore];
 };
 
 type Cache = {
@@ -91,7 +93,9 @@ type Ballots = {
   [key: ReturnType<typeof serializeBallot>]: {
     _weight_: number;
     base: { [key: string]: number };
-    ranked?: string[][];
+    highestScore: number;
+    lowestScore: number;
+    ranked: string[][];
   };
 };
 
@@ -117,12 +121,14 @@ class SuperElection {
       if (this.ballots[sb]) {
         this.ballots[sb]._weight_ = ~~this.ballots[sb]._weight_ + weights[i];
       } else {
-        this.ballots[sb] = { _weight_: weights[i], base: b, }
+        this.ballots[sb] = { _weight_: weights[i], base: b, ranked: [], highestScore: 0, lowestScore: 0 };
       }
 
-      // get ranked versions of ballots
-      const rankedBallots = scoredBallotToRankedBallots(b);
+      // get ranked versions of ballots as well as the highest and lowest scores
+      const [ rankedBallots, hs, ls ] = scoredBallotToRankedBallots(b);
       this.ballots[sb].ranked = rankedBallots;
+      this.ballots[sb].highestScore = hs;
+      this.ballots[sb].lowestScore = ls;
     });
 
     this.updateRankedBallots();
@@ -138,7 +144,7 @@ class SuperElection {
           else this.rankedBallots[sr] = { weight: (_weight_ / ranked.length), ranked: ranking };
         }
       }
-    })
+    });
   }
 
   fptp(): { [key: string]: number } | undefined {
@@ -179,6 +185,46 @@ class SuperElection {
       this._cache_[allCands].lastVotes = lastVotes;
       return this.veto();
     }
+  }
+
+  signed(): { [key: string]: number } | undefined {
+    const allCands = serializeList(this.candidates);
+    if (!this._cache_[allCands]) this._cache_[allCands] = {};
+
+    const signedScores: { [key: string]: number } = this.candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+
+    Object.values(this.ballots).forEach(({ base, highestScore, lowestScore, _weight_: weight }) => {
+      const hsDist = Math.abs(0.5 - highestScore);
+      const lsDist = Math.abs(0.5 - lowestScore);
+
+      let winners: string[];
+      if (hsDist === lsDist) {
+        winners = this.candidates.filter(c => base[c] === highestScore || base[c] === lowestScore);
+      } else {
+        const mostPolarized = hsDist > lsDist ? highestScore : lowestScore;
+        winners = this.candidates.filter(c => base[c] === mostPolarized);
+      }
+
+      winners.forEach(w => signedScores[w] += (weight / winners.length));
+    });
+
+    return signedScores;
+  }
+
+  vfa(): { [key: string]: number } | undefined {
+    const allCands = serializeList(this.candidates);
+    if (!this._cache_[allCands]) this._cache_[allCands] = {};
+
+    if (!this._cache_[allCands]?.lastVotes) this.veto();
+    if (!this._cache_[allCands]?.firstVotes) this.fptp();
+
+    const vfaScores = this.candidates.reduce((a, c) => {
+      const fv = this._cache_[allCands]?.firstVotes?.[c] || 0;
+      const lv = this._cache_[allCands]?.lastVotes?.[c] || 0;
+      return { ...a, [c]: fv - lv };
+    }, {});
+
+    return vfaScores;
   }
 };
 
