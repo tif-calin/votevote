@@ -1,6 +1,5 @@
 import React from 'react';
 import NegativeBarChart from '../../../components/charts/NegativeBarChart';
-import PositiveAndNegativeChart from '../../../components/charts/PositiveAndNegativeChart';
 import PositiveBarChart from '../../../components/charts/PositiveBarChart';
 import SignedBarChart from '../../../components/charts/SignedBarChart';
 import xkcd from '../../../data/xkcd';
