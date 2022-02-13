@@ -15,6 +15,11 @@ const StyledForm = styled.form`
   gap: var(--padding);
 
   height: fit-content;
+
+  & > span.warning {
+    line-height: 1.25;
+    font-size: 0.8rem;
+  }
 `;
 
 const Candidate = styled.div`
@@ -132,6 +137,9 @@ const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
       onSubmit={e => e.preventDefault()}
       className="island"
     >
+      {!auto && <span className="warning">
+        That's a lot of candidates! To update the charts, please use the button at the bottom.
+      </span>}
       <RosterControls
         options={colorList.filter(c => !candidates.includes(c))}
         name="candidates"
