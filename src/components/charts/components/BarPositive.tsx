@@ -31,7 +31,7 @@ const BarPositive: React.FC<Props> = ({
         {...style}
       />
       <text
-        className="bar-label"
+        className={floor - y ? 'bar-label' : 'bar-label zero'}
         transform={`
           translate(${width - 6}, ${floor -4}) 
           rotate(-90)

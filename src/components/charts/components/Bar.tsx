@@ -28,6 +28,19 @@ const Container = styled.g`
     }
   }
 
+  & text.zero {
+    opacity: 0.5;
+    filter: blur(0.5px);
+    pointer-events: stroke;
+    transition: all 0.2s;
+    cursor: default;
+
+    &:hover { 
+      filter: blur(0.1px); 
+      opacity: 1;
+    }
+  }
+
   &:hover {
     & > rect { stroke: #fff0; }
     & > text { opacity: 1; }

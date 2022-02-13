@@ -13,6 +13,7 @@ interface Props {
 const BarNegative: React.FC<Props> = ({ 
   name, x, y, width, isWinner, ...style 
 }) => {
+  console.log(y);
   return (
     <Bar 
       isWinner={isWinner}
@@ -23,7 +24,7 @@ const BarNegative: React.FC<Props> = ({
         {...style}
       />
       <text
-        className="bar-label"
+        className={y ? 'bar-label' : 'bar-label zero'}
         transform={`
           translate(${6}, ${4}) 
           rotate(-90)
