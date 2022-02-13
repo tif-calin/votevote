@@ -13,6 +13,8 @@ const StyledForm = styled.form`
   flex-grow: 1;
   padding: var(--padding);
   gap: var(--padding);
+
+  height: fit-content;
 `;
 
 const Candidate = styled.div`
@@ -123,6 +125,7 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
   return (
     <StyledForm
       onSubmit={e => e.preventDefault()}
+      className="island"
     >
       <RosterControls
         options={colorList.filter(c => !candidates.includes(c))}
@@ -131,6 +134,7 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
         clear={preventDefault(clearCandidates)}
         selected={selectedCandidate}
         setSelected={setSelectedCandidate}
+        count={candidates.length}
       >
         <CandidateDisplay>
           {candidates.map((color) => (
@@ -156,6 +160,7 @@ const InputLeft: React.FC<Props> = ({ elect }) => {
         setSelected={setSelectedVoter}
         selectedN={selectedN}
         setSelectedN={setSelectedN}
+        count={Object.values(voters).reduce((a, v) => a+v)}
       >
         <VoterDisplay>
           {Object.keys(voters).map((voter) => {

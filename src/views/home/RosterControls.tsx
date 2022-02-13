@@ -47,6 +47,21 @@ const Roster = styled.fieldset`
     vertical-align: sub;
     color: rgba(var(--color-black-rgb), 0.95);
   }
+
+  & > .message {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 350;
+    line-height: 1;
+
+    & > span:last-child {
+      opacity: 0;
+    }
+  }
+
+  &:hover > .message > span:last-child { opacity: 1; }
 `;
 
 interface Props {
@@ -59,21 +74,31 @@ interface Props {
   setSelected: (str: string) => void;
   selectedN?: number;
   setSelectedN?: (n: number) => void;
+  count?: number;
 };
 
-const RosterControls: React.FC<Props> = ({ children, options, name, add, clear, selected, setSelected, selectedN, setSelectedN }) => {
+const RosterControls: React.FC<Props> = ({ count, children, options, name, add, clear, selected, setSelected, selectedN, setSelectedN }) => {
+  const [controlMessage, setControlMessage] = React.useState<string>('');
+
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setSelected(e.target.value);
   };
 
+  const resetMessage = () => setControlMessage('');
+
   return (
-    <Roster name={name} onSubmit={e => e.preventDefault()}>
+    <Roster 
+      name={name} 
+      onSubmit={e => e.preventDefault()}
+    >
       <legend>{name}</legend>
       <button 
         className="symbol"
         onClick={() => setSelected(options[Math.floor(Math.random() * options.length)])}
-      >&#x1f500;&#xFE0E;</button>
+        onMouseEnter={() => setControlMessage('Select a random option')}
+        onMouseLeave={resetMessage}
+      >&#x1f500;&#xfe0e;</button>
       <select 
         name={name}
         value={selected}
@@ -92,8 +117,22 @@ const RosterControls: React.FC<Props> = ({ children, options, name, add, clear, 
           onChange={e => setSelectedN(parseInt(e.target.value))}
         />
       ) : null}
-      <button onClick={add}>add</button>
-      <button onClick={clear}>clear</button>
+      <button 
+        className="symbol"
+        onClick={add}
+        onMouseEnter={() => setControlMessage(`Add ${selected} to the roster`)}
+        onMouseLeave={resetMessage}
+      >&#x2795;&#xfe0e;</button>
+      <button 
+        className="symbol"
+        onClick={clear}
+        onMouseEnter={() => setControlMessage(`Clear the entire roster`)}
+        onMouseLeave={resetMessage}
+      >&#x2716;&#xfe0e;</button>
+      <div className="message">
+        <span>{count || 0} total</span>
+        <span>{controlMessage || ''}</span>
+      </div>
       <output>
         {children}
       </output>

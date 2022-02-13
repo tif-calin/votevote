@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import IRVBlock from './blocks/IRVBlock';
 import PluralityBlock from './blocks/PluralityBlock';
 
 const Container = styled.div`
@@ -8,7 +9,8 @@ const Container = styled.div`
   min-width: 200px;
   flex-basis: 55%;
   flex-grow: 1;
-  padding: var(--padding);
+
+  gap: var(--padding);
 `;
 
 interface Props {
@@ -25,6 +27,8 @@ const OutputRight: React.FC<Props> = ({ data }) => {
     <Container>
       <PluralityBlock 
         data={dataPlurality}
+      />
+      <IRVBlock
       />
     </Container>
   );
