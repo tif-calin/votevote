@@ -44,6 +44,7 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
   const yScale = d3.scaleLinear()
     .domain([minScore * 1.25, maxScore * 1.25])
     .range([height, 0])
+    .nice()
   ;
 
   const yTicks = yScale.ticks();

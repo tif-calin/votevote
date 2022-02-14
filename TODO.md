@@ -27,6 +27,7 @@
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
+ - [x] nice() the scales
 
 ### major features/tasks
  - [ ] write unit tests!!
