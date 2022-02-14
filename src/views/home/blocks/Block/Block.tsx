@@ -11,6 +11,7 @@ interface Props {
     visualization?: React.FC<any>,
     name?: string,
   } };
+  round?: number;
   method: string;
   setMethod: (method: string) => void;
 };
@@ -23,7 +24,7 @@ const Container = styled.div`
 `;
 
 const Block: React.FC<Props> = ({ 
-  title, info,
+  title, info, round,
   method, setMethod,
   children
 }) => {
@@ -34,8 +35,6 @@ const Block: React.FC<Props> = ({
     return info?.[method]?.explanation || '';
   }, [info, method]);
 
-  console.log(info);
-
   return (
     <Container className="island">
       <BlockTop
@@ -44,6 +43,7 @@ const Block: React.FC<Props> = ({
         options={options}
         selected={method}
         setSelected={setMethod}
+        round={round}
       />
 
       <BlockMiddle>{children}</BlockMiddle>

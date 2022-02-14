@@ -61,6 +61,7 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
     } else return [undefined, undefined];
   }, [data, selectedMethod]);
 
+  // React.useEffect(() => { setCurrentRound(0); }, [selectedMethod]);
   const currentRoundNumber = Math.min(currentRound, data?.[selectedMethod]?.length - 1 || 0);
 
   return (
@@ -69,6 +70,7 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
       info={info}
       method={selectedMethod}
       setMethod={setSelectedMethod}
+      round={currentRoundNumber}
     >
       {
         data[selectedMethod] ? <Chart

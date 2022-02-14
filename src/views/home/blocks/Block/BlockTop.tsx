@@ -79,7 +79,7 @@ const BlockTop: React.FC<Props> = ({
         ))}
       </form>
     </Top>
-    {(round || round === 0) && <SubTop>Round {round}</SubTop>}
+    {(round || round === 0) && <SubTop>Round {round + 1}</SubTop>}
   </>);
 };
 
