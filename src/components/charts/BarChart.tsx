@@ -41,9 +41,16 @@ const BarChart: React.FC<Props> = ({
   xScale, yScale, yTicks, winners,
   bars
 }) => {
+  const yLevel = yScale(0);
+
   yTicks = (yTicks || (yScale as any).nice().ticks() as number[]);
 
-  const yLevel = yScale(0);
+  const xTicks: [string, number, boolean][] = xScale.domain().map((name, i) => {
+    const score = Object.values(bars || {})?.[i]?.score;
+    return [
+      name, xScale(name) || 0, score ? score < 0 : score === 0 ? yLevel < height/2 : false
+    ];
+  });
 
   return (
     <Container 
@@ -69,7 +76,7 @@ const BarChart: React.FC<Props> = ({
           yLevel={yScale(0)} 
           width={width}
           barWidth={xScale.bandwidth()}
-          ticks={xScale.domain().map((name, i) => [name, xScale(name) || 0, (Object.values(bars || {})[i]?.score || 0) < 0])}
+          ticks={xTicks}
           winners={winners}
           bars={bars}
         />
