@@ -9,6 +9,7 @@ interface Props {
   info: { [key: string]: { 
     explanation?: string,
     visualization?: React.FC<any>,
+    name?: string,
   } };
   method: string;
   setMethod: (method: string) => void;
@@ -33,10 +34,13 @@ const Block: React.FC<Props> = ({
     return info?.[method]?.explanation || '';
   }, [info, method]);
 
+  console.log(info);
+
   return (
     <Container className="island">
       <BlockTop
         title={title}
+        subtitle={info?.[method]?.name}
         options={options}
         selected={method}
         setSelected={setMethod}

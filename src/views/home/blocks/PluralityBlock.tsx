@@ -7,8 +7,17 @@ interface Props {
   data: { [methodKey: string]: { [candidateKey: string]: number } };
 };
 
-const info: { [key: string]: { explanation?: string, visualization?: React.FC<any>, } } = {
+type Info = {
+  [key: string]: {
+    name?: string,
+    explanation?: string, 
+    visualization?: React.FC<any>, 
+  };
+};
+
+const info: Info = {
   fptp: {
+    name: 'First Past the Post',
     explanation: 'First Past the Post, aka Plurality, is one of the most common voting methods. Every voter votes for a single candidate and the candidate with the most votes wins.',
     visualization: SignedBarChart,
   },
