@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import useChartDimensions from '../../hooks/useChartDimensions';
 import BarNegative from './components/BarNegative';
-import BarChart from './BarChart';
+import { MemoizedBarChart } from './BarChart';
 
 interface Props {
   bars: { [key: string]: {
@@ -32,7 +32,7 @@ const NegativeBarChart: React.FC<Props> = ({ bars }) => {
   ;
 
   return (
-    <BarChart
+    <MemoizedBarChart
       passedRef={ref} height={height} width={width}
       xScale={xScale}
       yScale={yScale}
@@ -50,7 +50,7 @@ const NegativeBarChart: React.FC<Props> = ({ bars }) => {
           /> : null
         );
       })}
-    </BarChart>
+    </MemoizedBarChart>
   );
 };
 

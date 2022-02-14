@@ -79,4 +79,7 @@ const BarChart: React.FC<Props> = ({
   );
 };
 
+const MemoizedBarChart: React.FC<Props> = React.memo(BarChart);
+
 export default BarChart;
+export { MemoizedBarChart };
