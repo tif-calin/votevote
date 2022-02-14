@@ -1,3 +1,19 @@
 # Changelog
-https://keepachangelog.com/en/1.0.0/
+This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
+
+## [0.1.0] - 2022-02-??
+
+### Added
+ - 7 voting methods (and their visualizations) split into 2 blocks:
+   - plurality: fptp, veto, signed, vfa
+   - runoff: irv, coombs, fab_irv
+ - 1 dataset: xkcd RGB colors
+   - source: [xkcd color survey](https://xkcd.com/color/rgb/)
+   - distance function is an average of RGB and HSL distance with an activator function
+ - ability to input candidates and voters and see live updates to the results
+
+**Description**: This project originally started as a project by me (culi) and the first prototype was made and deployed at [dontplaywithculi.netlify.app/votevote](https://dontplaywithculi.netlify.app/votevote). The original prototype only had visualizations for 3 methods (irv, coombs, and fab_irv), but allowed you to at least view the winners of the election simulated in 26 different methods! During the creation of that, I realized a number of optimizations that could be made, but decided to hold off until I rebuilt the whole thing from scratch. Version 0.1 marks what I consider to be on par with the original prototype despite lacking 19 of the originally implemented methods.
+
+**Archive**: [archive](https://web.archive.org/web/*/https://votevote.page/)
+ 
 

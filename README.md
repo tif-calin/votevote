@@ -1,32 +1,5 @@
 # votevote
 
-## To-do
-### Smol
- - [ ] make `signed` method return the number of votes for and against each candidate
-   - [ ] show marks on its graphic
- - [ ] mark the negative and positive votes for `vfa` 
- - input
-   - [ ] allow modification of the number for each voter
-   - [ ] on hover over voters, show their ballots
-   - [ ] allow other datasets (colors:xkcd, colors:culi, colors:html, cities)
-   - [ ] allow for CUSTOM voters
- - [ ] useLocalStorage to save inputs. Also, add a reset button
- - [ ] start keeping a changelog
- - [ ] x-axis ticks: dynamic positioning 
- - [ ] x-axis ticks: don't overlap other ticks
- - [ ] chart blocks: show the full name of current method + round number + winner(s)
-
-### Biggo 
- - **Build as static site**
-   - [ ] fix SPA for gh-pages (https://github.com/rafgraph/spa-github-pages) 
- - **Testing**
-   - [ ] unit testing for each method
- - **Docs**
-
-### Sidequests
- - disttint page 
- - allsvote page
-
 ## list of voting methods
 
 plurality: fptp, veto, signed
@@ -39,7 +12,6 @@ bucklin: fallback, bucklin, vfar
 hybrid: star, threeTwoOne
 weighted: cumulative, quadratic
 other: majorityJudgement
-
 
  - [x] firstPastThePost
  - [x] contingent

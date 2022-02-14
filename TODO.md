@@ -1,0 +1,68 @@
+# TODO
+## 2022-02-XX
+### priority for v0.1.0
+ - [ ] ability to modify the amount of each voter
+ - [ ] show the currently selected method and round-number 
+ - [ ] save current election to localStorage
+ - [ ] don't overlap x-axis tick labels
+ - [ ] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
+
+### other
+ - [ ] redo the whole bar chart system:
+    - create a Bar Class
+    - create a common BarChart component that can be used for all charts
+    - bar chart settings passed in from parent blocks
+ - [ ] blocks
+    - show round number, 
+    - method name, 
+    - and winners
+ - [ ] SuperElection2
+    - use the Cache class 
+    - rewrite all the methods to utilize the new Cache object
+    - store winners for each Cache object
+ - [ ] make the election method results return more info (e.g. `signed` should show the number for/against)
+ - [ ] organize typescript types into a separate file
+ - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
+ - [ ] add references for each method
+
+### fix
+ - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
+
+### major features/tasks
+ - [ ] write unit tests!!
+ - [ ] datasets options + preset elections for each dataset + custom dataset
+ - [ ] data and more info about each method and use that to create docs
+ - [ ] figure out how to build it as a static site
+
+### sidequests
+ - [ ] disttint: see most related colors and compare different distancing methods
+ - [ ] allsvote: vote for which method is best by voting for which method you want the results to be calculated in... Maybe it should be called metavote?
+
+---
+
+## 2022-02-13
+### Smol
+ - [ ] make `signed` method return the number of votes for and against each candidate
+   - [ ] show marks on its graphic
+ - [ ] mark the negative and positive votes for `vfa` 
+ - input
+   - [ ] allow modification of the number for each voter
+   - [ ] on hover over voters, show their ballots
+   - [ ] allow other datasets (colors:xkcd, colors:culi, colors:html, cities)
+   - [ ] allow for CUSTOM voters
+ - [ ] useLocalStorage to save inputs. Also, add a reset button
+ - [x] start keeping a changelog
+ - [x] x-axis ticks: dynamic positioning 
+ - [ ] x-axis ticks: don't overlap other ticks
+ - [ ] chart blocks: show the full name of current method + round number + winner(s)
+
+### Biggo 
+ - **Build as static site**
+   - [ ] fix SPA for gh-pages (https://github.com/rafgraph/spa-github-pages) 
+ - **Testing**
+   - [ ] unit testing for each method
+ - **Docs**
+
+### Sidequests
+ - disttint page 
+ - allsvote page
