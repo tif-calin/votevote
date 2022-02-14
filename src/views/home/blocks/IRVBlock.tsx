@@ -49,6 +49,16 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
     }), {})
   }, [data]);
 
+  const [maxVal, minVal] = React.useMemo(() => {
+    if (data?.[selectedMethod]) {
+      const final = data[selectedMethod].at(-1) as { [key: string]: number };
+      return [
+        Math.max(...Object.values(final)),
+        Math.min(...Object.values(final)),
+      ]
+    } else return [undefined, undefined];
+  }, [data, selectedMethod]);
+
   const currentRoundNumber = Math.min(currentRound, data?.[selectedMethod]?.length - 1 || 0);
 
   return (
@@ -62,6 +72,8 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
         data[selectedMethod] ? <Chart
           barStyles={barStyles}
           round={data?.[selectedMethod]?.[currentRoundNumber] || {}}
+          maxVal={maxVal}
+          minVal={minVal}
         />: null
       }
     </Block>

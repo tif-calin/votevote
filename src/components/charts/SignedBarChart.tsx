@@ -8,25 +8,32 @@ interface Props {
   bars: { [key: string]: {
     score: number,
     style: { [key: string]: { fill: string, [prop: string]: string } }
-  }}
+  }},
+  maxVal?: number,
+  minVal?: number,
 };
 
-const SignedBarChart: React.FC<Props> = ({ bars }) => {
+const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
   const [ref, { height, width }] = useChartDimensions();
 
   const [minScore, maxScore, winners] = React.useMemo(() => {
     let minScore = 0;
     let maxScore = 0;
 
-    Object.values(bars).forEach(bar => {
-      if (bar.score > maxScore) maxScore = bar.score;
-      if (bar.score < minScore) minScore = bar.score;
-    });
+    if (maxVal !== undefined && minVal !== undefined) {
+      minScore = minVal;
+      maxScore = maxVal;
+    } else {
+      Object.values(bars).forEach(bar => {
+        if (bar.score > maxScore) maxScore = bar.score;
+        if (bar.score < minScore) minScore = bar.score;
+      });
+    }
 
     const winners = Object.keys(bars).filter(c => bars[c].score === maxScore);
 
     return [minScore, maxScore, winners];
-  }, [bars]);
+  }, [bars, maxVal, minVal]);
 
   const xScale = d3.scaleBand()
     .domain(Object.keys(bars).sort())

@@ -4,9 +4,11 @@ import { MemoizedSignedBarChart } from './SignedBarChart';
 interface Props {
   round: { [key: string]: number };
   barStyles: { [key: string]: { fill: string, [prop: string]: string } };
+  maxVal?: number;
+  minVal?: number;
 };
 
-const BarChartWithRounds: React.FC<Props> = ({ round, barStyles }) => {
+const BarChartWithRounds: React.FC<Props> = ({ round, barStyles, maxVal, minVal }) => {
   const bars = React.useMemo(() => {
     return Object.keys(round).reduce((acc, c) => ({
       ...acc, 
@@ -20,6 +22,8 @@ const BarChartWithRounds: React.FC<Props> = ({ round, barStyles }) => {
   return (
     <MemoizedSignedBarChart 
       bars={bars}
+      maxVal={maxVal}
+      minVal={minVal}
     />
   );
 };
