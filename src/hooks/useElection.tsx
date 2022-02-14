@@ -24,6 +24,7 @@ const useElection = () => {
         vfa: election.vfa(),
         irv: election.irv(),
         coombs: election.coombs(),
+        fab_irv: election.fab_irv(),
       }
     } else return {};
   }, [election]);

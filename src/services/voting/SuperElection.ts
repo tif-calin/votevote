@@ -97,9 +97,9 @@ type Ballots = {
   [key: ReturnType<typeof serializeBallot>]: {
     _weight_: number;
     base: { [key: string]: number };
+    ranked: string[][];
     highestScore: number;
     lowestScore: number;
-    ranked: string[][];
   };
 };
 
@@ -332,9 +332,42 @@ class SuperElection {
       }
 
       rounds.push(candidates.reduce((a, c) => ({
-        ...a, [c]: lastVotes[c] || 0
+        ...a, [c]: firstVotes[c] || 0
       }), {}));
       if (rounds.length > candidates.length) break;
+    }
+
+    return rounds;
+  }
+
+  fab_irv(candidates = this.candidates): { [key: string]: number }[] | undefined {
+    const rounds: { [key: string]: number }[] = [];
+
+    const majority = Object
+      .values(this.ballots)
+      .reduce((a, { _weight_ }) => a + _weight_, 0) / 2
+    ;
+
+    let cands = [...candidates];
+    let isOver = false;
+
+    while (!isOver && rounds.length <= candidates.length) {
+      const lastVotes = this.veto(cands) as { [key: string]: number };
+      const firstVotes = this.fptp(cands) as { [key: string]: number };
+      const goodScore = Math.max(...Object.values(firstVotes));
+
+      if (goodScore > majority) isOver = true;
+      else {
+        const diffVotes: { [key: string]: number } = cands.reduce((a, c) => ({
+          ...a, [c]: firstVotes[c] + lastVotes[c]
+        }), {});
+        const badScore = Math.min(...Object.values(diffVotes));
+        cands = cands.filter(c => diffVotes[c] > badScore);
+      }
+
+      rounds.push(candidates.reduce((a, c) => ({
+        ...a, [c]: firstVotes[c] || 0
+      }), {}));
     }
 
     return rounds;
