@@ -23,6 +23,7 @@ const useElection = () => {
         signed: election.signed(),
         vfa: election.vfa(),
         irv: election.irv(),
+        coombs: election.coombs(),
       }
     } else return {};
   }, [election]);
