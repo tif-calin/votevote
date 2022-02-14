@@ -8,7 +8,17 @@ interface Props {
 
 const Container = styled.g`
   & > rect {
-    transition: all 0.1s;
+    transition: 
+      height 0.5s ease-in-out,
+      y 0.5s ease-in-out
+    ;
+  }
+
+  &.winner {
+    & rect {
+      stroke-width: 6;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
   }
 
   & > text.bar-label {
@@ -21,22 +31,15 @@ const Container = styled.g`
     transition: opacity 0.2s ease-in-out;
   }
 
-  &.winner {
-    & rect {
-      stroke-width: 6;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    }
-  }
-
   & text.zero {
     opacity: 0.5;
-    filter: blur(0.5px);
+    // filter: blur(0.5px);
     pointer-events: stroke;
-    transition: all 0.2s;
+    transition: opacity 0.2s ease-in-out;
     cursor: default;
 
     &:hover { 
-      filter: blur(0.1px); 
+      // filter: blur(0.1px); 
       opacity: 1;
     }
   }

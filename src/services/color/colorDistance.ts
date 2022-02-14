@@ -24,9 +24,20 @@ const colorDistance = (voter: string, candidate: string, dict: { [key:string]: {
   const rgbDist = rgbDistance(dict[voter].rgb, dict[candidate].rgb);
   const hslDist = hslDistance(dict[voter].hsl, dict[candidate].hsl);
 
-  const dist = (rgbDist + hslDist) / 2;
+  // const dist = Math.sqrt(rgbDist * hslDist);
+  // const dist = Math.pow(dist, 1 / dist);
+  let dist = (rgbDist + hslDist) / 2;
+  dist = Math.pow(Math.sqrt(dist) / (1 + Math.exp(-12 * (dist - 0.5))), 0.8);
+
+  console.log({
+    dist: dist.toFixed(3),
+    [voter]: dict[voter].hex,
+    [candidate]: dict[candidate].hex,
+    rgbDist: rgbDist.toFixed(3),
+    hslDist: hslDist.toFixed(3),
+  })
+
   return dist;
-  // return Math.pow(dist, 1 / dist);
 };
 
 const votersToBallots = (voters: string[], candidates: string[], dict: { [key:string]: { hex: string, rgb: number[], hsl: number[] } }) => {

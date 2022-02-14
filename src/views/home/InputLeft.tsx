@@ -26,7 +26,7 @@ const Candidate = styled.div`
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 0.25rem;
-  transition: all 0.1s;
+  transition: border 0.1s;
   overflow: hidden;
   border: 1px solid hsl(var(--shadow-color));
   display: flex;

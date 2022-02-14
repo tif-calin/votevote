@@ -35,7 +35,7 @@ const SignedBarChart: React.FC<Props> = ({ bars }) => {
   ;
 
   const yScale = d3.scaleLinear()
-    .domain([minScore, maxScore])
+    .domain([minScore * 1.25, maxScore * 1.25])
     .range([height, 0])
   ;
 
@@ -68,4 +68,7 @@ const SignedBarChart: React.FC<Props> = ({ bars }) => {
   );
 };
 
+const MemoizedSignedBarChart = React.memo(SignedBarChart);
+
 export default SignedBarChart;
+export { MemoizedSignedBarChart };

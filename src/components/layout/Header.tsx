@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
     max-width: 100%;
     font-size: 2.5rem;
     filter: saturate(0.55) brightness(0.25);
-    transition: all 2s cubic-bezier(0, 0.9, 0.8, 0.99);
+    transition: filter 2s cubic-bezier(0, 0.9, 0.8, 0.99);
 
     &:hover {
       filter: saturate(1) brightness(1) hue-rotate(1440deg);

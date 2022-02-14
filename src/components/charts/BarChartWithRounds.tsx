@@ -1,5 +1,5 @@
 import React from 'react';
-import SignedBarChart from './SignedBarChart';
+import { MemoizedSignedBarChart } from './SignedBarChart';
 
 interface Props {
   round: { [key: string]: number };
@@ -18,7 +18,7 @@ const BarChartWithRounds: React.FC<Props> = ({ round, barStyles }) => {
   }, [round, barStyles]);
 
   return (
-    <SignedBarChart 
+    <MemoizedSignedBarChart 
       bars={bars}
     />
   );
