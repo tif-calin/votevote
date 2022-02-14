@@ -11,6 +11,8 @@ interface Props {
 };
 
 const Container = styled.g`
+  pointer-events: none;
+  
   & text.winner {
     stroke: currentColor;
   }

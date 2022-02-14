@@ -15,7 +15,7 @@ const info: { [key: string]: { explanation?: string, visualization?: React.FC<an
   },
   veto: {
     explanation: 'Veto is essentially the same except instead of voting FOR a candidate, you vote against a candidate. The least hated candidate wins.',
-    visualization: NegativeBarChart,
+    visualization: SignedBarChart,
   },
   signed: {
     explanation: 'What if you could choose whether you want to vote FOR a candidate or AGAINST a candidate?',
