@@ -67,6 +67,7 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
             width={barWidth}
             x={x} y={y} floor={floor}
             isWinner={score === maxScore}
+            isNegative={y > floor || (floor === y && floor < height / 2)}
             {...style}
           /> : null
         );

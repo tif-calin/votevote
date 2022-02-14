@@ -9,15 +9,15 @@ interface Props {
   width: number;
   floor: number;
   isWinner?: boolean;
+  isNegative?: boolean;
 };
 
 const BarPositive: React.FC<Props> = ({ 
-  name, x, y, width, floor, isWinner, ...style 
+  name, x, y, width, floor, isWinner, isNegative, ...style 
 }) => {
-  const isFlipped = y > floor;
   const notZero = Boolean(floor - y);
 
-  if (isFlipped) {
+  if (isNegative) {
     const temp = y;
     y = floor;
     floor = temp;
@@ -37,14 +37,14 @@ const BarPositive: React.FC<Props> = ({
         className={notZero ? 'bar-label' : 'bar-label zero'}
         transform={`
           translate(
-            ${isFlipped 
+            ${isNegative 
                 ? notZero ? 16 : width * 0.25
                 : notZero ? width - 16 : width * 0.75
               }, 
-            ${isFlipped ? y + 4 : floor - 4}
+            ${isNegative ? y + 4 : floor - 4}
           ) 
           rotate(-90)
-          scale(${(isFlipped ? -1 : 1) * width / 20})
+          scale(${(isNegative ? -1 : 1) * width / 20})
         `}
       >{name}</text>
     </Bar>
