@@ -12,6 +12,9 @@
    - [ ] allow for CUSTOM voters
  - [ ] useLocalStorage to save inputs. Also, add a reset button
  - [ ] start keeping a changelog
+ - [ ] x-axis ticks: dynamic positioning 
+ - [ ] x-axis ticks: don't overlap other ticks
+ - [ ] chart blocks: show the full name of current method + round number + winner(s)
 
 ### Biggo 
  - **Build as static site**
@@ -23,7 +26,6 @@
 ### Sidequests
  - disttint page 
  - allsvote page
-
 
 ## list of voting methods
 
