@@ -7,7 +7,7 @@ import BarPositive from './components/BarPositive';
 interface Props {
   bars: { [key: string]: {
     score: number,
-    style: { [key: string]: { fill: string, [prop: string]: string } }
+    style: { fill: string, [key: string]: string }
   }},
   maxVal?: number,
   minVal?: number,
@@ -51,7 +51,8 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
   return (
     <BarChart
       passedRef={ref} height={height} width={width}
-      xScale={xScale} yScale={yScale}
+      xScale={xScale} yScale={yScale} 
+      bars={bars}
       winners={winners}
       yTicks={yTicks}
     >

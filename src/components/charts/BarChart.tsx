@@ -12,6 +12,8 @@ interface Props {
   yScale: d3.ScaleLinear<number, number>;
   yTicks?: number[];
   winners: string[];
+
+  bars?: { [key: string]: { score: number, style: { fill: string,  [key: string]: string } } };
 };
 
 const Container = styled.div`
@@ -36,9 +38,10 @@ const Container = styled.div`
 
 const BarChart: React.FC<Props> = ({ 
   children, passedRef, height, width,
-  xScale, yScale, yTicks, winners
+  xScale, yScale, yTicks, winners,
+  bars
 }) => {
-  yTicks = (yTicks || (yScale as any).nice().ticks()) as number[];
+  yTicks = (yTicks || (yScale as any).nice().ticks() as number[]);
 
   const yLevel = yScale(0);
 
@@ -66,8 +69,9 @@ const BarChart: React.FC<Props> = ({
           yLevel={yScale(0)} 
           width={width}
           barWidth={xScale.bandwidth()}
-          domain={xScale.domain().map(name => [name, xScale(name) || 0])}
+          ticks={xScale.domain().map((name, i) => [name, xScale(name) || 0, (Object.values(bars || {})[i]?.score || 0) < 0])}
           winners={winners}
+          bars={bars}
         />
 
         <YAxisLinear

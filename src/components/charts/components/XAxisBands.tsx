@@ -7,7 +7,9 @@ interface Props {
   width: number;
   barWidth: number;
   winners: string[];
-  domain: [string, number][];
+  ticks: [string, number, boolean?][];
+  
+  bars?: { [key: string]: { score: number, style: { fill: string,  [key: string]: string } } };
 };
 
 const Container = styled.g`
@@ -19,17 +21,16 @@ const Container = styled.g`
 `;
 
 const XAxisBands: React.FC<Props> = ({ 
-  domain, 
-  barWidth, yLevel, width, 
+  ticks, 
+  barWidth, yLevel, width,
   winners 
 }) => {
-  const direction = yLevel < 1 ? -1 : 1;
   return (
     <Container className="x-axis" transform={`translate(0, ${yLevel})`} >
       <line x2={width} />
-      {domain.map(([name, x], i) => {
+      {ticks.map(([name, x, above = false], i) => {
 
-        const labelCount = domain.length;
+        const labelCount = ticks.length;
         const howManyLabels = Math.min(labelCount, Math.floor(width / 80));
         const every = Math.round(labelCount / howManyLabels);
         return (
@@ -38,9 +39,9 @@ const XAxisBands: React.FC<Props> = ({
             transform={`translate(${x + (barWidth / 2)}, 0)`}
             opacity={(i % every) ? 0 : 1}
           >
-            <line y2={direction * 8} strokeDasharray="2 2" />
+            <line y2={above ? -8 : 8} strokeDasharray="2 2" />
             <text
-              y={direction * 16}
+              y={above ? -16 : 16}
               textAnchor="middle"
               alignmentBaseline='middle'
               className={winners.includes(name) ? 'winner' : ''}
