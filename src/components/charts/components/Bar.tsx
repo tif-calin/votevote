@@ -35,7 +35,6 @@ const Container = styled.g`
     opacity: 0.5;
     // filter: blur(0.5px);
     pointer-events: stroke;
-    transition: opacity 0.2s ease-in-out;
     cursor: default;
 
     &:hover { 
