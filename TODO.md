@@ -2,7 +2,7 @@
 ## 2022-02-XX
 ### priority for v0.1.0
  - [ ] ability to modify the amount of each voter
- - [ ] show the currently selected method and round-number 
+ - [x] show the currently selected method and round-number 
  - [ ] save current election to localStorage
  - [ ] don't overlap x-axis tick labels
  - [ ] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
@@ -13,9 +13,10 @@
     - create a common BarChart component that can be used for all charts
     - bar chart settings passed in from parent blocks
  - [ ] blocks
-    - show round number, 
-    - method name, 
+    - [x] show round number, 
+    - [x] method name, 
     - and winners
+    - click on round number to pause
  - [ ] SuperElection2
     - use the Cache class 
     - rewrite all the methods to utilize the new Cache object
@@ -24,10 +25,14 @@
  - [ ] organize typescript types into a separate file
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
  - [ ] add references for each method
+ - [ ] fancy star pattern for the winner 
+ - [ ] a way for user to see voter preference ratings 
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
  - [x] nice() the scales
+ - [ ] site broken on safari mobile
+ - [ ] really smol bras are hard to hover over... 
 
 ### major features/tasks
  - [ ] write unit tests!!
