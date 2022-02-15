@@ -22,7 +22,11 @@ interface Props {};
 const Header: React.FC<Props> = () => {
   return (
     <StyledHeader>
-      <Link to="/"><h1><RainbowText text="votevote" /></h1></Link>
+      <Link to="/">
+        <h1>
+          <RainbowText text="votevote" />
+        </h1>
+      </Link>
     </StyledHeader>
   );
 };

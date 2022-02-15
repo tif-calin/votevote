@@ -13,7 +13,7 @@ const StyledLayout = styled.div`
   width: 100vw;
   overflow-y: overlay;
 
-  & > :is(header, main, footer) {
+  & > :where(header, main, footer) {
     width: 100%;
 
     display: flex;
