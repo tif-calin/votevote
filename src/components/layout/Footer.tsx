@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import A from '../A';
 
@@ -8,25 +9,37 @@ const StyledFooter = styled.footer`
   position: relative;
 
   & > div.nav {
-    justify-content: right;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     position: relative;
   }
 
   & .copyleft {
-    display: flex;
     position: absolute;
-    gap: 0.25rem;
+    width: auto;
+    right: 50%;
     left: 50%;
+
+    display: flex;
+    justify-content: center;
+
+    white-space: nowrap;
+    display: flex;
+    gap: 0.25rem;
 
     &::before, &::after {
       content: "\\2620";
     }
   }
 
+  & .version {
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
+
   & .version, & .copyleft {
     opacity: 0.5;
     transition: opacity 0.1s;
-
     &:hover { opacity: 1; }
   }
 `;
@@ -41,7 +54,7 @@ const Footer: React.FC<Props> = () => {
           className="copyleft"
           href="https://github.com/tif-calin/votevote/"
         >steal this</A>
-        <span className="version">v0.1.0.0</span>
+        <Link to="/changelog" className="version">v0.1.0.0</Link>
       </div>
     </StyledFooter>
   );
