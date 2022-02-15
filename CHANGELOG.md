@@ -1,7 +1,7 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
-## [0.1.0] - 2022-02-??
+## [0.1.0.0] - 2022-02-??
 
 ### Added
  - 7 voting methods (and their visualizations) split into 2 blocks:

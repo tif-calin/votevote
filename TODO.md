@@ -20,6 +20,7 @@
     - use the Cache class 
     - rewrite all the methods to utilize the new Cache object
     - store winners for each Cache object
+    - do we really have to regenerate the whole object everytime a candidate is removed? 
  - [ ] make the election method results return more info (e.g. `signed` should show the number for/against)
  - [ ] organize typescript types into a separate file
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
@@ -29,6 +30,7 @@
  - [ ] show numbers on bars... somehow (on hover?)
  - [ ] figure out a nice solution for a shitton of candidates 
  - [ ] make a particular election shareable by url
+ - [ ] show a threshold line for relevant methods (passed in from parent blocks)
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
