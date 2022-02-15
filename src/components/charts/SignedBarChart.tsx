@@ -17,7 +17,7 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
   const [ref, { height, width }] = useChartDimensions();
 
   const [minScore, maxScore, winners] = React.useMemo(() => {
-    let minScore = 0;
+    let minScore = Number.MAX_SAFE_INTEGER;
     let maxScore = Number.MIN_SAFE_INTEGER;
 
     if (maxVal !== undefined && minVal !== undefined) {
@@ -32,7 +32,7 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
 
     const winners = Object.keys(bars).filter(c => bars[c].score === maxScore);
 
-    return [minScore, maxScore, winners];
+    return [Math.min(minScore, 0), Math.max(0, maxScore), winners];
   }, [bars, maxVal, minVal]);
 
   const xScale = d3.scaleBand()
