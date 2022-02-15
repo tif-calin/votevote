@@ -4,7 +4,7 @@ import xkcd from '../../data/xkcd';
 import useRoster, { useWeightedRoster } from '../../hooks/useRoster';
 import RosterControls from './RosterControls';
 
-const StyledForm = styled.form`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   min-height: calc(100px + 5vh);
@@ -22,7 +22,7 @@ const StyledForm = styled.form`
   }
 `;
 
-const Candidate = styled.div`
+const ColorBox = styled.div`
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 0.25rem;
@@ -153,7 +153,7 @@ const InputLeft: React.FC<Props> = ({
   }, [auto, candidates, voters, elect]);
 
   return (
-    <StyledForm
+    <Container
       onSubmit={e => e.preventDefault()}
       className="island"
     >
@@ -172,7 +172,7 @@ const InputLeft: React.FC<Props> = ({
       >
         <CandidateDisplay>
           {candidates.map((color) => (
-            <Candidate
+            <ColorBox
               key={`${color}-candidate`} title={color}
               onClick={() => removeCandidate(color)}
               style={{
@@ -180,7 +180,7 @@ const InputLeft: React.FC<Props> = ({
               }}
             >
               <span>x</span>
-            </Candidate>
+            </ColorBox>
           ))}
         </CandidateDisplay>
       </RosterControls>
@@ -201,7 +201,7 @@ const InputLeft: React.FC<Props> = ({
           {Object.keys(voters).map((voter) => {
             return (
               <li key={voter}>
-                <Candidate style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }}/>
+                <ColorBox style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }} />
                 <span>{voter}</span>
                 {/* <span>{voters[voter]}</span> */}
                 <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
@@ -215,7 +215,7 @@ const InputLeft: React.FC<Props> = ({
         type="submit" 
         onClick={() => elect(candidates, voters)}
       >Do the thing!</button>}
-    </StyledForm>
+    </Container>
   );
 };
 
