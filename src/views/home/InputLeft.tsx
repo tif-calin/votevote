@@ -80,6 +80,15 @@ const VoterDisplay = styled.ul`
     & > *:last-child {
       margin-left: auto;
     }
+
+    & input[type="number"] {
+      text-align: right;
+      backdrop-filter: none;
+
+      &::-webkit-textfield-decoration-container {
+        flex-direction: row-reverse;
+      }
+    }
   }
 `;
 
@@ -128,11 +137,11 @@ const InputLeft: React.FC<Props> = ({
     add: addVoter,
     reset: resetVoters,
     clear: clearVoters,
-    // setN: setVoterN,
+    setN: setVoterN,
     selected: selectedVoter,
     setSelected: setSelectedVoter,
-    selectedN, 
-    setSelectedN,
+    selectedN: selectedVoterN,
+    setSelectedN: setSelectedVoterN,
   } = useWeightedRoster(top16, 'acid green');
 
   const handleResetVoters = React.useCallback(() => {
@@ -184,8 +193,8 @@ const InputLeft: React.FC<Props> = ({
         clear={preventDefault(clearVoters)}
         selected={selectedVoter}
         setSelected={setSelectedVoter}
-        selectedN={selectedN}
-        setSelectedN={setSelectedN}
+        selectedN={selectedVoterN}
+        setSelectedN={setSelectedVoterN}
         count={Object.values(voters)?.reduce((a, v) => a+v, 0)}
       >
         <VoterDisplay>
@@ -194,7 +203,8 @@ const InputLeft: React.FC<Props> = ({
               <li key={voter}>
                 <Candidate style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }}/>
                 <span>{voter}</span>
-                <span>{voters[voter]}</span>
+                {/* <span>{voters[voter]}</span> */}
+                <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
               </li>
             );
           })}

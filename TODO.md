@@ -1,7 +1,7 @@
 # TODO
 ## 2022-02-XX
 ### priority for v0.1.0
- - [ ] ability to modify the amount of each voter
+ - [x] ability to modify the amount of each voter
  - [x] show the currently selected method and round-number 
  - [x] save current election to localStorage and add reset button
  - [x] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
@@ -27,6 +27,8 @@
  - [ ] fancy star pattern for the winner 
  - [ ] a way for user to see voter preference ratings 
  - [ ] show numbers on bars... somehow (on hover?)
+ - [ ] figure out a nice solution for a shitton of candidates 
+ - [ ] make a particular election shareable by url
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -41,6 +43,7 @@
  - [ ] datasets options + preset elections for each dataset + custom dataset
  - [ ] data and more info about each method and use that to create docs
  - [ ] figure out how to build it as a static site
+ - [ ] accessibility game quite weak
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
