@@ -3,7 +3,7 @@
 ### priority for v0.1.0
  - [ ] ability to modify the amount of each voter
  - [x] show the currently selected method and round-number 
- - [ ] save current election to localStorage
+ - [x] save current election to localStorage and add reset button
  - [ ] don't overlap x-axis tick labels
  - [ ] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
 

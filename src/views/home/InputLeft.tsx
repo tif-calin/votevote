@@ -88,12 +88,11 @@ interface Props {
   auto?: boolean;
 };
 
-// const top60 = Object.keys(xkcd).slice(-60);
 const initialCandidates = [
   'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
   // 'amethyst', 'azure', 'beige', 'blush', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
 ];
-const top16 = Object.keys(xkcd).slice(-16);
+const top16 = Object.keys(xkcd).slice(-16).reduce((a, c) => ({ ...a, [c]: c.length }), {});
 const colorList = Object.keys(xkcd).sort();
 
 const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
@@ -101,9 +100,12 @@ const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
   fnc();
 };
 
-const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
+const InputLeft: React.FC<Props> = ({ 
+  elect, auto = true
+}) => {
   const { 
     roster: candidates,
+    reset: resetCandidates,
     add: addCandidate,
     clear: clearCandidates,
     remove: removeCandidate,
@@ -117,16 +119,25 @@ const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
     setSelectedCandidate(colorList.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
   }, [addCandidate, selectedCandidate, setSelectedCandidate]);
 
+  const handleResetCandidates = React.useCallback(() => {
+    resetCandidates(initialCandidates);
+  }, [resetCandidates]);
+
   const {
     roster: voters,
     add: addVoter,
+    reset: resetVoters,
     clear: clearVoters,
     // setN: setVoterN,
     selected: selectedVoter,
     setSelected: setSelectedVoter,
     selectedN, 
     setSelectedN,
-  } = useWeightedRoster(top16.reduce((a, c) => ({ ...a, [c]: c.length }), {}), 'acid green');
+  } = useWeightedRoster(top16, 'acid green');
+
+  const handleResetVoters = React.useCallback(() => {
+    resetVoters(top16);
+  }, [resetVoters]);
 
   React.useEffect(() => {
     if (auto) elect(candidates, voters);
@@ -144,6 +155,7 @@ const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
         options={colorList.filter(c => !candidates.includes(c))}
         name="candidates"
         add={handleAddCandidate}
+        reset={handleResetCandidates}
         clear={preventDefault(clearCandidates)}
         selected={selectedCandidate}
         setSelected={setSelectedCandidate}
@@ -168,6 +180,7 @@ const InputLeft: React.FC<Props> = ({ elect, auto = true }) => {
         options={colorList}
         name="voters"
         add={preventDefault(addVoter)}
+        reset={preventDefault(handleResetVoters)}
         clear={preventDefault(clearVoters)}
         selected={selectedVoter}
         setSelected={setSelectedVoter}

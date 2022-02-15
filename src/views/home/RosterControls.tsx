@@ -69,6 +69,7 @@ interface Props {
   options: string[];
   name: string;
   add: (e?: any) => void;
+  reset?: (e?: any) => void;
   clear: (e?: any) => void;
   selected: string;
   setSelected: (str: string) => void;
@@ -77,7 +78,7 @@ interface Props {
   count?: number;
 };
 
-const RosterControls: React.FC<Props> = ({ count, children, options, name, add, clear, selected, setSelected, selectedN, setSelectedN }) => {
+const RosterControls: React.FC<Props> = ({ count, children, options, name, add, reset, clear, selected, setSelected, selectedN, setSelectedN }) => {
   const [controlMessage, setControlMessage] = React.useState<string>('');
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -123,6 +124,12 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
         onMouseEnter={() => setControlMessage(`Add ${selected} to the roster`)}
         onMouseLeave={resetMessage}
       >&#x2795;&#xfe0e;</button>
+      {reset && <button
+        className="symbol"
+        onClick={reset}
+        onMouseEnter={() => setControlMessage(`Reset roster to preset`)}
+        onMouseLeave={resetMessage}
+      >&#x21ba;&#xfe0e;</button>}
       <button 
         className="symbol"
         onClick={clear}
