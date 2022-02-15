@@ -7,14 +7,9 @@ const StyledFooter = styled.footer`
   margin-top: calc(1rem + 1vh);
   position: relative;
 
-  & > div {
+  & > div.nav {
     justify-content: right;
     position: relative;
-  }
-
-  & .version {
-    justify-self: flex-end;
-    text-align: right;
   }
 
   & .copyleft {
@@ -41,7 +36,7 @@ interface Props {};
 const Footer: React.FC<Props> = () => {
   return (
     <StyledFooter>
-      <div>
+      <div className="nav">
         <A 
           className="copyleft"
           href="https://github.com/tif-calin/votevote/"
