@@ -17,8 +17,8 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
   const [ref, { height, width }] = useChartDimensions();
 
   const [minScore, maxScore, winners] = React.useMemo(() => {
-    let minScore = 0;
-    let maxScore = 0;
+    let minScore = Number.MAX_SAFE_INTEGER;
+    let maxScore = Number.MIN_SAFE_INTEGER;
 
     if (maxVal !== undefined && minVal !== undefined) {
       minScore = minVal;
