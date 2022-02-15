@@ -16,6 +16,6 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 **Description**: This project originally started as a project by me (culi) and the first prototype was made and deployed at [dontplaywithculi.netlify.app/votevote](https://dontplaywithculi.netlify.app/votevote). The original prototype only had visualizations for 3 methods (irv, coombs, and fab_irv), but allowed you to at least view the winners of the election simulated in 26 different methods! During the creation of that, I realized a number of optimizations that could be made, but decided to hold off until I rebuilt the whole thing from scratch. Version 0.1 marks what I consider to be on par with the original prototype despite lacking 19 of the originally implemented methods.
 
-**Archive**: [archive](https://web.archive.org/web/*/https://votevote.page/)
+**Archive**: [archive](https://web.archive.org/web/20220215225237/https://votevote.page/)
  
 
