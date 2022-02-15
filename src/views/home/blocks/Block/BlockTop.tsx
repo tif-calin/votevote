@@ -64,14 +64,15 @@ const BlockTop: React.FC<Props> = ({
 
   return (<>
     <Top>
-      <h3>{methodName || title}</h3>
+      <h3
+        onMouseOver={() => setMethodName(subtitle)}
+        onMouseOut={() => setMethodName('')}
+      >{methodName || title}</h3>
       <form name={`${title.toLowerCase()}-options`}>
         {options?.map((key: string, i: number) => (
           <label 
             key={i}
             onClick={() => setSelected(key)}
-            onMouseOver={() => setMethodName(subtitle)}
-            onMouseOut={() => setMethodName('')}
           >
             <input type="radio" name={title.toLowerCase()} value={key} readOnly={true} checked={key === selected} />
             <span>{key}</span>
