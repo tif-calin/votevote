@@ -33,6 +33,7 @@ const ColorBox = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
+  cursor: pointer;
 
   & span {
     width: 100%;
@@ -40,6 +41,11 @@ const ColorBox = styled.div`
     font-weight: 900;
     opacity: 0;
     backdrop-filter: contrast(0.25);
+  }
+
+  &:hover {
+    border: none;
+    & span { opacity: 1; }
   }
 `;
 
@@ -52,15 +58,6 @@ const CandidateDisplay = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
-
-  & > div {
-    cursor: pointer;
-
-    &:hover {
-      border: none;
-      & span { opacity: 1; }
-    }
-  }
 `;
 
 const VoterDisplay = styled.ul`
@@ -135,6 +132,7 @@ const InputLeft: React.FC<Props> = ({
   const {
     roster: voters,
     add: addVoter,
+    remove: removeVoter,
     reset: resetVoters,
     clear: clearVoters,
     setN: setVoterN,
@@ -201,7 +199,10 @@ const InputLeft: React.FC<Props> = ({
           {Object.keys(voters).map((voter) => {
             return (
               <li key={voter}>
-                <ColorBox style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }} />
+                <ColorBox 
+                  style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }} 
+                  onClick={() => removeVoter(voter)}
+                ><span>x</span></ColorBox>
                 <span>{voter}</span>
                 {/* <span>{voters[voter]}</span> */}
                 <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />

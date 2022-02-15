@@ -35,6 +35,13 @@ const useWeightedRoster = (initialRoster = {}, initialSelected = '') => {
     setRoster(current => ({ ...current, [item]: ~~current[item] + n }));
   }, [selected, selectedN, setRoster]);
 
+  const remove = React.useCallback((item: string) => {
+    setRoster(current => {
+      const { [item]: _, ...rest } = current;
+      return rest;
+    })
+  }, [setRoster]);
+
   const setN = React.useCallback((item: string, n: number) => {
     setRoster(current => ({ ...current, [item]: n }));
   }, [setRoster]);
@@ -44,7 +51,7 @@ const useWeightedRoster = (initialRoster = {}, initialSelected = '') => {
   const reset = React.useCallback((roster) => setRoster(roster), [setRoster]);
 
   return {
-    roster, add, setN, clear, reset,
+    roster, add, remove, setN, clear, reset,
     selected, setSelected,
     selectedN, setSelectedN,
   };
