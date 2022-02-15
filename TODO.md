@@ -35,7 +35,7 @@
  - [x] nice() the scales
  - [ ] site broken on safari mobile
  - [ ] really smol bras are hard to hover over... 
- - [ ] all the runoff methods are broken when there's a tie
+ - [x] all the runoff methods are broken when there's a tie
  - [ ] don't overlap x-axis tick labels
 
 ### major features/tasks
