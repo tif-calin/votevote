@@ -22,15 +22,18 @@ const info: Info = {
     visualization: SignedBarChart,
   },
   veto: {
+    name: 'Anti-Plurality',
     explanation: 'Veto is essentially the same except instead of voting FOR a candidate, you vote against a candidate. The least hated candidate wins.',
     visualization: SignedBarChart,
   },
   signed: {
+    name: 'Boehm Signed',
     explanation: 'What if you could choose whether you want to vote FOR a candidate or AGAINST a candidate?',
     visualization: SignedBarChart,
   },
   vfa: {
-    explanation: 'Vote For or Against is similar to Signed, but you don\'t have to choose! In fact, you\'re required to vote both FOR a candidate as well as against another.',
+    name: 'Vote For and Against',
+    explanation: 'Vote For and Against is similar to Signed, but you don\'t have to choose! In fact, you\'re required to vote both FOR a candidate as well as against another.',
     visualization: SignedBarChart,
   }
 };

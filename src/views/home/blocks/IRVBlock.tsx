@@ -23,9 +23,11 @@ const info: Info = {
     visualization: BarChartWithRounds,
   },
   coombs: {
+    name: 'Coombs IRV',
     explanation: 'This is basically the same as IRV except instead of eliminating the candidate with the fewest first-choice votes, you eliminated the candidate with the most last-choice votes. Essentially, you remove the most hated candidate each round.'
   },
   fab_irv: {
+    name: 'Front and Back IRV',
     explanation: 'I\'m not quite sure what to call this method (I call it "Front and Back IRV"), but it seems like a pretty logical next step in the succession of things to take into account both first-choice and last-choice votes, right? In this method, you calculate a score for each candidate by adding up how many voters picked them first and subtract away how many voters picked them last. If there\'s no candidate with a majority of first-choice votes, you remove the candidate with the lowest score.'
   },
 };
@@ -66,7 +68,7 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
 
   return (
     <Block
-      title="Instant Runoff"
+      title="Runoff"
       info={info}
       method={selectedMethod}
       setMethod={setSelectedMethod}
