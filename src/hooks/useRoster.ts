@@ -3,7 +3,7 @@ import useLocalStorage from './useLocalStorage';
 
 const useRoster = (arr: string[] = [], initiallySelected = '') => {
   const [roster, setRoster] = useLocalStorage<string[]>('votevote_candidateroster', arr.sort());
-  const [selected, setSelected] = React.useState<string>(initiallySelected);
+  const [selected, setSelected] = useLocalStorage<string>('votevote_candidateroster_selected', initiallySelected);
 
   const add = React.useCallback((item = selected) => {
     setRoster(current => current.includes(item)
@@ -28,8 +28,8 @@ const useRoster = (arr: string[] = [], initiallySelected = '') => {
 
 const useWeightedRoster = (initialRoster = {}, initialSelected = '') => {
   const [roster, setRoster] = useLocalStorage<{ [key: string]: number }>('votevote_weightedroster', initialRoster);
-  const [selected, setSelected] = React.useState<string>(initialSelected);
-  const [selectedN, setSelectedN] = React.useState<number>(1);
+  const [selected, setSelected] = useLocalStorage<string>('votevote_weightedroster_selected', initialSelected);
+  const [selectedN, setSelectedN] = useLocalStorage<number>('votevote_weightedroster_selectedN', 1);
 
   const add = React.useCallback((item = selected, n = selectedN) => {
     setRoster(current => ({ ...current, [item]: ~~current[item] + n }));
