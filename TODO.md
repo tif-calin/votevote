@@ -4,12 +4,11 @@
  - [ ] ability to modify the amount of each voter
  - [x] show the currently selected method and round-number 
  - [x] save current election to localStorage and add reset button
- - [ ] don't overlap x-axis tick labels
- - [ ] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
+ - [x] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
 
 ### other
  - [ ] redo the whole bar chart system:
-    - create a Bar Class
+    - create a Bar class
     - create a common BarChart component that can be used for all charts
     - bar chart settings passed in from parent blocks
  - [ ] blocks
@@ -27,12 +26,15 @@
  - [ ] add references for each method
  - [ ] fancy star pattern for the winner 
  - [ ] a way for user to see voter preference ratings 
+ - [ ] show numbers on bars... somehow (on hover?)
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
  - [x] nice() the scales
  - [ ] site broken on safari mobile
  - [ ] really smol bras are hard to hover over... 
+ - [ ] all the runoff methods are broken when there's a tie
+ - [ ] don't overlap x-axis tick labels
 
 ### major features/tasks
  - [ ] write unit tests!!

@@ -299,6 +299,7 @@ class SuperElection {
       else {
         const badScore = this._getFirstVotesWorst(cands);
         cands = cands.filter(c => firstVotes[c] > badScore);
+        if (cands.length === 0) break;
       }
 
       rounds.push(candidates.reduce((a, c) => ({
@@ -329,6 +330,7 @@ class SuperElection {
       else {
         const badScore = Math.min(...Object.values(lastVotes));
         cands = cands.filter(c => lastVotes[c] > badScore);
+        if (cands.length === 0) break;
       }
 
       rounds.push(candidates.reduce((a, c) => ({
@@ -363,6 +365,7 @@ class SuperElection {
         }), {});
         const badScore = Math.min(...Object.values(diffVotes));
         cands = cands.filter(c => diffVotes[c] > badScore);
+        if (cands.length === 0) break;
       }
 
       rounds.push(candidates.reduce((a, c) => ({

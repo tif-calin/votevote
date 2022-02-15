@@ -186,7 +186,7 @@ const InputLeft: React.FC<Props> = ({
         setSelected={setSelectedVoter}
         selectedN={selectedN}
         setSelectedN={setSelectedN}
-        count={Object.values(voters).reduce((a, v) => a+v)}
+        count={Object.values(voters)?.reduce((a, v) => a+v, 0)}
       >
         <VoterDisplay>
           {Object.keys(voters).map((voter) => {
