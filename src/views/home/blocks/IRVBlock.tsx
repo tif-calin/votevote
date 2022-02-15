@@ -57,8 +57,8 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
     if (data?.[selectedMethod]) {
       const final = data[selectedMethod].at(-1) as { [key: string]: number };
       return [
-        Math.max(...Object.values(final)),
-        Math.min(...Object.values(final)),
+        Math.max(...Object.values(final || {})),
+        Math.min(...Object.values(final || {})),
       ]
     } else return [undefined, undefined];
   }, [data, selectedMethod]);
