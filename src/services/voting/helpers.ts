@@ -5,6 +5,7 @@
  */
 const serializeScoredBallot = (ballot: { [key: string]: number }) => {
   return Object.entries(ballot)
+    .sort(([, a], [, b]) => b - a)
     .map(([k, v]) => `${k}::${v}`)
     .join(',,')
   ;
@@ -28,7 +29,7 @@ const deserializeScoredBallot = (
  * @param {string[]} list - a list of candidates
  * @returns {string}
  */
-const serializeList = (list: string[]) => list.join(',,');
+const serializeList = (list: string[]) => [...list].sort().join(',,');
 
 /**
  * Deserialize a serialized list.
