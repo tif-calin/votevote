@@ -5,6 +5,7 @@
  - [ ] add a way for users to see a voter's preferences
  - [ ] ability to pause a round
  - [ ] show winners in block 
+ - [ ] bug fixes...
 
 ## 2022-02-15
 ### priority for v0.1.0
@@ -49,6 +50,8 @@
  - [ ] really smol bars are hard to hover over... 
  - [x] all the runoff methods are broken when there's a tie
  - [ ] don't overlap x-axis tick labels
+ - [ ] adding more voters to one already on the list doesn't upload the count in the display 
+ - [ ] netlify breaks if trying to open Link in new tab
 
 ### major features/tasks
  - [ ] write unit tests!!
