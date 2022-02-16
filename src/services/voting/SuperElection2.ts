@@ -1,6 +1,17 @@
 import ElectionCache from './ElectionCache';
 import { parseScoredBallot, serializeList, serializeScoredBallot } from './helpers';
 
+type ResultSimple = {
+  [candidate: string]: number;
+};
+
+// type ResultDetailed = {
+//   [candidate: string]: {
+//     score: number;
+//     [key: string]: any;
+//   };
+// };
+
 class SuperElection {
   _cache: { [key: string]: ElectionCache} = {};
   candidates: string[];
@@ -11,13 +22,13 @@ class SuperElection {
       rankings: string[][];
       highestScore: number;
       lowestScore: number;
-    }
+    };
   } = {};
   ballotsRanked: { 
     [key: ReturnType<typeof serializeList>]: {
       weight: number;
       ballot: string[];
-    }
+    };
   } = {};
 
   constructor(
@@ -81,9 +92,12 @@ class SuperElection {
 
     /* 4 ===CACHE=== */
     const serializedCandidates = serializeList(this.candidates);
-    if (!this._cache[serializedCandidates]) {
-      this._cache[serializedCandidates] = new ElectionCache(this);
-    }
+    this._cache[serializedCandidates] = new ElectionCache(this);
+  };
+
+  fptp(candidates = this.candidates): ResultSimple {
+    const cache = this._cache[serializeList(candidates)];
+    return cache.firstVotes;
   }
 };
 
