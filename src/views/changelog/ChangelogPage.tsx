@@ -81,7 +81,7 @@ const ChangelogPage: React.FC<Props> = () => {
           For more up to date information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
         </p>
 
-        <h3>v0.1.0.0 <span>2022_02feb15</span></h3>
+        <h3>v0.1.0 <span>2022_02feb15</span></h3>
         <ul className="release">
           <li>
             <span>7 voting methods split into two blocks</span>
