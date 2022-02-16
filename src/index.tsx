@@ -1,3 +1,5 @@
+import 'react-app-polyfill/stable';
+import 'core-js/features/array/at';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';

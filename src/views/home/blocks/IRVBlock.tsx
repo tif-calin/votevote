@@ -54,8 +54,10 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
   }, [data]);
 
   const [maxVal, minVal] = React.useMemo(() => {
-    if (data?.[selectedMethod]) {
-      const final = data[selectedMethod].at(-1) as { [key: string]: number };
+    if (data?.[selectedMethod]?.length) {
+      const rounds = data[selectedMethod];
+      const final = rounds[rounds.length - 1] as { [key: string]: number };
+      // const final = rounds.at(-1) as { [key: string]: number };
       return [
         Math.max(...Object.values(final || {})),
         Math.min(...Object.values(final || {})),
