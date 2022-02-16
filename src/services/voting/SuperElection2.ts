@@ -92,7 +92,7 @@ class SuperElection {
 
     /* 4 ===CACHE=== */
     const serializedCandidates = serializeList(this.candidates);
-    this._cache[serializedCandidates] = new ElectionCache(this);
+    this._cache[serializedCandidates] = new ElectionCache(this, this.candidates);
   };
 
   fptp(candidates = this.candidates): ResultSimple {
