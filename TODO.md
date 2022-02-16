@@ -16,23 +16,23 @@
 
 ### other
  - [ ] redo the whole bar chart system:
-    - create a Bar class
-    - create a common BarChart component that can be used for all charts
-    - bar chart settings passed in from parent blocks
+    - [ ] create a Bar class
+    - [ ] create a common BarChart component that can be used for all charts
+    - [ ] bar chart settings passed in from parent blocks
  - [ ] blocks
     - [x] show round number, 
     - [x] method name, 
-    - and winners
-    - click on round number to pause
+    - [ ] and winners
+    - [ ] click on round number to pause
  - [ ] SuperElection2
-    - use the Cache class 
-    - rewrite all the methods to utilize the new Cache object
-    - store winners for each Cache object
-    - do we really have to regenerate the whole object everytime a candidate is removed? 
+    - [ ] use the Cache class 
+    - [ ] rewrite all the methods to utilize the new Cache object
+    - [ ] store winners for each Cache object
+    - [ ] do we really have to regenerate the whole object everytime a candidate is removed? 
+    - [ ] make the election method results return more info (e.g. `signed` should show the number for/against)
  - clean up code
     - [ ] organize typescript types into a separate file
     - [ ] remove `as any` typescript stuff
- - [ ] make the election method results return more info (e.g. `signed` should show the number for/against)
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
  - [ ] add references for each method
  - [ ] fancy star pattern for the winner 
@@ -52,6 +52,11 @@
  - [ ] don't overlap x-axis tick labels
  - [ ] adding more voters to one already on the list doesn't upload the count in the display 
  - [ ] netlify breaks if trying to open Link in new tab
+ - [ ] clean up styling on mobile devices and across browsers
+    - [ ] mobile: consistency in unicode/emoji formatting
+    - [ ] safari-iphone: why is the select text blue on my iphone?
+    - [ ] lambdatest: flexbox seems to be broken
+    - [ ] firefox: cahrt sizing is off
 
 ### major features/tasks
  - [ ] write unit tests!!
