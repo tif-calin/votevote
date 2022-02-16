@@ -29,7 +29,7 @@ const deserializeScoredBallot = (
  * @param {string[]} list - a list of candidates
  * @returns {string}
  */
-const serializeList = (list: string[]) => [...list].sort().join(',,');
+const serializeList = (list: string[]) => [...list].join(',,');
 
 /**
  * Deserialize a serialized list.
