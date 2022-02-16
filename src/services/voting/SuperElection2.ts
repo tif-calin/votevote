@@ -98,7 +98,12 @@ class SuperElection {
   fptp(candidates = this.candidates): ResultSimple {
     const cache = this._cache[serializeList(candidates)];
     return cache.firstVotes;
-  }
+  };
+
+  veto(candidates = this.candidates): ResultSimple {
+    const cache = this._cache[serializeList(candidates)];
+    return cache.lastVotes;
+  };
 };
 
 export default SuperElection;

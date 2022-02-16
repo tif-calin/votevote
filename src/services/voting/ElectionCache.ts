@@ -40,10 +40,22 @@ class ElectionCache {
     if (this._firstVotesHighest) return this._firstVotesHighest;
 
     const firstVotes = this.firstVotes;
+
     const firstVotesHighest = Math.max(...Object.values(firstVotes));
 
     this._firstVotesHighest = firstVotesHighest;
     return firstVotesHighest;
+  };
+
+  get firstVotesLowest(): number {
+    if (this._firstVotesLowest) return this._firstVotesLowest;
+
+    const firstVotes = this.firstVotes;
+
+    const firstVotesLowest = Math.min(...Object.values(firstVotes));
+
+    this._firstVotesLowest = firstVotesLowest;
+    return firstVotesLowest;
   };
 
   get firstVotesWinners(): string[] {
@@ -53,11 +65,54 @@ class ElectionCache {
     const firstVotesHighest = this.firstVotesHighest;
 
     const firstVotesWinners = this.candidates.filter(
-      c => firstVotes[c] === firstVotesHighest
+      c => firstVotes[c] >= firstVotesHighest
     );
 
     this._firstVotesWinners = firstVotesWinners;
     return firstVotesWinners;
+  };
+
+  get firstVotesLosers(): string[] {
+    if (this._firstVotesLosers) return this._firstVotesLosers;
+
+    const firstVotes = this.firstVotes;
+    const firstVotesLowest = this.firstVotesLowest;
+
+    const firstVotesLosers = this.candidates.filter(
+      c => firstVotes[c] <= firstVotesLowest
+    );
+
+    this._firstVotesLosers = firstVotesLosers;
+    return firstVotesLosers;
+  };
+
+  get lastVotes(): { [key: string]: number } {
+    if (this._lastVotes) return this._lastVotes;
+
+    const lastVotes: { [key: string]: number } =
+      this.candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {})
+    ;
+    Object.values(this.election.ballotsRanked).forEach(({ ballot, weight }) => {
+      const lastChoice = [...ballot]
+        .reverse()
+        .find(c => this.candidates.includes(c))
+      ;
+      if (lastChoice) lastVotes[lastChoice] -= weight;
+    });
+
+    this._lastVotes = lastVotes;
+    return lastVotes;
+  };
+
+  get lastVotesHighest(): number {
+    if (this._lastVotesHighest) return this._lastVotesHighest;
+
+    const lastVotes = this.lastVotes;
+
+    const lastVotesHighest = Math.max(...Object.values(lastVotes));
+
+    this._lastVotesHighest = lastVotesHighest;
+    return lastVotesHighest;
   };
 };
 
