@@ -1,7 +1,7 @@
 import SuperElection from './SuperElection2';
 
 const elections = {
-  'wikipedia': {
+  'tennessee': {
     candidates: [
       'Memphis',
       'Nashville',
@@ -38,10 +38,16 @@ const elections = {
   }
 };
 
-describe('SuperElection tests', () => {  
-  test('Tennessee example', () => {
-    const { candidates, ballots, weights } = elections['wikipedia'];
+describe('fptp tests', () => {  
+  test('tennessee example', () => {
+    const { candidates, ballots, weights } = elections['tennessee'];
     const election = new SuperElection(candidates, ballots, weights);
+
+    const fptp = election.fptp();
+    const fptpHighScore = Math.max(...Object.values(fptp));
+    const fptpWinners = Object.keys(fptp).filter(c => fptp[c] === fptpHighScore);
+
+    expect(fptpWinners).toEqual(['Memphis']);
   });
 });
 
