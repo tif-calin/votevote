@@ -1,5 +1,12 @@
 # TODO
-## 2022-02-XX
+## 2022-02-16
+### priority for v0.1.1
+ - [ ] add contingency block
+ - [ ] add a way for users to see a voter's preferences
+ - [ ] ability to pause a round
+ - [ ] show winners in block 
+
+## 2022-02-15
 ### priority for v0.1.0
  - [x] ability to modify the amount of each voter
  - [x] show the currently selected method and round-number 
@@ -21,8 +28,10 @@
     - rewrite all the methods to utilize the new Cache object
     - store winners for each Cache object
     - do we really have to regenerate the whole object everytime a candidate is removed? 
+ - clean up code
+    - [ ] organize typescript types into a separate file
+    - [ ] remove `as any` typescript stuff
  - [ ] make the election method results return more info (e.g. `signed` should show the number for/against)
- - [ ] organize typescript types into a separate file
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
  - [ ] add references for each method
  - [ ] fancy star pattern for the winner 
@@ -31,12 +40,13 @@
  - [ ] figure out a nice solution for a shitton of candidates 
  - [ ] make a particular election shareable by url
  - [ ] show a threshold line for relevant methods (passed in from parent blocks)
+ - [ ] give a max size to the voter list and make overflow scrollable 
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
  - [x] nice() the scales
- - [ ] site broken on safari mobile
- - [ ] really smol bras are hard to hover over... 
+ - [x] site broken on safari mobile
+ - [ ] really smol bars are hard to hover over... 
  - [x] all the runoff methods are broken when there's a tie
  - [ ] don't overlap x-axis tick labels
 
@@ -50,6 +60,7 @@
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
  - [ ] allsvote: vote for which method is best by voting for which method you want the results to be calculated in... Maybe it should be called metavote?
+ - [ ] votegame: a game where you try to manipulate voting systems 
 
 ---
 
