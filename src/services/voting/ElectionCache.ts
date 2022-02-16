@@ -1,8 +1,7 @@
-import SuperElection from './SuperElection';
+import SuperElection from './SuperElection2';
 
 class ElectionCache {
-  election: typeof SuperElection;
-  candidates: string[];
+  election: SuperElection;
 
   _firstVotes?: { [key: string]: number };
   _firstVotesHighest?: number;
@@ -16,9 +15,8 @@ class ElectionCache {
   _lastVotesLowest?: number;
   _lastVotesLosers?: string[];
 
-  constructor(candidates: string[], election: typeof SuperElection) {
+  constructor(election: SuperElection) {
     this.election = election;
-    this.candidates = candidates;
   }
 
   get firstVotes(): { [key: string]: number } {
