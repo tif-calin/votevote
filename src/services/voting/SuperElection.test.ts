@@ -51,4 +51,17 @@ describe('fptp tests', () => {
   });
 });
 
+describe('veto tests', () => {  
+  test('tennessee example', () => {
+    const { candidates, ballots, weights } = elections['tennessee'];
+    const election = new SuperElection(candidates, ballots, weights);
+
+    const veto = election.veto();
+    const vetoHighScore = Math.max(...Object.values(veto));
+    const vetoWinners = new Set(Object.keys(veto).filter(c => veto[c] === vetoHighScore));
+
+    expect(vetoWinners).toEqual(new Set(['Nashville', 'Knoxville']));
+  });
+});
+
 export {};
