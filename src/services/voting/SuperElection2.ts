@@ -269,9 +269,9 @@ class SuperElection {
 
       rounds.push(candidates.reduce((a, c) => ({
         ...a, [c]: {
-          score: combinedVotes[c] || 0,
+          combined: combinedVotes[c] || 0,
           negative: lastVotes[c] || 0,
-          positive: firstVotes[c] || 0,
+          score: firstVotes[c] || 0,
         }
       }), {} as ResultDetailed));
       if (rounds.length > candidates.length) break;
