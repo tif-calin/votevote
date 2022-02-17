@@ -107,4 +107,19 @@ describe('vfa tests', () => {
   });
 });
 
+describe('irv tests', () => {
+  test('tennessee example', () => {
+    const { candidates, ballots, weights } = elections['tennessee'];
+    const election = new SuperElection(candidates, ballots, weights);
+
+    const irv = election.irv();
+    const irvHighScore = Math.max(...Object.values(irv.at(-1) || {}));
+    const irvWinners = candidates
+      .filter(c => irv.at(-1)?.[c] === irvHighScore)
+    ;
+
+    expect(irvWinners).toEqual(['Knoxville']);
+  });
+});
+
 export {};
