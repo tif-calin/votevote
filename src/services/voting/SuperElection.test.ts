@@ -1,4 +1,4 @@
-import SuperElection from './SuperElection2';
+import SuperElection from './SuperElection';
 
 const elections = {
   'tennessee': {

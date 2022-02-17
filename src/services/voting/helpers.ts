@@ -1,4 +1,4 @@
-import { ResultDetailed, ResultSimple } from './SuperElection2';
+import { ResultDetailed, ResultSimple } from './SuperElection';
 
 /**
  * Serialize a scored ballot into a string.

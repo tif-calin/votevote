@@ -1,6 +1,6 @@
 import React from 'react';
 import { convertDetailedToSimple } from '../services/voting/helpers';
-import SuperElection from '../services/voting/SuperElection2';
+import SuperElection from '../services/voting/SuperElection';
 
 const useElection = () => {
   const [election, setElection] = React.useState<SuperElection | null>(null);
