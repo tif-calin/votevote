@@ -239,6 +239,42 @@ class SuperElection {
           }
         };
       }, {} as ResultDetailed));
+      if (rounds.length > candidates.length) break;
+    }
+
+    return rounds;
+  };
+
+  fab_irv(candidates = this.candidates): ResultDetailed[] {
+    const rounds: ResultDetailed[] = [];
+    const majority = this.totalVoters / 2;
+
+    let cands = [...candidates];
+    let isOver = false;
+    while (!isOver) {
+      const cache = this.getCache(cands);
+      const firstVotes = cache.firstVotes;
+      const lastVotes = cache.lastVotes;
+      const combinedVotes = cache.combinedVotes;
+      const bestScore = cache.firstVotesHighest;
+
+      const someScore = combinedVotes[cands[0]];
+      if (bestScore > majority) isOver = true;
+      else if (cands.every(c => combinedVotes[c] === someScore)) isOver = true;
+      else {
+        const worstScore = cache.combinedVotesLowest;
+        cands = cands.filter(c => combinedVotes[c] > worstScore);
+        if (!cands.length) break;
+      }
+
+      rounds.push(candidates.reduce((a, c) => ({
+        ...a, [c]: {
+          score: combinedVotes[c] || 0,
+          negative: lastVotes[c] || 0,
+          positive: firstVotes[c] || 0,
+        }
+      }), {} as ResultDetailed));
+      if (rounds.length > candidates.length) break;
     }
 
     return rounds;

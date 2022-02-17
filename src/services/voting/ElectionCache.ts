@@ -16,6 +16,12 @@ class ElectionCache {
   _lastVotesLowest?: number;
   _lastVotesLosers?: string[];
 
+  _combinedVotes?: { [key: string]: number };
+  _combinedVotesHighest?: number;
+  _combinedVotesWinners?: string[];
+  _combinedVotesLowest?: number;
+  _combinedVotesLosers?: string[];
+
   constructor(election: SuperElection, candidates: string[]) {
     this.election = election;
     this.candidates = [...candidates];
@@ -124,7 +130,33 @@ class ElectionCache {
 
     this._lastVotesLowest = lastVotesLowest;
     return lastVotesLowest;
-  }
+  };
+
+  get combinedVotes(): { [key: string]: number } {
+    if (this._combinedVotes) return this._combinedVotes;
+
+    const lastVotes = this.lastVotes;
+    const firstVotes = this.firstVotes;
+
+    const combinedVotes: { [key: string]: number } = this.candidates.reduce(
+      (a, c) => ({ ...a, [c]: lastVotes[c] + firstVotes[c] }),
+      {}
+    );
+
+    this._combinedVotes = combinedVotes;
+    return combinedVotes;
+  };
+
+  get combinedVotesLowest(): number {
+    if (this._combinedVotesLowest) return this._combinedVotesLowest;
+
+    const combinedVotes = this.combinedVotes;
+
+    const combinedVotesLowest = Math.min(...Object.values(combinedVotes));
+
+    this._combinedVotesLowest = combinedVotesLowest;
+    return combinedVotesLowest;
+  };
 };
 
 export default ElectionCache;
