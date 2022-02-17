@@ -1,6 +1,6 @@
 {
   "short_name": "VoteVote",
-  "name": "VoteVote | The Single Winner Electoral Method Hub",
+  "name": "VoteVote | The Single Winner Voting System Hub",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +21,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#223333",
-  "background_color": "#fdfdfd"
+  "background_color": "#fffafa"
 }
