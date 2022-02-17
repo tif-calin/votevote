@@ -114,6 +114,17 @@ class ElectionCache {
     this._lastVotesHighest = lastVotesHighest;
     return lastVotesHighest;
   };
+
+  get lastVotesLowest(): number {
+    if (this._lastVotesLowest) return this._lastVotesLowest;
+
+    const lastVotes = this.lastVotes;
+
+    const lastVotesLowest = Math.min(...Object.values(lastVotes));
+
+    this._lastVotesLowest = lastVotesLowest;
+    return lastVotesLowest;
+  }
 };
 
 export default ElectionCache;

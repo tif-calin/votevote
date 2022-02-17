@@ -208,6 +208,42 @@ class SuperElection {
 
     return rounds;
   };
+
+  coombs(candidates = this.candidates): ResultDetailed[] {
+    const rounds: ResultDetailed[] = [];
+    const majority = this.totalVoters / 2;
+
+    let cands = [...candidates];
+    let isOver = false;
+    while (!isOver) {
+      const cache = this.getCache(cands);
+      const firstVotes = cache.firstVotes;
+      const lastVotes = cache.lastVotes;
+      const bestScore = cache.firstVotesHighest;
+
+      const someScore = lastVotes[cands[0]];
+      if (bestScore > majority) isOver = true;
+      else if (cands.every(c => lastVotes[c] === someScore)) isOver = true;
+      else {
+        const worstScore = cache.lastVotesLowest;
+        cands = cands.filter(c => lastVotes[c] > worstScore);
+        if (!cands.length) break;
+      }
+
+      rounds.push(candidates.reduce((a, c) => {
+        return {
+          ...a,
+          [c]: {
+            score: firstVotes[c] || 0,
+            negative: lastVotes[c] || 0,
+          }
+        };
+      }, {} as ResultDetailed));
+    }
+
+    return rounds;
+  };
 };
 
 export default SuperElection;
+export type { ResultSimple, ResultDetailed };
