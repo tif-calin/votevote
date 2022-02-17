@@ -1,5 +1,6 @@
 import React from 'react';
-import SuperElection from '../services/voting/SuperElection';
+import { convertDetailedToSimple } from '../services/voting/helpers';
+import SuperElection from '../services/voting/SuperElection2';
 
 const useElection = () => {
   const [election, setElection] = React.useState<SuperElection | null>(null);
@@ -20,11 +21,11 @@ const useElection = () => {
       return {
         fptp: election.fptp(),
         veto: election.veto(),
-        signed: election.signed(),
-        vfa: election.vfa(),
+        signed: convertDetailedToSimple(election.signed()),
+        vfa: convertDetailedToSimple(election.vfa()),
         irv: election.irv(),
-        coombs: election.coombs(),
-        fab_irv: election.fab_irv(),
+        coombs: election.coombs().map(convertDetailedToSimple),
+        fab_irv: election.fab_irv().map(convertDetailedToSimple),
       }
     } else return {};
   }, [election]);
