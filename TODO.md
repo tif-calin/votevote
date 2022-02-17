@@ -42,6 +42,7 @@
  - [ ] make a particular election shareable by url
  - [ ] show a threshold line for relevant methods (passed in from parent blocks)
  - [ ] give a max size to the voter list and make overflow scrollable 
+ - [ ] SEO and frontendchecklist stuffs
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
