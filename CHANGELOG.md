@@ -1,7 +1,12 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
-## [0.1.0.1] - 2020-02-15
+## [0.1.1.0] - 2022-02-17
+### Added
+ - new election calculating class that takes advantage of cacheing for more efficient calculations
+ - basic tests for some of the voting systems
+
+## [0.1.0.1] - 2022-02-15
 ### Fixed
  - unsupported javascript features caused crash on mobile devices
 

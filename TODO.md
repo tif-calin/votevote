@@ -5,6 +5,7 @@
  - [ ] add a way for users to see a voter's preferences
  - [ ] ability to pause a round
  - [ ] show winners in block 
+ - [x] more efficient election calculation
  - [ ] bug fixes...
 
 ## 2022-02-15
@@ -24,17 +25,21 @@
     - [x] method name, 
     - [ ] and winners
     - [ ] click on round number to pause
- - [ ] SuperElection2
-    - [ ] use the Cache class 
-    - [ ] rewrite all the methods to utilize the new Cache object
+ - [x] SuperElection2
+    - [x] use the Cache class 
+    - [x] rewrite all the methods to utilize the new Cache object
     - [ ] store winners for each Cache object
     - [ ] do we really have to regenerate the whole object everytime a candidate is removed? 
-    - [ ] make the election method results return more info (e.g. `signed` should show the number for/against)
+    - [x] make the election method results return more info (e.g. `signed` should show the number for/against)
  - clean up code
     - [ ] organize typescript types into a separate file
     - [ ] remove `as any` typescript stuff
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
- - [ ] add references for each method
+ - [ ] more docs/info
+    - [ ] add references for each method
+    - [ ] alternative names
+    - [ ] mathematical properties
+    - [ ] electowiki / wikipedia link if existing 
  - [ ] fancy star pattern for the winner 
  - [ ] a way for user to see voter preference ratings 
  - [ ] show numbers on bars... somehow (on hover?)
@@ -43,6 +48,11 @@
  - [ ] show a threshold line for relevant methods (passed in from parent blocks)
  - [ ] give a max size to the voter list and make overflow scrollable 
  - [ ] SEO and frontendchecklist stuffs
+ - [ ] support for alternative datasets
+    - [ ] each dataset has its own data structure and distance calculating method
+    - [ ] custom datasets with manually entered preferences
+ - accessibility overview
+ - build as a static site
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -59,19 +69,16 @@
     - [ ] lambdatest: flexbox seems to be broken
     - [ ] firefox: cahrt sizing is off
 
-### major features/tasks
- - [ ] write unit tests!!
- - [ ] datasets options + preset elections for each dataset + custom dataset
- - [ ] data and more info about each method and use that to create docs
- - [ ] figure out how to build it as a static site
- - [ ] accessibility game quite weak
-
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
  - [ ] allsvote: vote for which method is best by voting for which method you want the results to be calculated in... Maybe it should be called metavote?
  - [ ] votegame: a game where you try to manipulate voting systems 
+ - [ ] individual subpages for each method
 
 ---
+
+<details>
+<summary>archive</summary>
 
 ## 2022-02-13
 ### Smol
@@ -99,3 +106,5 @@
 ### Sidequests
  - disttint page 
  - allsvote page
+
+</details>
