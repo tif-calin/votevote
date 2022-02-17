@@ -5,12 +5,12 @@ type ResultSimple = {
   [candidate: string]: number;
 };
 
-// type ResultDetailed = {
-//   [candidate: string]: {
-//     score: number;
-//     [key: string]: any;
-//   };
-// };
+type ResultDetailed = {
+  [candidate: string]: {
+    score: number;
+    [key: string]: any;
+  };
+};
 
 class SuperElection {
   _cache: { [key: string]: ElectionCache} = {};
@@ -103,6 +103,48 @@ class SuperElection {
   veto(candidates = this.candidates): ResultSimple {
     const cache = this._cache[serializeList(candidates)];
     return cache.lastVotes;
+  };
+
+  signed(candidates = this.candidates): ResultDetailed {
+    const signedVotes = candidates.reduce((a, c) => {
+      a[c] = { positive: 0, negative: 0, score: 0 };
+      return a;
+    }, {} as ResultDetailed );
+
+    Object.values(this.ballotsScored).forEach(
+      ({ ballot, weight, highestScore, lowestScore }) => {
+        const lovelist = candidates.filter(c => ballot[c] === highestScore);
+        const hatelist = candidates.filter(c => ballot[c] === lowestScore);
+
+        const distHigh = 1 - highestScore;
+
+        if (distHigh === lowestScore) {
+          const proportionalWeight = weight / (lovelist.length + hatelist.length);
+          lovelist.forEach(c => {
+            signedVotes[c].positive += proportionalWeight;
+            signedVotes[c].score += proportionalWeight;
+          });
+          hatelist.forEach(c => {
+            signedVotes[c].negative -= proportionalWeight;
+            signedVotes[c].score -= proportionalWeight;
+          });
+        } else if (distHigh < lowestScore) {
+          const proportionalWeight = weight / lovelist.length;
+          lovelist.forEach(c => {
+            signedVotes[c].positive += proportionalWeight;
+            signedVotes[c].score += proportionalWeight;
+          });
+        } else {
+          const proportionalWeight = weight / hatelist.length;
+          hatelist.forEach(c => {
+            signedVotes[c].negative -= proportionalWeight;
+            signedVotes[c].score -= proportionalWeight;
+          });
+        }
+      }
+    );
+
+    return signedVotes;
   };
 };
 
