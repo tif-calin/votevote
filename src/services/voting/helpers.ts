@@ -1,3 +1,5 @@
+import { ResultDetailed, ResultSimple } from './SuperElection2';
+
 /**
  * Serialize a scored ballot into a string.
  * @param {Object<string, number>} ballot - a scored ballot
@@ -108,9 +110,21 @@ const parseScoredBallot = (
   return [ballots, highestScore, lowestScore];
 };
 
+/**
+ * Convert detailed results to simple ones
+ * 
+ */
+const convertDetailedToSimple = (
+  detailed: ResultDetailed
+): ResultSimple => Object.entries(detailed).reduce((acc, [k, v]) => ({ 
+    ...acc, [k]: v.score 
+  }), {}
+);
+
 export {
   serializeScoredBallot, deserializeScoredBallot,
   serializeList, deserializeList,
   getPermutations,
   parseScoredBallot,
+  convertDetailedToSimple,
 };
