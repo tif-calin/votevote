@@ -35,10 +35,23 @@ const elections = {
       }
     ],
     weights: [ 42, 26, 15, 17 ],
+  },
+  'rgb_rainbow': {
+    candidates: [ 'red', 'green', 'blue' ],
+    ballots: [
+      { 'red': 1, 'green': 0, 'blue': 0 },    // red
+      { 'red': 1, 'green': 0.65, 'blue': 0 }, // orange
+      { 'red': 1, 'green': 1, 'blue': 0 },    // yellow
+      { 'red': 0, 'green': 1, 'blue': 0 },    // green
+      { 'red': 0, 'green': 0, 'blue': 1 },    // blue
+      { 'red': 0.3, 'green': 0, 'blue': 0.5 },    // indigo
+      { 'red': 0.9, 'green': 0.5, 'blue': 0.9 },  // violet
+    ],
+    weights: [ 1, 1, 1, 1, 1, 1, 1 ],
   }
 };
 
-describe('fptp tests', () => {  
+describe('fptp tests', () => {
   test('tennessee example', () => {
     const { candidates, ballots, weights } = elections['tennessee'];
     const election = new SuperElection(candidates, ballots, weights);
@@ -48,6 +61,17 @@ describe('fptp tests', () => {
     const fptpWinners = Object.keys(fptp).filter(c => fptp[c] === fptpHighScore);
 
     expect(fptpWinners).toEqual(['Memphis']);
+  });
+
+  test('rgb_rainbow example', () => {
+    const { candidates, ballots, weights } = elections['rgb_rainbow'];
+    const election = new SuperElection(candidates, ballots, weights);
+
+    const fptp = election.fptp();
+    const fptpHighScore = Math.max(...Object.values(fptp));
+    const fptpWinners = Object.keys(fptp).filter(c => fptp[c] === fptpHighScore);
+
+    expect(fptpWinners).toEqual(['red']);
   });
 });
 
