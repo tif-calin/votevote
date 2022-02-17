@@ -51,7 +51,7 @@
  - [ ] support for alternative datasets
     - [ ] each dataset has its own data structure and distance calculating method
     - [ ] custom datasets with manually entered preferences
- - accessibility overview
+ - accessibility overhaul
  - build as a static site
 
 ### fix
