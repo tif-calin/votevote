@@ -88,4 +88,23 @@ describe('veto tests', () => {
   });
 });
 
+describe.skip('signed tests', () => {});
+
+describe('vfa tests', () => {
+  test('tennessee example', () => {
+    const { candidates, ballots, weights } = elections['tennessee'];
+    const election = new SuperElection(candidates, ballots, weights);
+
+    const vfa = election.vfa();
+    const vfaHighScore = Math.max(
+      ...Object.values(vfa).map(v => v.score)
+    );
+    const vfaWinners = Object.keys(vfa)
+      .filter(c => vfa[c].score === vfaHighScore)
+    ;
+
+    expect(vfaWinners).toEqual(['Nashville']);
+  });
+});
+
 export {};

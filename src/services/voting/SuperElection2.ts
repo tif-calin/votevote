@@ -146,6 +146,26 @@ class SuperElection {
 
     return signedVotes;
   };
+
+  vfa(candidates = this.candidates): ResultDetailed {
+    const cache = this._cache[serializeList(candidates)];
+
+    const firstVotes = cache.firstVotes;
+    const lastVotes = cache.lastVotes;
+
+    const vfaResults = this.candidates.reduce((a, c) => {
+      const positive = firstVotes[c];
+      const negative = lastVotes[c];
+      a[c] = {
+        positive,
+        negative,
+        score: positive + negative,
+      };
+      return a;
+    }, {} as ResultDetailed);
+
+    return vfaResults;
+  };
 };
 
 export default SuperElection;
