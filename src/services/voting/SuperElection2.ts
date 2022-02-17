@@ -15,6 +15,7 @@ type ResultDetailed = {
 class SuperElection {
   _cache: { [key: string]: ElectionCache} = {};
   candidates: string[];
+  totalVoters: number;
   ballotsScored: {
     [key: ReturnType<typeof serializeScoredBallot>]: {
       weight: number;
@@ -36,8 +37,13 @@ class SuperElection {
     ballots: { [key: string]: number }[],
     weights: number[]
   ) {
+    /* Assumptions:
+       - weights length should equal the number of ballots
+    */
+
     /* 1 ===CANDIDATES=== */
     this.candidates = [...candidates].sort();
+    this.totalVoters = weights.reduce((a, w) => a + w, 0);
 
     /* 2 ===BALLOTSSCORED=== */
     ballots.forEach((scoredBallot, i) => {
@@ -95,13 +101,21 @@ class SuperElection {
     this._cache[serializedCandidates] = new ElectionCache(this, this.candidates);
   };
 
+  getCache(list: string[]) {
+    const serialized = serializeList(list);
+    if (!this._cache[serialized]) {
+      this._cache[serialized] = new ElectionCache(this, list);
+    }
+    return this._cache[serialized];
+  };
+
   fptp(candidates = this.candidates): ResultSimple {
-    const cache = this._cache[serializeList(candidates)];
+    const cache = this.getCache(candidates);
     return cache.firstVotes;
   };
 
   veto(candidates = this.candidates): ResultSimple {
-    const cache = this._cache[serializeList(candidates)];
+    const cache = this.getCache(candidates);
     return cache.lastVotes;
   };
 
@@ -148,7 +162,7 @@ class SuperElection {
   };
 
   vfa(candidates = this.candidates): ResultDetailed {
-    const cache = this._cache[serializeList(candidates)];
+    const cache = this.getCache(candidates);
 
     const firstVotes = cache.firstVotes;
     const lastVotes = cache.lastVotes;
@@ -165,6 +179,34 @@ class SuperElection {
     }, {} as ResultDetailed);
 
     return vfaResults;
+  };
+
+  irv(candidates = this.candidates): ResultSimple[] {
+    const rounds: ResultSimple[] = [];
+    const majority = this.totalVoters / 2;
+
+    let cands = [...candidates];
+    let isOver = false;
+    while (!isOver) {
+      const cache = this.getCache(cands);
+      const firstVotes = cache.firstVotes;
+      const bestScore = cache.firstVotesHighest;
+
+      if (bestScore > majority) isOver = true;
+      else if (cands.every(c => firstVotes[c] === bestScore)) isOver = true;
+      else {
+        const worstScore = cache.firstVotesLowest;
+        cands = cands.filter(c => firstVotes[c] > worstScore);
+        if (!cands.length) break;
+      }
+
+      rounds.push(candidates.reduce((a, c) => ({
+        ...a, [c]: firstVotes[c] || 0
+      }), {}));
+      if (rounds.length > candidates.length) break;
+    }
+
+    return rounds;
   };
 };
 
