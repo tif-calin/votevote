@@ -9,7 +9,7 @@
  - [ ] bug fixes...
     - [ ] voter display not synced with state if added from bar
     - [ ] contingency methods have 2 rounds always
-    - [ ] netlify breaks if navigating directly to url
+    - [x] netlify breaks if navigating directly to url
     - [ ] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
 
 ## 2022-02-15
@@ -66,7 +66,7 @@
  - [x] all the runoff methods are broken when there's a tie
  - [ ] don't overlap x-axis tick labels
  - [ ] adding more voters to one already on the list doesn't upload the count in the display 
- - [ ] netlify breaks if trying to open Link in new tab
+ - [x] netlify breaks if trying to open Link in new tab
  - [ ] clean up styling on mobile devices and across browsers
     - [ ] mobile: consistency in unicode/emoji formatting
     - [ ] safari-iphone: why is the select text blue on my iphone?
