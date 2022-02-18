@@ -40,7 +40,7 @@ const ContingencyBlock: React.FC<Props> = ({ data }) => {
     setCurrentRound(current => 
       (current + 1) % ((data?.[selectedMethod]?.length || 0) + 2)
     );
-  }, isPaused ? null :2500);
+  }, isPaused ? null : 1900);
 
   const Chart = React.useMemo(() => {
     return info?.[selectedMethod]?.visualization || BarChartWithRounds
