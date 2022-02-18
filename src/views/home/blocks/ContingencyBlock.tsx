@@ -49,7 +49,7 @@ const ContingencyBlock: React.FC<Props> = ({ data }) => {
   const barStyles = React.useMemo(() => {
     return Object.keys(data?.irv?.[0] || {}).reduce((acc, c) => ({
       ...acc,
-      [c]: { fill: xkcd[c]?.hex || 'black' }
+      [c]: { fill: xkcd[c]?.hex || 'var(--color-black)' }
     }), {})
   }, [data]);
 

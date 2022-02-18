@@ -53,7 +53,7 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
           positive: data.fptp[c],
           negative: data.veto[c],
           score: data?.[selectedMethod]?.[c] || 0,
-          style: { fill: xkcd[c]?.hex || 'black' }
+          style: { fill: xkcd[c]?.hex || 'var(--color-black)' }
         }
       };
     }, {});

@@ -7,7 +7,7 @@ interface Props {
 };
 
 const Container = styled.div`
-  --color: ${props => xkcd[props.color || '']?.hex || 'black'};
+  --color: ${props => xkcd[props.color || '']?.hex || 'var(--color-black)'};
   display: flex;
   place-items: center;
   place-content: center;
