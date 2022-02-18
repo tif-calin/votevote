@@ -19,17 +19,20 @@ interface Props {
 const info: Info = {
   cont: {
     name: 'Contingency',
+    explanation: 'The Contingent vote is kinda like an automatic version of the primary/general system seen in many parts of the US. With the major assumption that voter preferences wouldn\'t change between the primary and general vote. In Contingent votes, voters rank their preferences. If no candidate gets a majority in the first round, all except for the top 2 (more if there are ties) candidates get eliminated. Every voter that voted for an eliminated candidate will have their vote moved to whichever of the two candidates they prefer over the other.',
   },
   supp: {
     name: 'Supplementary',
+    explanation: 'The Supplementary vote is similar to contingency except voters only rank 1 alternative. If neither of their two votes makes it to the second round (if there is a second round), then they simply don\'t vote for anyone.'
   },
   sl_cont: {
     name: 'Sri Lankan Contingency',
+    explanation: 'In Sri Lanka, they use a version of the supplmentary vote to elect their president. Instead of ranking only their top 2 choices, they rank their top 3.'
   },
 };
 
 const ContingencyBlock: React.FC<Props> = ({ data }) => {  
-  const [selectedMethod, setSelectedMethod] = React.useState('contingency');
+  const [selectedMethod, setSelectedMethod] = React.useState('cont');
   const [currentRound, setCurrentRound] = React.useState(0);
 
   useInterval(() => {
