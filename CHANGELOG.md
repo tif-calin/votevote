@@ -3,6 +3,10 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.1.0] - 2022-02-17
 ### Added
+ - new voting systems:
+    - contingency voting (aka top 2 instant runoff)
+    - supplementary voting
+    - sri-lankan contingency voting
  - new election calculating class that takes advantage of cacheing for more efficient calculations
  - voting systems now show winner(s) in text
  - basic tests for some of the voting systems

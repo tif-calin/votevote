@@ -1,7 +1,7 @@
 # TODO
 ## 2022-02-16
 ### priority for v0.1.1
- - [ ] add contingency block
+ - [x] add contingency block
  - [ ] add a way for users to see a voter's preferences
  - [ ] ability to pause a round
  - [x] show winners in block 
