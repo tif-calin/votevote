@@ -35,12 +35,13 @@ const info: Info = {
 const IRVBlock: React.FC<Props> = ({ data }) => {
   const [selectedMethod, setSelectedMethod] = React.useState('irv');
   const [currentRound, setCurrentRound] = React.useState(0);
+  const [isPaused, setIsPaused] = React.useState(false);
 
   useInterval(() => {
     setCurrentRound(current => 
       (current + 1) % ((data?.[selectedMethod]?.length || 0) + 2)
     );
-  }, 2500);
+  }, isPaused ? null :2500);
 
   const Chart = React.useMemo(() => {
     return info?.[selectedMethod]?.visualization || BarChartWithRounds
@@ -80,6 +81,8 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
       setMethod={setSelectedMethod}
       round={currentRoundNumber}
       winners={winners}
+      isPaused={isPaused}
+      handlePause={() => setIsPaused(!isPaused)}
     >
       {
         data[selectedMethod] ? <Chart

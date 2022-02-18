@@ -58,6 +58,19 @@ const SubTop = styled.span`
   & > span:first-child {
     margin-right: auto;
   }
+
+  & .round {
+    cursor: pointer;
+    transition: opacity 0.1s;
+
+    &.is-paused {
+      opacity: 0.5;
+
+      &::after {
+        content: ' (paused)';
+      }
+    }
+  }
 `;
 
 interface Props {
@@ -68,11 +81,14 @@ interface Props {
   subtitle?: string, 
   round?: number,
   winners?: string[],
+  isPaused?: boolean,
+  handlePause?: () => void,
 };
 
 const BlockTop: React.FC<Props> = ({ 
   title, options, selected, setSelected, 
-  subtitle = '', round, winners
+  subtitle = '', round, winners,
+  isPaused, handlePause,
 }) => {
   const [methodName, setMethodName] = React.useState<string>('');
 
@@ -95,7 +111,12 @@ const BlockTop: React.FC<Props> = ({
       </form>
     </Top>
     <SubTop>
-      <span>{(round || round === 0) && `Round ${round + 1}`}</span>
+      <span
+        className={isPaused ? 'round is-paused' : 'round'}
+        onClick={() => handlePause && handlePause()}
+      >
+        {(round || round === 0) && `Round ${round + 1}`}
+      </span>
       {winners?.length ? winners.map(name => {
         return <ColorName key={name} name={name} />;
       }) : null}

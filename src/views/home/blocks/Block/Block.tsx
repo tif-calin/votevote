@@ -15,6 +15,8 @@ interface Props {
   method: string;
   setMethod: (method: string) => void;
   winners?: string[];
+  isPaused?: boolean;
+  handlePause?: () => void;
 };
 
 const Container = styled.div`
@@ -27,6 +29,7 @@ const Container = styled.div`
 const Block: React.FC<Props> = ({ 
   title, info, round, winners = [],
   method, setMethod,
+  isPaused = false, handlePause,
   children
 }) => {
   const options = React.useMemo(() => {
@@ -46,6 +49,8 @@ const Block: React.FC<Props> = ({
         setSelected={setMethod}
         round={round}
         winners={winners}
+        isPaused={isPaused}
+        handlePause={handlePause}
       />
 
       <BlockMiddle>{children}</BlockMiddle>

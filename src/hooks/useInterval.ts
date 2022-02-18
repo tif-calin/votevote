@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const useInterval = (callback: () => void, delay: number) => {
+const useInterval = (callback: () => void, delay: number | null) => {
   const savedCallback = React.useRef<() => void>();
 
   React.useEffect(() => {
