@@ -18,16 +18,18 @@ const useElection = () => {
     voters: { [name: string]: number }, 
     ballotMaker: (voters: string[], candidates: string[]) => { [candidate: string]: number }[] 
   ) => {
-    const weights: number[] = Object.values(voters);
-    const ballots = ballotMaker(Object.keys(voters), candidates);
-    const newElection = new SuperElection(candidates, ballots, weights);
-    setElection(newElection);
-    setBallots(Object.keys(voters).reduce((acc, voter, i) => ({
-      ...acc, [voter]: { 
-        weight: voters[voter], 
-        ballot: ballots[i]
-      }
-    }), {}));
+    if (candidates?.length) {
+      const weights: number[] = Object.values(voters);
+      const ballots = ballotMaker(Object.keys(voters), candidates);
+      const newElection = new SuperElection(candidates, ballots, weights);
+      setElection(newElection);
+      setBallots(Object.keys(voters).reduce((acc, voter, i) => ({
+        ...acc, [voter]: { 
+          weight: voters[voter], 
+          ballot: ballots[i]
+        }
+      }), {}));
+    }
   }, []);
 
   const electionOutcomes = React.useMemo(() => {
