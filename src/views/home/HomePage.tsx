@@ -28,7 +28,7 @@ interface Props {};
 const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
 const HomePage: React.FC<Props> = () => {
-  const { election, elect, electionOutcomes: data } = useElection();
+  const { election, elect, ballots, electionOutcomes: data } = useElection();
   if (data?.fptp) console.log(data);
   const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
 
@@ -38,6 +38,7 @@ const HomePage: React.FC<Props> = () => {
     <Page>
       <MemoizedInputLeft
         elect={handleElect}
+        ballots={ballots}
         auto={auto}
       />
       <MemoizedOutputRight 

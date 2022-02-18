@@ -2,8 +2,16 @@ import React from 'react';
 import { convertDetailedToSimple } from '../services/voting/helpers';
 import SuperElection from '../services/voting/SuperElection';
 
+type VoterBallots = {
+  [voter: string]: {
+    weight: number;
+    ballot: { [candidate: string]: number };
+  };
+};
+
 const useElection = () => {
   const [election, setElection] = React.useState<SuperElection | null>(null);
+  const [ballots, setBallots] = React.useState<VoterBallots>({});
 
   const elect = React.useCallback((
     candidates: string[], 
@@ -14,6 +22,12 @@ const useElection = () => {
     const ballots = ballotMaker(Object.keys(voters), candidates);
     const newElection = new SuperElection(candidates, ballots, weights);
     setElection(newElection);
+    setBallots(Object.keys(voters).reduce((acc, voter, i) => ({
+      ...acc, [voter]: { 
+        weight: voters[voter], 
+        ballot: ballots[i]
+      }
+    }), {}));
   }, []);
 
   const electionOutcomes = React.useMemo(() => {
@@ -36,8 +50,10 @@ const useElection = () => {
   return {
     election,
     elect,
+    ballots,
     electionOutcomes
   };
 };
 
 export default useElection;
+export type { VoterBallots };

@@ -2,11 +2,15 @@
 ## 2022-02-16
 ### priority for v0.1.1
  - [x] add contingency block
- - [ ] add a way for users to see a voter's preferences
+ - [x] add a way for users to see a voter's preferences
  - [x] ability to pause a round
  - [x] show winners in block 
  - [x] more efficient election calculation
  - [ ] bug fixes...
+    - [ ] voter display not synced with state if added from bar
+    - [ ] contingency methods have 2 rounds always
+    - [ ] netlify breaks if navigating directly to url
+    - [ ] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
 
 ## 2022-02-15
 ### priority for v0.1.0

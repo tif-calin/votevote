@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
+import { VoterBallots } from '../../hooks/useElection';
 import useRoster, { useWeightedRoster } from '../../hooks/useRoster';
 import RosterControls from './RosterControls';
 
@@ -92,6 +93,7 @@ const VoterDisplay = styled.ul`
 interface Props {
   elect: (candidates: string[], voters: { [key: string]: number }) => void;
   auto?: boolean;
+  ballots: VoterBallots;
 };
 
 const initialCandidates = [
@@ -107,7 +109,7 @@ const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
 };
 
 const InputLeft: React.FC<Props> = ({ 
-  elect, auto = true
+  elect, auto = true, ballots = {}
 }) => {
   const { 
     roster: candidates,
@@ -203,7 +205,9 @@ const InputLeft: React.FC<Props> = ({
                   style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }} 
                   onClick={() => removeVoter(voter)}
                 ><span>x</span></ColorBox>
-                <span>{voter}</span>
+                <span 
+                  title={JSON.stringify(ballots?.[voter]?.ballot || '', null, 2)}
+                >{voter}</span>
                 {/* <span>{voters[voter]}</span> */}
                 <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
               </li>
