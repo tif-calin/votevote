@@ -307,6 +307,33 @@ class SuperElection {
       ]
     }
   };
+
+  // Supplementary
+  supp(candidates = this.candidates): ResultSimple[] {
+    const majority = this.totalVoters / 2;
+
+    const cache = this.getCache(candidates);
+    const firstVotes = cache.firstVotes;
+    const bestScore = cache.firstVotes.firstVotesHighest;
+
+    if (bestScore > majority) return [firstVotes];
+    else {
+      const top2 = new Set(cache.getFirstVotesTopN(2));
+      const round2 = Object.values(this.ballotsRanked)
+        .reduce((acc, { ballot, weight }) => {
+          const choice = ballot.slice(0, 2).find(c => top2.has(c));
+          if (choice) acc[choice] = ~~acc[choice] + weight;
+          return acc;
+        }, {} as ResultSimple);
+
+      return [
+        firstVotes,
+        candidates.reduce((a, c) => ({
+          ...a, [c]: round2[c] || 0
+        }), {}),
+      ];
+    }
+  };
 };
 
 export default SuperElection;
