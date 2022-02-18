@@ -3,7 +3,7 @@
 ### priority for v0.1.1
  - [x] add contingency block
  - [ ] add a way for users to see a voter's preferences
- - [ ] ability to pause a round
+ - [x] ability to pause a round
  - [x] show winners in block 
  - [x] more efficient election calculation
  - [ ] bug fixes...
@@ -20,11 +20,11 @@
     - [ ] create a Bar class
     - [ ] create a common BarChart component that can be used for all charts
     - [ ] bar chart settings passed in from parent blocks
- - [ ] blocks
+ - [x] blocks
     - [x] show round number, 
     - [x] method name, 
     - [x] and winners
-    - [ ] click on round number to pause
+    - [x] click on round number to pause
  - [x] SuperElection2
     - [x] use the Cache class 
     - [x] rewrite all the methods to utilize the new Cache object
@@ -68,6 +68,7 @@
     - [ ] safari-iphone: why is the select text blue on my iphone?
     - [ ] lambdatest: flexbox seems to be broken
     - [ ] firefox: cahrt sizing is off
+ - [ ] contingency methods still have 2 rounds even if there's a majority winner
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods

@@ -10,6 +10,10 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - new election calculating class that takes advantage of cacheing for more efficient calculations
  - voting systems now show winner(s) in text
  - basic tests for some of the voting systems
+ - clicking on the round number will now pause the round
+
+### Changed
+ - round display changed from 2.5s to 1.9s
 
 ## [0.1.0.1] - 2022-02-15
 ### Fixed
