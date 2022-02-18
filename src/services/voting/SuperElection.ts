@@ -309,7 +309,7 @@ class SuperElection {
   };
 
   // Supplementary
-  supp(candidates = this.candidates): ResultSimple[] {
+  supp(candidates = this.candidates, n = 2): ResultSimple[] {
     const majority = this.totalVoters / 2;
 
     const cache = this.getCache(candidates);
@@ -321,7 +321,7 @@ class SuperElection {
       const top2 = new Set(cache.getFirstVotesTopN(2));
       const round2 = Object.values(this.ballotsRanked)
         .reduce((acc, { ballot, weight }) => {
-          const choice = ballot.slice(0, 2).find(c => top2.has(c));
+          const choice = ballot.slice(0, n).find(c => top2.has(c));
           if (choice) acc[choice] = ~~acc[choice] + weight;
           return acc;
         }, {} as ResultSimple);
@@ -333,6 +333,11 @@ class SuperElection {
         }), {}),
       ];
     }
+  };
+
+  // Sri Lankan Contingency
+  sl_cont(candidates = this.candidates): ResultSimple[] {
+    return this.supp(candidates, 3);
   };
 };
 

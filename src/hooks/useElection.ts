@@ -28,6 +28,7 @@ const useElection = () => {
         fab_irv: election.fab_irv().map(convertDetailedToSimple),
         cont: election.cont(),
         supp: election.supp(),
+        sl_cont: election.sl_cont(),
       }
     } else return {};
   }, [election]);
