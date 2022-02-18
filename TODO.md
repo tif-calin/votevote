@@ -8,7 +8,7 @@
  - [x] more efficient election calculation
  - [ ] bug fixes...
     - [ ] voter display not synced with state if added from bar
-    - [ ] contingency methods have 2 rounds always
+    - [x] contingency methods have 2 rounds always
     - [x] netlify breaks if navigating directly to url
 
 ## 2022-02-15
@@ -56,6 +56,7 @@
     - [ ] custom datasets with manually entered preferences
  - accessibility overhaul
  - build as a static site
+ - make the method options scrollable with a max-width (50%?) to support longer method names
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -63,7 +64,7 @@
  - [x] site broken on safari mobile
  - [ ] really smol bars are hard to hover over... 
  - [x] all the runoff methods are broken when there's a tie
- - [ ] don't overlap x-axis tick labels
+ - [x] don't overlap x-axis tick labels
  - [ ] adding more voters to one already on the list doesn't upload the count in the display 
  - [x] netlify breaks if trying to open Link in new tab
  - [ ] clean up styling on mobile devices and across browsers

@@ -17,6 +17,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ### Fixed
  - netlify url navigation
+ - overlapping x-tick labels sorta fixed
 
 ## [0.1.0.1] - 2022-02-15
 ### Fixed

@@ -8,7 +8,7 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 ## list of voting methods
 
 plurality: fptp, veto, signed
-contingent: contingent, supplementary, srilankancontingent
+contingent: cont, supp, sl_cont
 instant runoff: irv, coombs, fabirv
 condorcet: copeland, kemenyyoung
 positional: borda
