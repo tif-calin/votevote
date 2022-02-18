@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BlockBottom from './BlockBottom';
 import BlockMiddle from './BlockMiddle';
-import BlockTop from './BlockTop';
+import { MemoizedBlockTop } from './BlockTop';
 
 interface Props {
   title: string;
@@ -14,6 +14,7 @@ interface Props {
   round?: number;
   method: string;
   setMethod: (method: string) => void;
+  winners?: string[];
 };
 
 const Container = styled.div`
@@ -24,7 +25,7 @@ const Container = styled.div`
 `;
 
 const Block: React.FC<Props> = ({ 
-  title, info, round,
+  title, info, round, winners = [],
   method, setMethod,
   children
 }) => {
@@ -37,13 +38,14 @@ const Block: React.FC<Props> = ({
 
   return (
     <Container className="island">
-      <BlockTop
+      <MemoizedBlockTop
         title={title}
         subtitle={info?.[method]?.name}
         options={options}
         selected={method}
         setSelected={setMethod}
         round={round}
+        winners={winners}
       />
 
       <BlockMiddle>{children}</BlockMiddle>
