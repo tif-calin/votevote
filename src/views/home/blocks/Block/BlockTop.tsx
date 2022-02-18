@@ -113,6 +113,7 @@ const BlockTop: React.FC<Props> = ({
     <SubTop>
       <span
         className={isPaused ? 'round is-paused' : 'round'}
+        title={`Click to ${isPaused ? 'resume' : 'pause'}`}
         onClick={() => handlePause && handlePause()}
       >
         {(round || round === 0) && `Round ${round + 1}`}
