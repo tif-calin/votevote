@@ -53,16 +53,20 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
     }), {})
   }, [data]);
 
-  const [maxVal, minVal] = React.useMemo(() => {
+  const [maxVal, minVal, winners] = React.useMemo(() => {
     if (data?.[selectedMethod]?.length) {
       const rounds = data[selectedMethod];
       const final = rounds[rounds.length - 1] as { [key: string]: number };
       // const final = rounds.at(-1) as { [key: string]: number };
+      const max = Math.max(...Object.values(final || {}));
+      const min = Math.min(...Object.values(final || {}));
+      
       return [
-        Math.max(...Object.values(final || {})),
-        Math.min(...Object.values(final || {})),
+        max,
+        min,
+        Object.keys(final).filter(k => final[k] === max),
       ]
-    } else return [undefined, undefined];
+    } else return [undefined, undefined, []];
   }, [data, selectedMethod]);
 
   // React.useEffect(() => { setCurrentRound(0); }, [selectedMethod]);
@@ -75,6 +79,7 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
       method={selectedMethod}
       setMethod={setSelectedMethod}
       round={currentRoundNumber}
+      winners={winners}
     >
       {
         data[selectedMethod] ? <Chart
