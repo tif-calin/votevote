@@ -4,6 +4,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ## [0.1.1.0] - 2022-02-17
 ### Added
  - new election calculating class that takes advantage of cacheing for more efficient calculations
+ - voting systems now show winner(s) in text
  - basic tests for some of the voting systems
 
 ## [0.1.0.1] - 2022-02-15

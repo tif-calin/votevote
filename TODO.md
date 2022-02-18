@@ -4,7 +4,7 @@
  - [ ] add contingency block
  - [ ] add a way for users to see a voter's preferences
  - [ ] ability to pause a round
- - [ ] show winners in block 
+ - [x] show winners in block 
  - [x] more efficient election calculation
  - [ ] bug fixes...
 
@@ -23,7 +23,7 @@
  - [ ] blocks
     - [x] show round number, 
     - [x] method name, 
-    - [ ] and winners
+    - [x] and winners
     - [ ] click on round number to pause
  - [x] SuperElection2
     - [x] use the Cache class 
