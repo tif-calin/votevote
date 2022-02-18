@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ContingencyBlock from './blocks/ContingencyBlock';
 import { MemoizedIRVBlock } from './blocks/IRVBlock';
 import PluralityBlock from './blocks/PluralityBlock';
 
@@ -21,6 +22,9 @@ const OutputRight: React.FC<Props> = ({ data }) => {
   return (
     <Container>
       <PluralityBlock 
+        data={data}
+      />
+      <ContingencyBlock
         data={data}
       />
       <MemoizedIRVBlock

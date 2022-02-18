@@ -81,7 +81,7 @@ const BlockTop: React.FC<Props> = ({
       <h3
         onMouseOver={() => setMethodName(subtitle)}
         onMouseOut={() => setMethodName('')}
-      >{methodName || title}</h3>
+      >{methodName || `${title} methods`}</h3>
       <form name={`${title.toLowerCase()}-options`}>
         {options?.map((key: string, i: number) => (
           <label 
