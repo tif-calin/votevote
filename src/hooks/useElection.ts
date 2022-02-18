@@ -26,6 +26,7 @@ const useElection = () => {
         irv: election.irv(),
         coombs: election.coombs().map(convertDetailedToSimple),
         fab_irv: election.fab_irv().map(convertDetailedToSimple),
+        cont: election.cont(),
       }
     } else return {};
   }, [election]);

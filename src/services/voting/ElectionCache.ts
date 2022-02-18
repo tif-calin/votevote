@@ -5,6 +5,9 @@ class ElectionCache {
   candidates: string[];
 
   _firstVotes?: { [key: string]: number };
+  _firstVotesScores?: number[];
+  _firstVotesTiers?: string[][];
+  _firstVotesTopN: { [key: number]: string[] } = {};
   _firstVotesHighest?: number;
   _firstVotesWinners?: string[];
   _firstVotesLowest?: number;
@@ -40,6 +43,55 @@ class ElectionCache {
 
     this._firstVotes = firstVotes;
     return firstVotes;
+  };
+
+  get firstVotesScores(): number[] {
+    if (this._firstVotesScores) return this._firstVotesScores;
+
+    const firstVotes = this.firstVotes;
+
+    const firstVotesScores = Object.values(firstVotes)
+      .sort((a, b) => a - b)
+    ;
+
+    this._firstVotesScores = firstVotesScores;
+    return firstVotesScores;
+  };
+
+  get firstVotesTiers(): string[][] {
+    if (this._firstVotesTiers) return this._firstVotesTiers;
+
+    const firstVotes = this.firstVotes;
+    const firstVotesScores = this.firstVotesScores;
+
+    const firstVotesTiers: string[][] = [];
+    for (let i = 0; i < firstVotesScores.length; i++) {
+      firstVotesTiers[i] = this.candidates.filter(
+        c => firstVotes[c] === firstVotesScores[i]
+      );
+    }
+
+    this._firstVotesTiers = firstVotesTiers;
+    return firstVotesTiers;
+  };
+
+  getFirstVotesTopN(n: number): string[] {
+    if (this._firstVotesTopN[n]) return this._firstVotesTopN[n];
+
+    const firstVotes = this.firstVotes;
+    const firstVotesScores = this.firstVotesScores;
+
+    for (let i = 0; i < firstVotesScores.length; i++) {
+      const topM: string[] = this.candidates.filter(
+        c => firstVotes[c] >= firstVotesScores[i]
+      );
+
+      for (let j = 0; j < topM.length; j++) {
+        this._firstVotesTopN[j + 1] = topM;
+      }
+    }
+
+    return this._firstVotesTopN[n];
   };
 
   get firstVotesHighest(): number {

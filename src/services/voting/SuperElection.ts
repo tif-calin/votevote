@@ -109,16 +109,19 @@ class SuperElection {
     return this._cache[serialized];
   };
 
+  // First Past the Post
   fptp(candidates = this.candidates): ResultSimple {
     const cache = this.getCache(candidates);
     return cache.firstVotes;
   };
 
+  // Anti-Plurality
   veto(candidates = this.candidates): ResultSimple {
     const cache = this.getCache(candidates);
     return cache.lastVotes;
   };
 
+  // Boehm Signed
   signed(candidates = this.candidates): ResultDetailed {
     const signedVotes = candidates.reduce((a, c) => {
       a[c] = { positive: 0, negative: 0, score: 0 };
@@ -161,6 +164,7 @@ class SuperElection {
     return signedVotes;
   };
 
+  // Vote For and Against
   vfa(candidates = this.candidates): ResultDetailed {
     const cache = this.getCache(candidates);
 
@@ -181,6 +185,7 @@ class SuperElection {
     return vfaResults;
   };
 
+  // Instant Runoff Voting
   irv(candidates = this.candidates): ResultSimple[] {
     const rounds: ResultSimple[] = [];
     const majority = this.totalVoters / 2;
@@ -209,6 +214,7 @@ class SuperElection {
     return rounds;
   };
 
+  // Coombs IRV
   coombs(candidates = this.candidates): ResultDetailed[] {
     const rounds: ResultDetailed[] = [];
     const majority = this.totalVoters / 2;
@@ -245,6 +251,7 @@ class SuperElection {
     return rounds;
   };
 
+  // Front and Back IRV
   fab_irv(candidates = this.candidates): ResultDetailed[] {
     const rounds: ResultDetailed[] = [];
     const majority = this.totalVoters / 2;
@@ -278,6 +285,27 @@ class SuperElection {
     }
 
     return rounds;
+  };
+
+  // Contingency
+  cont(candidates = this.candidates): ResultSimple[] {
+    const majority = this.totalVoters / 2;
+
+    const round1Cache = this.getCache(candidates);
+    const bestScore = round1Cache.firstVotes.firstVotesHighest;
+
+    if (bestScore > majority) return [round1Cache.firstVotes];
+    else {
+      const top2 = round1Cache.getFirstVotesTopN(2);
+      const round2Cache = this.getCache(top2);
+      const round2Results = round2Cache.firstVotes;
+      return [
+        round1Cache.firstVotes,
+        candidates.reduce((a, c) => ({
+          ...a, [c]: round2Results[c] || 0
+        }), {}),
+      ]
+    }
   };
 };
 
