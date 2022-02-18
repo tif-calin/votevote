@@ -10,7 +10,6 @@
     - [ ] voter display not synced with state if added from bar
     - [ ] contingency methods have 2 rounds always
     - [x] netlify breaks if navigating directly to url
-    - [ ] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
 
 ## 2022-02-15
 ### priority for v0.1.0
@@ -45,7 +44,7 @@
     - [ ] mathematical properties
     - [ ] electowiki / wikipedia link if existing 
  - [ ] fancy star pattern for the winner 
- - [ ] a way for user to see voter preference ratings 
+ - [x] a way for user to see voter preference ratings 
  - [ ] show numbers on bars... somehow (on hover?)
  - [ ] figure out a nice solution for a shitton of candidates 
  - [ ] make a particular election shareable by url
@@ -73,6 +72,7 @@
     - [ ] lambdatest: flexbox seems to be broken
     - [ ] firefox: cahrt sizing is off
  - [ ] contingency methods still have 2 rounds even if there's a majority winner
+ - [ ] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods

@@ -15,6 +15,9 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ### Changed
  - round display changed from 2.5s to 1.9s
 
+### Fixed
+ - netlify url navigation
+
 ## [0.1.0.1] - 2022-02-15
 ### Fixed
  - unsupported javascript features caused crash on mobile devices
