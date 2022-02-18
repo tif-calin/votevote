@@ -294,7 +294,6 @@ class SuperElection {
     const round1Cache = this.getCache(candidates);
     const bestScore = round1Cache.firstVotesHighest;
 
-    console.log(bestScore);
     if (bestScore > majority) return [round1Cache.firstVotes];
     else {
       const top2 = round1Cache.getFirstVotesTopN(2);
