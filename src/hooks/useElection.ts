@@ -45,6 +45,9 @@ const useElection = () => {
         cont: election.cont(),
         supp: election.supp(),
         sl_cont: election.sl_cont(),
+        borda: election.borda(),
+        nauru: election.nauru(),
+        dabagh: election.dabagh(),
       }
     } else return {};
   }, [election]);

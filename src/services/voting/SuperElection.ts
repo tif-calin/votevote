@@ -339,6 +339,47 @@ class SuperElection {
   sl_cont(candidates = this.candidates): ResultSimple[] {
     return this.supp(candidates, 3);
   };
+
+  // Borda Count
+  borda(candidates = this.candidates): ResultSimple {
+    const bordaResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        for (let i = 0; i < ballot.length - 1; i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + (candidates.length - i - 1) * weight;
+        }
+        
+        return a;
+    }, {} as ResultSimple);
+
+    return bordaResults;
+  };
+
+  // Nauru
+  nauru(): ResultSimple {
+    const nauruResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        for (let i = 0; i < ballot.length - 1; i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + (1 / (i + 1)) * weight;
+        }
+        
+        return a;
+    }, {} as ResultSimple);
+
+    return nauruResults;
+  };
+
+  // Dabagh's Vote and a Half
+  dabagh(): ResultSimple {
+    const dabaghResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        a[ballot[0]] = ~~a[ballot[0]] + weight;
+        a[ballot[1]] = ~~a[ballot[1]] + weight / 2;
+        return a;
+      }, {} as ResultSimple)
+    ;
+
+    return dabaghResults;
+  };
 };
 
 export default SuperElection;
