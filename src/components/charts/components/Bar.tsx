@@ -25,7 +25,7 @@ const Container = styled.g`
     pointer-events: none;
     fill: var(--color-white);
     opacity: 0;
-    stroke: #fff;
+    stroke: var(--color-white);
     mix-blend-mode: difference;
 
     transition: opacity 0.2s ease-in-out;

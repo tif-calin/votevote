@@ -42,7 +42,7 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
   const [selectedMethod, setSelectedMethod] = React.useState<string>('fptp');
 
   const Chart = React.useMemo(() => {
-    return info?.[selectedMethod]?.visualization || SignedBarChart
+    return info?.[selectedMethod]?.visualization || SignedBarChart;
   }, [selectedMethod]);
 
   const bars = React.useMemo(() => {
@@ -53,10 +53,16 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
           positive: data.fptp[c],
           negative: data.veto[c],
           score: data?.[selectedMethod]?.[c] || 0,
-          style: { fill: xkcd[c]?.hex || 'black' }
+          style: { fill: xkcd[c]?.hex || 'var(--color-black)' }
         }
       };
     }, {});
+  }, [data, selectedMethod]);
+
+  const winners = React.useMemo(() => {
+    const best = Math.max(...Object.values(data?.[selectedMethod] || {}));
+    const winners = Object.keys(data?.[selectedMethod] || {}).filter(c => data?.[selectedMethod]?.[c] === best);
+    return winners;
   }, [data, selectedMethod]);
 
   if (!data?.[selectedMethod]) return null;
@@ -66,6 +72,7 @@ const PluralityBlock: React.FC<Props> = ({ data }) => {
       info={info}
       method={selectedMethod}
       setMethod={setSelectedMethod}
+      winners={winners}
     >
       {
         data[selectedMethod] ? <Chart

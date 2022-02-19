@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
+import { VoterBallots } from '../../hooks/useElection';
 import useRoster, { useWeightedRoster } from '../../hooks/useRoster';
 import RosterControls from './RosterControls';
 
@@ -92,6 +93,7 @@ const VoterDisplay = styled.ul`
 interface Props {
   elect: (candidates: string[], voters: { [key: string]: number }) => void;
   auto?: boolean;
+  ballots: VoterBallots;
 };
 
 const initialCandidates = [
@@ -101,13 +103,8 @@ const initialCandidates = [
 const top16 = Object.keys(xkcd).slice(-16).reduce((a, c) => ({ ...a, [c]: c.length }), {});
 const colorList = Object.keys(xkcd).sort();
 
-const preventDefault = (fnc: any) => (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  fnc();
-};
-
 const InputLeft: React.FC<Props> = ({ 
-  elect, auto = true
+  elect, auto = true, ballots = {}
 }) => {
   const { 
     roster: candidates,
@@ -120,7 +117,6 @@ const InputLeft: React.FC<Props> = ({
   } = useRoster(initialCandidates, 'acid green');
 
   const handleAddCandidate = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     addCandidate();
     setSelectedCandidate(colorList.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
   }, [addCandidate, selectedCandidate, setSelectedCandidate]);
@@ -141,6 +137,11 @@ const InputLeft: React.FC<Props> = ({
     selectedN: selectedVoterN,
     setSelectedN: setSelectedVoterN,
   } = useWeightedRoster(top16, 'acid green');
+
+  const handleAddVoter = React.useCallback(() => {
+    addVoter();
+    setSelectedVoter(colorList.find((_, i, arr) => arr[i - 1] === selectedVoter) || '');  
+  }, [addVoter, selectedVoter, setSelectedVoter]);
 
   const handleResetVoters = React.useCallback(() => {
     resetVoters(top16);
@@ -163,7 +164,7 @@ const InputLeft: React.FC<Props> = ({
         name="candidates"
         add={handleAddCandidate}
         reset={handleResetCandidates}
-        clear={preventDefault(clearCandidates)}
+        clear={clearCandidates}
         selected={selectedCandidate}
         setSelected={setSelectedCandidate}
         count={candidates.length}
@@ -184,11 +185,11 @@ const InputLeft: React.FC<Props> = ({
       </RosterControls>
 
       <RosterControls
-        options={colorList}
+        options={colorList.filter(v => !Object.keys(voters).includes(v))}
         name="voters"
-        add={preventDefault(addVoter)}
-        reset={preventDefault(handleResetVoters)}
-        clear={preventDefault(clearVoters)}
+        add={handleAddVoter}
+        reset={handleResetVoters}
+        clear={clearVoters}
         selected={selectedVoter}
         setSelected={setSelectedVoter}
         selectedN={selectedVoterN}
@@ -203,7 +204,9 @@ const InputLeft: React.FC<Props> = ({
                   style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }} 
                   onClick={() => removeVoter(voter)}
                 ><span>x</span></ColorBox>
-                <span>{voter}</span>
+                <span 
+                  title={JSON.stringify(ballots?.[voter]?.ballot || '', null, 2)}
+                >{voter}</span>
                 {/* <span>{voters[voter]}</span> */}
                 <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
               </li>

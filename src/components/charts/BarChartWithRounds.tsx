@@ -14,7 +14,7 @@ const BarChartWithRounds: React.FC<Props> = ({ round, barStyles, maxVal, minVal 
       ...acc, 
       [c]: {
         score: round[c],
-        style: barStyles[c] || { fill: 'black' }
+        style: barStyles[c] || { fill: 'var(--color-black)' }
       }
     }), {});
   }, [round, barStyles]);

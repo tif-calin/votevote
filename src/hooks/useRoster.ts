@@ -32,14 +32,14 @@ const useWeightedRoster = (initialRoster = {}, initialSelected = '') => {
   const [selectedN, setSelectedN] = useLocalStorage<number>('votevote_weightedroster_selectedN', 1);
 
   const add = React.useCallback((item = selected, n = selectedN) => {
-    setRoster(current => ({ ...current, [item]: ~~current[item] + n }));
+    setRoster(current => ({ ...current, [item]: n }));
   }, [selected, selectedN, setRoster]);
 
   const remove = React.useCallback((item: string) => {
     setRoster(current => {
       const { [item]: _, ...rest } = current;
       return rest;
-    })
+    });
   }, [setRoster]);
 
   const setN = React.useCallback((item: string, n: number) => {
@@ -50,9 +50,14 @@ const useWeightedRoster = (initialRoster = {}, initialSelected = '') => {
 
   const reset = React.useCallback((roster) => setRoster(roster), [setRoster]);
 
+  const handleSetSelected = React.useCallback((item: string) => {
+    setSelected(item);
+    setSelectedN(n => roster[item] || n);
+  }, [setSelected, setSelectedN, roster]);
+
   return {
     roster, add, remove, setN, clear, reset,
-    selected, setSelected,
+    selected, setSelected: handleSetSelected,
     selectedN, setSelectedN,
   };
 };

@@ -1,7 +1,27 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
-## [0.1.0.1] - 2020-02-15
+## [0.1.1.0] - 2022-02-18
+### Added
+ - new voting systems:
+    - contingency voting (aka top 2 instant runoff)
+    - supplementary voting
+    - sri-lankan contingency voting
+ - new election calculating class that takes advantage of cacheing for more efficient calculations
+ - voting systems now show winner(s) in text
+ - basic tests for some of the voting systems
+ - clicking on the round number will now pause the round
+
+### Changed
+ - round display changed from 2.5s to 1.9s
+ - can no longer add voters that have already been added
+
+### Fixed
+ - netlify url navigation
+ - overlapping x-tick labels sorta fixed
+ - winners with negative scores don't show thick stroke
+
+## [0.1.0.1] - 2022-02-15
 ### Fixed
  - unsupported javascript features caused crash on mobile devices
 

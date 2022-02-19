@@ -25,7 +25,7 @@ const Container = styled.div`
     width: 100%;
 
     & > .release {
-      padding: 0.5rem calc(1.5 * var(--padding));
+      padding: 0.5rem;
       backdrop-filter: invert(0.025);
       border-radius: 0.25rem;
       box-shadow: var(--shadow-inset-low), inset 0 0 2px hsl(var(--shadow-color));
@@ -81,35 +81,64 @@ const ChangelogPage: React.FC<Props> = () => {
           For more up to date information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
         </p>
 
+        <h3>v0.1.1 <span>2022_02feb18</span></h3>
+        <div className="release">
+          <h4>Added</h4>
+          <ul>
+            <li>1 new voting block and 3 new voting systems: contingency</li>
+            <ul>
+              <li>contingent vote</li>
+              <li>supplementary vote</li>
+              <li>Sri Lankan contingency</li>
+            </ul>
+            <li>reworked election system to better utilize cacheing for more efficient calculations</li>
+            <li>voting systems now show winner(s) in text</li>
+            <li>clicking on the round number will now pause the graph</li>
+          </ul>
+          <h4>Changed</h4>
+          <ul>
+            <li>round display time decreased from 2.5s to 1.9s</li>
+            <li>can no longer add voters that have already been added</li>
+          </ul>
+          <h4>Fixed</h4>
+          <ul>
+            <li>navigating by direct url no longer results in 404</li>
+            <li>too long x-tick labels won't show unless hovered over</li>
+            <li>winners with negative scores now show thick borders</li>
+          </ul>
+        </div>
+
         <h3>v0.1.0 <span>2022_02feb15</span></h3>
-        <ul className="release">
-          <li>
-            <span>7 voting methods split into two blocks</span>
-            <ul>
-              <li>plurality: fptp, veto, signed, vfa</li>
-              <li>runoff: irv, coombs, fab_irv</li>
-              <li>bootiful graphs</li>
-            </ul>
-          </li>
-          <li>
-            <span>1 dataset: xkcd's RGB colors</span>
-            <ul>
-              <li>source: <A href="https://xkcd.com/color/rgb/">xkcd color survey</A></li>
-              <li>distance is calculated as an average between RGB and HSL distance with an activator function</li>
-            </ul>
-          </li>
-          <li>
-            <span>the homepage</span>
-            <ul>
-              <li>add, remove, and set candidates/voters</li>
-              <li>save setup to localStorage</li>
-              <li>results update live unless there's too many candidates</li>
-            </ul>
-          </li>
-          <li>
-            this changelog page
-          </li>
-        </ul>
+        <div className="release">
+          <ul>
+            <li>
+              <span>7 voting methods split into two blocks</span>
+              <ul>
+                <li>plurality: fptp, veto, signed, vfa</li>
+                <li>runoff: irv, coombs, fab_irv</li>
+                <li>bootiful graphs</li>
+              </ul>
+            </li>
+            <li>
+              <span>1 dataset: xkcd's RGB colors</span>
+              <ul>
+                <li>source: <A href="https://xkcd.com/color/rgb/">xkcd color survey</A></li>
+                <li>distance is calculated as an average between RGB and HSL distance with an activator function</li>
+              </ul>
+            </li>
+            <li>
+              <span>the homepage</span>
+              <ul>
+                <li>add, remove, and set candidates/voters</li>
+                <li>save setup to localStorage</li>
+                <li>results update live unless there's too many candidates</li>
+              </ul>
+            </li>
+            <li>
+              this changelog page
+            </li>
+          </ul>
+        </div>
 
         
       </section>

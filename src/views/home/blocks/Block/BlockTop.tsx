@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ColorName from '../../../../components/ColorName';
 
 const Top = styled.div`
   display: flex;
@@ -50,15 +51,44 @@ const Top = styled.div`
 const SubTop = styled.span`
   line-height: 1;
   font-size: 1rem;
-  margin-top: -0.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+
+  & > span:first-child {
+    margin-right: auto;
+  }
+
+  & .round {
+    cursor: pointer;
+    transition: opacity 0.1s;
+
+    &.is-paused {
+      opacity: 0.5;
+
+      &::after {
+        content: ' (paused)';
+      }
+    }
+  }
 `;
 
 interface Props {
-  [key: string]: any;
+  title: string, 
+  options: string[], 
+  selected: string, 
+  setSelected: (method: string) => void, 
+  subtitle?: string, 
+  round?: number,
+  winners?: string[],
+  isPaused?: boolean,
+  handlePause?: () => void,
 };
 
 const BlockTop: React.FC<Props> = ({ 
-  title, options, selected, setSelected, subtitle, round
+  title, options, selected, setSelected, 
+  subtitle = '', round, winners,
+  isPaused, handlePause,
 }) => {
   const [methodName, setMethodName] = React.useState<string>('');
 
@@ -67,7 +97,7 @@ const BlockTop: React.FC<Props> = ({
       <h3
         onMouseOver={() => setMethodName(subtitle)}
         onMouseOut={() => setMethodName('')}
-      >{methodName || title}</h3>
+      >{methodName || `${title} methods`}</h3>
       <form name={`${title.toLowerCase()}-options`}>
         {options?.map((key: string, i: number) => (
           <label 
@@ -80,8 +110,22 @@ const BlockTop: React.FC<Props> = ({
         ))}
       </form>
     </Top>
-    {(round || round === 0) && <SubTop>Round {round + 1}</SubTop>}
+    <SubTop>
+      <span
+        className={isPaused ? 'round is-paused' : 'round'}
+        title={`Click to ${isPaused ? 'resume' : 'pause'}`}
+        onClick={() => handlePause && handlePause()}
+      >
+        {(round || round === 0) && `Round ${round + 1}`}
+      </span>
+      {winners?.length ? winners.map(name => {
+        return <ColorName key={name} name={name} />;
+      }) : null}
+    </SubTop>
   </>);
 };
 
+const MemoizedBlockTop = React.memo(BlockTop);
+
 export default BlockTop;
+export { MemoizedBlockTop };
