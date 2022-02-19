@@ -4,7 +4,7 @@ import styled from 'styled-components';
 interface Props {};
 
 const Container = styled.div`
-  min-height: calc(200px + 5vh);
+  height: calc(200px + 5vh);
   max-height: calc(250px + 15vh);
   width: 100%;
   overflow: hidden;

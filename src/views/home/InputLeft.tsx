@@ -79,12 +79,14 @@ const VoterDisplay = styled.ul`
       margin-left: auto;
     }
 
-    & input[type="number"] {
-      text-align: right;
-      backdrop-filter: none;
-
-      &::-webkit-textfield-decoration-container {
-        flex-direction: row-reverse;
+    @supports selector(::-webkit-textfield-decoration-container) {
+      & input[type="number"] {
+        text-align: right;
+        backdrop-filter: none;
+  
+        &::-webkit-textfield-decoration-container {
+          flex-direction: row-reverse;
+        }
       }
     }
   }
