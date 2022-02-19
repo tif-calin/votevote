@@ -1,7 +1,7 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
-## [0.1.1.0] - 2022-02-17
+## [0.1.1.0] - 2022-02-18
 ### Added
  - new voting systems:
     - contingency voting (aka top 2 instant runoff)
@@ -14,10 +14,12 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ### Changed
  - round display changed from 2.5s to 1.9s
+ - can no longer add voters that have already been added
 
 ### Fixed
  - netlify url navigation
  - overlapping x-tick labels sorta fixed
+ - winners with negative scores don't show thick stroke
 
 ## [0.1.0.1] - 2022-02-15
 ### Fixed

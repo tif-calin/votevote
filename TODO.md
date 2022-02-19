@@ -6,8 +6,8 @@
  - [x] ability to pause a round
  - [x] show winners in block 
  - [x] more efficient election calculation
- - [ ] bug fixes...
-    - [ ] voter display not synced with state if added from bar
+ - [x] bug fixes...
+    - [x] voter display not synced with state if added from bar
     - [x] contingency methods have 2 rounds always
     - [x] netlify breaks if navigating directly to url
 
@@ -65,15 +65,15 @@
  - [ ] really smol bars are hard to hover over... 
  - [x] all the runoff methods are broken when there's a tie
  - [x] don't overlap x-axis tick labels
- - [ ] adding more voters to one already on the list doesn't upload the count in the display 
+ - [x] adding more voters to one already on the list doesn't upload the count in the display 
  - [x] netlify breaks if trying to open Link in new tab
  - [ ] clean up styling on mobile devices and across browsers
     - [ ] mobile: consistency in unicode/emoji formatting
     - [ ] safari-iphone: why is the select text blue on my iphone?
     - [ ] lambdatest: flexbox seems to be broken
     - [ ] firefox: cahrt sizing is off
- - [ ] contingency methods still have 2 rounds even if there's a majority winner
- - [ ] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
+ - [x] contingency methods still have 2 rounds even if there's a majority winner
+ - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
