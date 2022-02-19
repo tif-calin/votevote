@@ -32,7 +32,7 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
 
     const winners = Object.keys(bars).filter(c => bars[c].score === maxScore);
 
-    return [Math.min(minScore, 0), Math.max(0, maxScore), winners];
+    return [minScore, maxScore, winners];
   }, [bars, maxVal, minVal]);
 
   const xScale = d3.scaleBand()
@@ -42,7 +42,7 @@ const SignedBarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
   ;
 
   const yScale = d3.scaleLinear()
-    .domain([minScore * 1.25, maxScore * 1.25])
+    .domain([Math.min(0, minScore) * 1.25, Math.max(0, maxScore) * 1.25])
     .range([height, 0])
     .nice()
   ;
