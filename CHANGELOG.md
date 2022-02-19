@@ -1,6 +1,11 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
+## [0.1.1.1] - 2022-02-18
+### Fixed
+ - firefox charts don't take up full height of container
+ - firefox number input styling fix
+
 ## [0.1.1.0] - 2022-02-18
 ### Added
  - new voting systems:

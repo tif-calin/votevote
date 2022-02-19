@@ -105,6 +105,7 @@ const ChangelogPage: React.FC<Props> = () => {
             <li>navigating by direct url no longer results in 404</li>
             <li>too long x-tick labels won't show unless hovered over</li>
             <li>winners with negative scores now show thick borders</li>
+            <li>crash on mobile devices due to unsupport .at() feature</li>
           </ul>
         </div>
 
