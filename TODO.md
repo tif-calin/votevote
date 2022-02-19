@@ -1,4 +1,17 @@
 # TODO
+## 2022-02-19
+### priority for v0.1.2
+ - [ ] deal with large number of voters problem
+ - [ ] add some fun methods
+    - [ ] borda, 
+    - [ ] approval, 
+    - [ ] threeTwoOne, 
+    - [ ] quadratic, 
+    - [ ] star, 
+    - [ ] cumulative,
+    - [ ] copeland
+ - [ ] threshold lines, marks
+
 ## 2022-02-16
 ### priority for v0.1.1
  - [x] add contingency block
@@ -57,6 +70,7 @@
  - accessibility overhaul
  - build as a static site
  - make the method options scrollable with a max-width (50%?) to support longer method names
+ - improve the title text showing voter preferences
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -71,9 +85,10 @@
     - [ ] mobile: consistency in unicode/emoji formatting
     - [ ] safari-iphone: why is the select text blue on my iphone?
     - [ ] lambdatest: flexbox seems to be broken
-    - [ ] firefox: cahrt sizing is off
+    - [x] firefox: cahrt sizing is off
  - [x] contingency methods still have 2 rounds even if there's a majority winner
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
+ - [ ] random candidate/voter button might choose one that's not in the list of options 
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods

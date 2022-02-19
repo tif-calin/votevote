@@ -18,18 +18,10 @@ hybrid: star, threeTwoOne
 weighted: cumulative, quadratic
 other: majorityJudgement
 
- - [x] firstPastThePost
- - [x] contingent
- - [x] supplementary
- - [x] sriLankanContingent 
- - [x] irv (aka rankedChoice, alternativeVote, hare)
- - [x] irvCoombs (aka coombs)
- - [x] fabIRV (aka front and back irv)
- - [x] copeland
- - [x] lullCopeland
- - [x] kemenyYoung (aka medianRelation)
- - [x] vfa (aka voteForAndAgainst, venzkeDisqualification)
- - [x] vfaRunoff (aka vfar)
+ - [ ] copeland
+ - [ ] lullCopeland
+ - [ ] kemenyYoung (aka medianRelation)
+ - [ ] vfaRunoff (aka vfar)
  - [ ] minimax
  - [ ] nanson
  - [ ] baldwin
@@ -41,17 +33,17 @@ other: majorityJudgement
  - [ ] river
  - [ ] black
  - [ ] irvBTR (bottomTwoRunoffIRV)
- - [x] borda
- - [x] bucklin (aka grandJunction)
- - [x] fallback (aka bucklin, expandingApproval)
- - [x] historicalBucklin
- - [x] cumulative (aka range, score)
- - [x] majorityJudgement
- - [x] approval
- - [x] combinedApproval
- - [x] star
- - [x] quadratic
- - [x] threeTwoOne
+ - [ ] borda
+ - [ ] bucklin (aka grandJunction)
+ - [ ] fallback (aka bucklin, expandingApproval)
+ - [ ] historicalBucklin
+ - [ ] cumulative (aka range, score)
+ - [ ] majorityJudgement
+ - [ ] approval
+ - [ ] combinedApproval
+ - [ ] star
+ - [ ] quadratic
+ - [ ] threeTwoOne
 
 ### Not supported
  - **non-deterministic methods**: At the moment we only support deterministic methods.
