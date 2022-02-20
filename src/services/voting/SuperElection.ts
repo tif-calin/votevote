@@ -368,6 +368,24 @@ class SuperElection {
     return nauruResults;
   };
 
+  eurovision(): ResultSimple {
+    const eurovisionResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        a[ballot[0]] = ~~a[ballot[0]] + (12 * weight);
+        a[ballot[1]] = ~~a[ballot[1]] + (10 * weight);
+        if (ballot[2]) a[ballot[2]] = ~~a[ballot[2]] + (8 * weight);
+
+        if (ballot[3]) for (let i = 3; i < Math.min(ballot.length, 9); i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + weight;
+        }
+
+        return a;
+      }, {} as ResultSimple)
+    ;
+
+    return eurovisionResults;
+  };
+
   // Dabagh's Vote and a Half
   dabagh(): ResultSimple {
     const dabaghResults = Object.values(this.ballotsRanked)

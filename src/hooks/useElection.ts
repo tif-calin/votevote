@@ -47,6 +47,7 @@ const useElection = () => {
         sl_cont: election.sl_cont(),
         borda: election.borda(),
         nauru: election.nauru(),
+        eurovision: election.eurovision(),
         dabagh: election.dabagh(),
       }
     } else return {};
