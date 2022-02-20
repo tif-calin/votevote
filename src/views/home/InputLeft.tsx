@@ -105,6 +105,14 @@ const initialCandidates = [
 const top16 = Object.keys(xkcd).slice(-16).reduce((a, c) => ({ ...a, [c]: c.length }), {});
 const colorList = Object.keys(xkcd).sort();
 
+const formatVoterPreferences = (ballot?: { [key: string]: number }) => {
+  if (ballot) {
+    return Object.entries(ballot).sort((a, b) => b[1] - a[1]).map(([c, s]) => {
+      return `${(Number(s) * 100).toFixed(1)}% - ${c}`;
+    }).join('\n');
+  } else return '';
+};
+
 const InputLeft: React.FC<Props> = ({ 
   elect, auto = true, ballots = {}
 }) => {
@@ -207,7 +215,7 @@ const InputLeft: React.FC<Props> = ({
                   onClick={() => removeVoter(voter)}
                 ><span>x</span></ColorBox>
                 <span 
-                  title={JSON.stringify(ballots?.[voter]?.ballot || '', null, 2)}
+                  title={formatVoterPreferences(ballots?.[voter]?.ballot)}
                 >{voter}</span>
                 {/* <span>{voters[voter]}</span> */}
                 <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
