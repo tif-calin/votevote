@@ -23,6 +23,8 @@ const BarPositive: React.FC<Props> = ({
     floor = temp;
   }
 
+  const xOffset = Math.min(16, width / 3);
+
   return (
     <Bar 
       isWinner={isWinner}
@@ -38,8 +40,8 @@ const BarPositive: React.FC<Props> = ({
         transform={`
           translate(
             ${isNegative 
-                ? notZero ? 16 : width * 0.25
-                : notZero ? width - 16 : width * 0.75
+                ? notZero ? xOffset : width * 0.25
+                : notZero ? width - xOffset : width * 0.75
               }, 
             ${isNegative ? y + 4 : floor - 4}
           ) 
