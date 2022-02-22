@@ -49,6 +49,7 @@ const useElection = () => {
         nauru: election.nauru(),
         eurovision: election.eurovision(),
         dabagh: election.dabagh(),
+        approval: election.approval(),
       }
     } else return {};
   }, [election]);

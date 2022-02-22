@@ -368,6 +368,7 @@ class SuperElection {
     return nauruResults;
   };
 
+  // Eurovision
   eurovision(): ResultSimple {
     const eurovisionResults = Object.values(this.ballotsRanked)
       .reduce((a, { ballot, weight }) => {
@@ -397,6 +398,24 @@ class SuperElection {
     ;
 
     return dabaghResults;
+  };
+
+  approval(candidates = this.candidates): ResultSimple {    
+    const approvalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        if (ballot[candidate] > 0.5) a[candidate] = ~~a[candidate] + weight;
+      }
+
+      return a;
+    }, {} as ResultSimple);
+
+    return approvalResults;
+  };
+
+  combinedApproval(candidates = this.candidates): ResultDetailed {
+    const combinedApprovalResults = {};
+
+    return combinedApprovalResults;
   };
 };
 
