@@ -3,7 +3,7 @@
 ### priority for v0.1.2
  - [ ] deal with large number of voters problem
  - [ ] add some fun methods
-    - [ ] borda, 
+    - [x] positional: borda, nauru, euorvision, dabagh
     - [ ] approval, 
     - [ ] threeTwoOne, 
     - [ ] quadratic, 
@@ -69,8 +69,10 @@
     - [ ] custom datasets with manually entered preferences
  - accessibility overhaul
  - build as a static site
- - make the method options scrollable with a max-width (50%?) to support longer method names
+ - [x] make the method options scrollable with a max-width (50%?) to support longer method names
  - improve the title text showing voter preferences
+ - [ ] removing a candidate/voter should set selected to the removed candidate/voter
+ - [ ] change the app icon for mobile to not have transparent background
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??

@@ -1,10 +1,26 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
+## [0.1.2.0] - 2022-02-19
+### Added
+ - 5 new voting methods:
+    - positional: borda, nauru, eurovision, dabagh
+    - approval
+
+### Improved
+ - title text for ballot preferences now sorted and formatted better 
+ - x-offset for bar text no longer wacky for smol screens
+ - method options won't take up more than 50% of the block width and now scrolls for more options
+
+### Changed
+ - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sl_contingency`
+
 ## [0.1.1.1] - 2022-02-18
 ### Fixed
  - firefox charts don't take up full height of container
  - firefox number input styling fix
+
+**Archive**: https://web.archive.org/web/20220216065954/https://votevote.page/
 
 ## [0.1.1.0] - 2022-02-18
 ### Added
