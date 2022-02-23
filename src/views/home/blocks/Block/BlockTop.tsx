@@ -28,7 +28,18 @@ const Top = styled.div`
     border: 1px solid hsl(var(--shadow-color));
     border-radius: 0.25rem;
 
+    max-width: 60%;
     overflow: hidden;
+    @supports (scrollbar-width: none) {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    @supports selector(::-webkit-scrollbar) {
+      overflow-x: overlay;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
 
     & > * {
       display: flex;
