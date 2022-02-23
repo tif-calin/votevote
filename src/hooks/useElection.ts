@@ -50,6 +50,7 @@ const useElection = () => {
         eurovision: election.eurovision(),
         dabagh: election.dabagh(),
         approval: election.approval(),
+        combinedApproval: election.combinedApproval(),
       }
     } else return {};
   }, [election]);

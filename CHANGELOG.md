@@ -5,7 +5,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ### Added
  - 5 new voting methods:
     - positional: borda, nauru, eurovision, dabagh
-    - approval
+    - approval: approval, combinedApproval
 
 ### Improved
  - title text for ballot preferences now sorted and formatted better 
