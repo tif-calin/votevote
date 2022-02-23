@@ -466,13 +466,26 @@ class SuperElection {
   approval(candidates = this.candidates): ResultSimple {    
     const approvalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
       for (let candidate of candidates) {
-        if (ballot[candidate] > 0.5) a[candidate] = ~~a[candidate] + weight;
+        if (ballot[candidate] > (2/3)) a[candidate] = ~~a[candidate] + weight;
       }
 
       return a;
     }, {} as ResultSimple);
 
     return approvalResults;
+  };
+
+  // Disapproval
+  disapproval(candidates = this.candidates): ResultSimple {
+    const disapprovalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        if (ballot[candidate] < (1/3)) a[candidate] = ~~a[candidate] - weight;
+      }
+
+      return a;
+    }, {} as ResultSimple);
+
+    return disapprovalResults;
   };
 
   // Combined Approval

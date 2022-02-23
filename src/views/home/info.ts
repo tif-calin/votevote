@@ -87,6 +87,13 @@ const info: { [methodKey: string]: Info } = {
       electowiki: 'https://electowiki.org/wiki/Approval_voting',
     }
   },
+  disapproval: {
+    names: ['Disapproval'],
+    explanation: 'Mark every option you do NOT want to win. The candidate with the least negative marks wins.',
+    links: {
+      electowiki: 'https://electowiki.org/wiki/Disapproval_voting',
+    },
+  },
   cav: {
     names: ['Combined Approval', 'Balanced Approval', 'Net Approval', 'Dis&Approval', 'Evaluative'],
     explanation: 'Mark every option you\'re cool with positive and every option you definitely aren\'t cool with negative. The candidate with the highest score (total positive marks minus total negative marks) wins.',

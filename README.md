@@ -36,6 +36,7 @@ other
  - [ ] fallback (aka bucklin, expandingApproval)
  - [ ] historical_bucklin
  - [ ] cumulative, range, score
+ - [ ] sir (https://electowiki.org/wiki/Support/Include/Reject_voting) 
 
 ### Not supported
  - **non-deterministic methods**: At the moment we only support deterministic methods.
