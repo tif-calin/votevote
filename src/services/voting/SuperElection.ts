@@ -1,5 +1,5 @@
 import ElectionCache from './ElectionCache';
-import { parseScoredBallot, serializeList, serializeScoredBallot } from './helpers';
+import { convertSimpleToDetailed, getWinnersDetailed, getWinnersSimple, parseScoredBallot, serializeList, serializeScoredBallot } from './helpers';
 
 type ResultSimple = {
   [candidate: string]: number;
@@ -10,6 +10,12 @@ type ResultDetailed = {
     score: number;
     [key: string]: any;
   };
+};
+
+type ResultFull = {
+  winners: string[];
+  result: ResultDetailed[];
+  thresholds?: number[];
 };
 
 class SuperElection {
@@ -109,6 +115,46 @@ class SuperElection {
     return this._cache[serialized];
   };
 
+  useMethod(
+    method: keyof typeof SuperElection.prototype,
+    candidates = this.candidates
+  ): ResultFull | null {
+    if (this[method] instanceof Function) {
+      const cache = this.getCache(candidates);
+      if (cache.results[method]) return cache.results[method];
+
+      const result = (this[method] as Function)(candidates);
+
+      if (result?.winners) {
+        // if ResultFull 
+        cache.results[method] = result as ResultFull;
+      } else {
+        const final = Array.isArray(result) ? result[result.length - 1] : result;
+
+        if (typeof Object.values(final)[0] === 'number') {
+          // if ResultSimple | ResultSimple[]
+          cache.results[method] = {
+            winners: getWinnersSimple(final),
+            result: Array.isArray(result)
+              ? result.map(round => convertSimpleToDetailed(round))
+              : [convertSimpleToDetailed(result)]
+            ,
+          };
+        } else {
+          // if ResultDetailed | ResultDetailed[]
+          cache.results[method] = {
+            winners: getWinnersDetailed(final),
+            result: Array.isArray(result) ? result : [result],
+          };
+        }
+      }
+
+      return cache.results[method];
+    }
+
+    return null;
+  };
+
   // First Past the Post
   fptp(candidates = this.candidates): ResultSimple {
     const cache = this.getCache(candidates);
@@ -187,6 +233,9 @@ class SuperElection {
 
   // Instant Runoff Voting
   irv(candidates = this.candidates): ResultSimple[] {
+    // const cache = this.getCache(candidates);
+    // if (cache.results.irv) return cache.results.irv;
+    
     const rounds: ResultSimple[] = [];
     const majority = this.totalVoters / 2;
 
@@ -433,4 +482,4 @@ class SuperElection {
 };
 
 export default SuperElection;
-export type { ResultSimple, ResultDetailed };
+export type { ResultSimple, ResultDetailed, ResultFull };

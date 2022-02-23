@@ -1,8 +1,11 @@
-import SuperElection from './SuperElection';
+import SuperElection, { ResultFull } from './SuperElection';
 
 class ElectionCache {
   election: SuperElection;
   candidates: string[];
+  results: {
+    [method: string]: ResultFull;
+  } = {};
 
   _firstVotes?: { [key: string]: number };
   _firstVotesScores?: number[];

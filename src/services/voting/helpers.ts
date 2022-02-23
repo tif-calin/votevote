@@ -112,19 +112,47 @@ const parseScoredBallot = (
 
 /**
  * Convert detailed results to simple ones
- * 
  */
 const convertDetailedToSimple = (
   detailed: ResultDetailed
-): ResultSimple => Object.entries(detailed).reduce((acc, [k, v]) => ({ 
+): ResultSimple => Object.entries(detailed).reduce(
+  (acc, [k, v]) => ({ 
     ...acc, [k]: v.score 
   }), {}
 );
+
+/**
+ * Convert a simple result to a detailed one
+ */
+const convertSimpleToDetailed = (
+  simple: ResultSimple
+): ResultDetailed => Object.entries(simple).reduce(
+  (acc, [k, v]) => ({
+    ...acc, [k]: { score: v }
+  }), {}
+);
+
+/**
+ * Get the top scoring candidates from a simple result
+ */
+const getWinnersSimple = (result: ResultSimple): string[] => {
+  const maxScore = Math.max(...Object.values(result));
+  return Object.keys(result).filter(k => result[k] === maxScore);
+};
+
+/**
+ * Get the top scoring candidates from a detailed result
+ */
+const getWinnersDetailed = (result: ResultDetailed): string[] => {
+  const maxScore = Math.max(...Object.values(result).map(v => v.score));
+  return Object.keys(result).filter(k => result[k].score === maxScore);
+};
 
 export {
   serializeScoredBallot, deserializeScoredBallot,
   serializeList, deserializeList,
   getPermutations,
   parseScoredBallot,
-  convertDetailedToSimple,
+  convertDetailedToSimple, convertSimpleToDetailed,
+  getWinnersSimple, getWinnersDetailed
 };
