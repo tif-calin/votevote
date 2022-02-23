@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ResultFull } from '../../services/voting/SuperElection';
 import ContingencyBlock from './blocks/ContingencyBlock';
 import { MemoizedIRVBlock } from './blocks/IRVBlock';
 import PluralityBlock from './blocks/PluralityBlock';
+import { MemoizedStaticBlock as StaticBlock } from './blocks/StaticBlock';
 
 const Container = styled.div`
   display: flex;
@@ -15,20 +17,33 @@ const Container = styled.div`
 `;
 
 interface Props {
-  data: any
+  data: any,
+  dataFull: { [method: string]: ResultFull },
 };
 
-const OutputRight: React.FC<Props> = ({ data }) => {
+const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
   return (
     <Container>
-      <PluralityBlock 
-        data={data}
+      <StaticBlock
+        title="Plurality"
+        methods={['fptp', 'veto', 'signed', 'vfa']}
+        results={dataFull}
       />
       <ContingencyBlock
         data={data}
       />
       <MemoizedIRVBlock
         data={data}
+      />
+      <StaticBlock
+        title="Positional"
+        methods={['borda', 'nauru', 'eurovision', 'dabagh']}
+        results={dataFull}
+      />
+      <StaticBlock
+        title="Approval"
+        methods={['approval', 'combined_approval']}
+        results={dataFull}
       />
     </Container>
   );
