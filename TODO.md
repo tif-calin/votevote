@@ -95,6 +95,7 @@
  - [x] contingency methods still have 2 rounds even if there's a majority winner
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
  - [ ] random candidate/voter button might choose one that's not in the list of options 
+ - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
