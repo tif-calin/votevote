@@ -1,6 +1,7 @@
 import React from 'react';
 import { convertDetailedToSimple } from '../services/voting/helpers';
 import SuperElection, { ResultFull } from '../services/voting/SuperElection';
+import info from '../views/home/info';
 
 type VoterBallots = {
   [voter: string]: {
@@ -57,13 +58,7 @@ const useElection = () => {
 
   const electionOutcomesFull = React.useMemo(() => {
     if (election) {
-      const methods = [
-        'fptp', 'veto', 'signed', 'vfa',
-        'irv', 'coombs', 'fab_irv',
-        'contingency', 'supplementary', 'sl_contingency',
-        'borda', 'nauru', 'eurovision', 'dabagh',
-        'approval', 'cav',
-      ];
+      const methods = Object.keys(info);
   
       return methods.reduce((acc, key) => {
         const result = election.useMethod(key as keyof SuperElection);

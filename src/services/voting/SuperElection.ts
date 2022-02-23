@@ -449,6 +449,19 @@ class SuperElection {
     return dabaghResults;
   };
 
+  binary_positional(candidates = this.candidates): ResultSimple {
+    const binaryPositionalResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        for (let i = 0; i < ballot.length; i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + (1 / Math.pow(2, i)) * weight;
+        }
+
+        return a;
+      }, {} as ResultSimple)
+
+    return binaryPositionalResults;
+  };
+
   // Approval
   approval(candidates = this.candidates): ResultSimple {    
     const approvalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {

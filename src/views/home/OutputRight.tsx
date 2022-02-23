@@ -36,11 +36,11 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
       />
       <StaticBlock
         title="Positional"
-        methods={['borda', 'nauru', 'eurovision', 'dabagh']}
+        methods={['borda', 'nauru', 'eurovision', 'dabagh', 'binary_positional']}
         results={dataFull}
       />
       <StaticBlock
-        title="Approval"
+        title="Evaluative"
         methods={['approval', 'cav']}
         results={dataFull}
       />
