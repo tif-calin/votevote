@@ -288,7 +288,7 @@ class SuperElection {
   };
 
   // Contingency
-  cont(candidates = this.candidates): ResultSimple[] {
+  contingency(candidates = this.candidates): ResultSimple[] {
     const majority = this.totalVoters / 2;
 
     const round1Cache = this.getCache(candidates);
@@ -309,7 +309,7 @@ class SuperElection {
   };
 
   // Supplementary
-  supp(candidates = this.candidates, n = 2): ResultSimple[] {
+  supplementary(candidates = this.candidates, n = 2): ResultSimple[] {
     const majority = this.totalVoters / 2;
 
     const cache = this.getCache(candidates);
@@ -336,8 +336,8 @@ class SuperElection {
   };
 
   // Sri Lankan Contingency
-  sl_cont(candidates = this.candidates): ResultSimple[] {
-    return this.supp(candidates, 3);
+  sl_contingency(candidates = this.candidates): ResultSimple[] {
+    return this.supplementary(candidates, 3);
   };
 
   // Borda Count
