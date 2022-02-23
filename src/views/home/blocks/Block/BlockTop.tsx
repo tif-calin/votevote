@@ -41,6 +41,16 @@ const Top = styled.div`
       }
     }
 
+    background:
+      linear-gradient(90deg, var(--color-white) 30%, transparent),
+      linear-gradient(90deg, transparent, var(--color-white) 70%) 100% 100%,
+      radial-gradient(farthest-side at 0 50%, rgba(var(--color-black-rgb), 0.1), transparent),
+      radial-gradient(farthest-side at 100% 50%, rgba(var(--color-black-rgb), 0.1), transparent) 100% 100%
+    ;
+    background-repeat: no-repeat;
+    background-size: 3rem 100%, 3rem 100%, 0.5rem 100%, 0.5rem 100%;
+    background-attachment: local, local, scroll, scroll;
+
     & > * {
       display: flex;
       align-items: center;

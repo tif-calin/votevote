@@ -69,11 +69,37 @@ const VoterDisplay = styled.ul`
   list-style: none;
   gap: 0.25rem;
 
+  max-height: calc(100px + 50vh);
+  overflow-y: auto;
+  @supports (scrollbar-width: none) {
+    scrollbar-width: none;
+  }
+  @supports selector(::-webkit-scrollbar) {
+    overflow-y: overlay;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  background:
+    linear-gradient(var(--color-white) 30%, transparent),
+    linear-gradient(transparent, var(--color-white) 70%) 0 100%,
+    radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), transparent),
+    radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), transparent) 0 100%
+  ;
+  background-repeat: no-repeat;
+	background-size: 100% 3rem, 100% 3rem, 200% 1rem, 200% 1rem;
+  background-attachment: local, local, scroll, scroll;
+
   & > li {
     width: 100%;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    & > span[title] {
+      cursor: help;
+    }
 
     & > *:last-child {
       margin-left: auto;

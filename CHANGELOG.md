@@ -6,11 +6,15 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - 8 new voting methods:
     - positional: borda, nauru, eurovision, dabagh, binary_positional
     - evaluative: approval, disapproval, cav
+ - styling: amazing scroll shadows
 
 ### Improved
  - title text for ballot preferences now sorted and formatted better 
  - x-offset for bar text no longer wacky for smol screens
  - method options won't take up more than 50% of the block width and now scrolls for more options
+ - voter display improvements
+    - hovering over a voter to see their preference ratings is much more readable now
+    - voter display now becomes scrollable if there's too many voters
 
 ### Changed
  - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sl_contingency`
