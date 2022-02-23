@@ -28,8 +28,11 @@ interface Props {};
 const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
 const HomePage: React.FC<Props> = () => {
-  const { election, elect, ballots, electionOutcomes: data } = useElection();
-  if (data?.fptp) console.log(data);
+  const { election, elect, ballots, electionOutcomes: data, electionOutcomesFull: dataFull } = useElection();
+  if (dataFull?.fptp) {
+    console.log(dataFull);
+    // for (let method of Object.keys(dataFull)) console.log(method, dataFull[method].winners);
+  }
   const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
 
   const handleElect = React.useCallback((c, v) => elect(c, v, ballotMaker), [elect]);
@@ -43,6 +46,7 @@ const HomePage: React.FC<Props> = () => {
       />
       <MemoizedOutputRight 
         data={data}
+        dataFull={dataFull || {}}
       />
     </Page>
   );
