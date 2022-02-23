@@ -529,7 +529,7 @@ class SuperElection {
     const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
     const rangeResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
       for (let candidate of candidates) {
-        a[candidate] = ballot[candidate] * weight;
+        a[candidate] += ballot[candidate] * weight;
       }
 
       return a;
