@@ -14,6 +14,7 @@ runoff: irv, coombs, fab_irv
 positional: borda, nauru, eurovision, dabagh, binary_positional
 evaluative: approval, disapproval, cav, score, range
 
+median: typical_judgement, usual_judgement, central_judgement (evaluative aka average, so median is natural successor)
 condorcet: copeland, kemeny_young
 bucklin: fallback, bucklin, vfa_runoff
 hybrid: star, three_two_one
@@ -44,6 +45,17 @@ other
  - **multi-winner methods**: This wasn't the original intention of the site, but who knows.
  - **two/multi round methods**: We support contingent votes as well as some variations of it like runoff or sriLankanContingent. Two-round runoff is generally considered to be the mathematical equivalent of a two-round runoff by assuming voters don't change their minds from one the first round to the second. However, in the real world, voters often change their minds. We can possibly support a twoRoundRunoff if we come up with a method of changing views that's fair and mathematically sound. It might be non-deterministic, like adding some noise to the voter's preference of each candidate.
  - **methods that involve candidate behavior**: Methods like xxx involve the candidates themselves negotiating or voting. We don't have a good way of modeling candidate behavior.
+
+### Lists of voting methods I wanna reach feature parity with:
+ - [ ] [nicky case's to build a better ballot](https://ncase.me/ballot/) - 5/6 (no condorcet)
+ - [ ] [the original prototype](https://dontplaywithculi.netlify.app/votevote/): 26-28 methods
+ - [ ] [condorcet.org's list](https://web.archive.org/web/20050706055744/http://condorcet.org/emr/methods.shtml): ~21 methods
+ - [ ] [aceproject](https://aceproject.org/main/english/es/esd01.htm)
+ - [ ] [wikipedia](https://en.wikipedia.org/wiki/Comparison_of_electoral_systems): ~15
+ - [ ] [howtofixtheelection.com](https://www.howtofixtheelection.com/ballot/): 14
+ - [ ] [electionscience.org](https://electionscience.org/voting-methods/an-assessment-of-six-single-winner-voting-methods/)
+ - [ ] [electowiki category:single-winner](https://electowiki.org/wiki/Category:Single-winner_voting_methods)
+ - [ ] [accurateddemocracy](https://www.accuratedemocracy.com/c_other.htm) 
 
 ## Tech
 ### Shoutouts

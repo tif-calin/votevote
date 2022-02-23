@@ -3,9 +3,10 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.2.0] - 2022-02-19
 ### Added
- - 10 new voting methods:
+ - 11 new voting methods:
     - positional: borda, nauru, eurovision, dabagh, binary_positional
     - evaluative: approval, disapproval, cav, score, range
+    - condorcet: copeland
  - styling: amazing scroll shadows
 
 ### Improved
