@@ -100,6 +100,10 @@ const info: { [methodKey: string]: Info } = {
     links: {
       wikipedia: 'https://en.wikipedia.org/wiki/Combined_approval_voting',
     }
+  },
+  /* condorcet block */
+  copeland: {
+
   }
 };
 

@@ -449,7 +449,8 @@ class SuperElection {
     return dabaghResults;
   };
 
-  binary_positional(candidates = this.candidates): ResultSimple {
+  // Binary Positional
+  binary_positional(): ResultSimple {
     const binaryPositionalResults = Object.values(this.ballotsRanked)
       .reduce((a, { ballot, weight }) => {
         for (let i = 0; i < ballot.length; i++) {
@@ -506,6 +507,40 @@ class SuperElection {
     }, initialShape as ResultDetailed);
 
     return combinedApprovalResults;
+  };
+
+  // Copeland
+  copeland(
+    candidates = this.candidates,
+    wWeight = 1, tWeight = 0.5, lWeight = 0
+  ): ResultDetailed {
+    const cache = this.getCache(candidates);
+
+    const prefMatrix = cache.pairwisePreferenceMatrix;
+    
+    const copelandResults = candidates.reduce((a, c1) => {
+      a[c1] = { score: 0, wins: 0, ties: 0, losses: 0 };
+      const prefs = prefMatrix[c1];
+
+      Object.entries(prefs).forEach(([c2, c1Score]) => {
+        const c2Score = prefMatrix[c2][c1];
+
+        if (c1Score > c2Score) {
+          a[c1].wins++;
+          a[c1].score += wWeight;
+        } else if (c1Score < c2Score) {
+          a[c1].losses++;
+          a[c1].score -= lWeight;
+        } else {
+          a[c1].ties++;
+          a[c1].score += tWeight;
+        }
+      });
+
+      return a;
+    }, {} as ResultDetailed);
+
+    return copelandResults;
   };
 };
 
