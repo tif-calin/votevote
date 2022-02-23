@@ -32,6 +32,8 @@
  - [x] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
 
 ### other
+ - [ ] come up with a nice visualization for pairwise matrices
+ - [ ] change the pairwise matrix in ElectionCache so it uses ballotsScored
  - [ ] redo the whole bar chart system:
     - [ ] create a Bar class
     - [ ] create a common BarChart component that can be used for all charts

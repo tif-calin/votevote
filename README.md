@@ -7,12 +7,12 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 ## list of voting methods
 
-(16 implemented as of v0.1.2)
+(18 implemented as of v0.1.2)
 plurality: fptp, veto, signed, vfa
 contingent: contingency, supplementary, sl_contingency
 runoff: irv, coombs, fab_irv
-positional: borda, nauru, eurovision, dabagh
-approval: approval, cav, 
+positional: borda, nauru, eurovision, dabagh, binary_positional
+approval: approval, disapproval, cav, 
 
 condorcet: copeland, kemeny_young
 bucklin: fallback, bucklin, vfa_runoff
@@ -21,6 +21,7 @@ weighted: cumulative, quadratic
 other: majority_judgement
 
 other
+ - [ ] tournament_borda (allows for ties and unranked candidates)
  - [ ] lull_copeland
  - [ ] minimax
  - [ ] nanson
