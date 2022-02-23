@@ -7,43 +7,35 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 ## list of voting methods
 
+(16 implemented as of v0.1.2)
 plurality: fptp, veto, signed, vfa
 contingent: contingency, supplementary, sl_contingency
-instant runoff: irv, coombs, fab_irv
-condorcet: copeland, kemenyyoung
+runoff: irv, coombs, fab_irv
 positional: borda, nauru, eurovision, dabagh
 approval: approval, cav, 
-bucklin: fallback, bucklin, vfar
-hybrid: star, threeTwoOne
-weighted: cumulative, quadratic
-other: majorityJudgement
 
- - [ ] copeland
- - [ ] lullCopeland
- - [ ] kemenyYoung (aka medianRelation)
- - [ ] vfaRunoff (aka vfar)
+condorcet: copeland, kemeny_young
+bucklin: fallback, bucklin, vfa_runoff
+hybrid: star, three_two_one
+weighted: cumulative, quadratic
+other: majority_judgement
+
+other
+ - [ ] lull_copeland
  - [ ] minimax
  - [ ] nanson
  - [ ] baldwin
  - [ ] dodgeson
- - [ ] rankedPairs
- - [ ] beatPathWinner
+ - [ ] ranked_pairs
+ - [ ] beat_path_winner
  - [ ] tidemansAlternativeSmith
  - [ ] tidemansAlternativeSchwartz
  - [ ] river
  - [ ] black
- - [ ] irvBTR (bottomTwoRunoffIRV)
- - [ ] borda
- - [ ] bucklin (aka grandJunction)
+ - [ ] irv_btr (bottomTwoRunoffIRV)
  - [ ] fallback (aka bucklin, expandingApproval)
- - [ ] historicalBucklin
- - [ ] cumulative (aka range, score)
- - [ ] majorityJudgement
- - [ ] approval
- - [ ] combinedApproval
- - [ ] star
- - [ ] quadratic
- - [ ] threeTwoOne
+ - [ ] historical_bucklin
+ - [ ] cumulative, range, score
 
 ### Not supported
  - **non-deterministic methods**: At the moment we only support deterministic methods.
