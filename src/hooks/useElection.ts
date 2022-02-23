@@ -50,7 +50,7 @@ const useElection = () => {
         eurovision: election.eurovision(),
         dabagh: election.dabagh(),
         approval: election.approval(),
-        combined_approval: election.combined_approval(),
+        cav: election.cav(),
       }
     } else return {};
   }, [election]);
@@ -62,7 +62,7 @@ const useElection = () => {
         'irv', 'coombs', 'fab_irv',
         'contingency', 'supplementary', 'sl_contingency',
         'borda', 'nauru', 'eurovision', 'dabagh',
-        'approval', 'combined_approval',
+        'approval', 'cav',
       ];
   
       return methods.reduce((acc, key) => {

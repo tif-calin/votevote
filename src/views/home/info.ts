@@ -11,7 +11,7 @@ type Info = {
 const info: { [methodKey: string]: Info } = {
   /* plurality block */
   fptp: {
-    names: ['First Past the Post', 'Plurality', 'Choose-One Voting'],
+    names: ['First Past the Post', 'Plurality', 'Choose-One'],
     explanation: 'First Past the Post, aka Plurality, is one of the most common voting methods. Every voter votes for a single candidate and the candidate with the most votes wins.',
   },
   veto: {
@@ -22,7 +22,7 @@ const info: { [methodKey: string]: Info } = {
     },
   },
   signed: {
-    names: ['Boehm Signed', 'Balanced Plurality', 'Negative Voting', 'Bipolar Voting'],
+    names: ['Boehm Signed', 'Balanced Plurality', 'Negative', 'Bipolar'],
     explanation: 'What if you could choose whether you want to vote FOR a candidate or AGAINST a candidate?',
     links: {
       electowiki: 'https://electowiki.org/wiki/Negative_vote',
@@ -57,11 +57,11 @@ const info: { [methodKey: string]: Info } = {
       electowiki: 'https://electowiki.org/wiki/Approval_voting',
     }
   },
-  combined_approval: {
-    names: ['Combined Approval'],
+  cav: {
+    names: ['Combined Approval', 'Balanced Approval', 'Net Approval', 'Dis&Approval', 'Evaluative'],
     explanation: 'Mark every option you\'re cool with positive and every option you definitely aren\'t cool with negative. The candidate with the highest score (total positive marks minus total negative marks) wins.',
     links: {
-      electowiki: 'https://en.wikipedia.org/wiki/Combined_approval_voting',
+      wikipedia: 'https://en.wikipedia.org/wiki/Combined_approval_voting',
     }
   }
 };

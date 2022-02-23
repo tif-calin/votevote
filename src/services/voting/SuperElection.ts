@@ -463,7 +463,7 @@ class SuperElection {
   };
 
   // Combined Approval
-  combined_approval(candidates = this.candidates): ResultDetailed {
+  cav(candidates = this.candidates): ResultDetailed {
     const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: { score: 0, positive: 0, negative: 0 } }), {});
     const combinedApprovalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
       for (let candidate of candidates) {
