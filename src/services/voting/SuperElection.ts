@@ -449,6 +449,7 @@ class SuperElection {
     return dabaghResults;
   };
 
+  // Approval
   approval(candidates = this.candidates): ResultSimple {    
     const approvalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
       for (let candidate of candidates) {
@@ -461,7 +462,8 @@ class SuperElection {
     return approvalResults;
   };
 
-  combinedApproval(candidates = this.candidates): ResultDetailed {
+  // Combined Approval
+  combined_approval(candidates = this.candidates): ResultDetailed {
     const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: { score: 0, positive: 0, negative: 0 } }), {});
     const combinedApprovalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
       for (let candidate of candidates) {

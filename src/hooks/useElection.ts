@@ -1,6 +1,6 @@
 import React from 'react';
 import { convertDetailedToSimple } from '../services/voting/helpers';
-import SuperElection from '../services/voting/SuperElection';
+import SuperElection, { ResultFull } from '../services/voting/SuperElection';
 
 type VoterBallots = {
   [voter: string]: {
@@ -50,16 +50,35 @@ const useElection = () => {
         eurovision: election.eurovision(),
         dabagh: election.dabagh(),
         approval: election.approval(),
-        combinedApproval: election.combinedApproval(),
+        combined_approval: election.combined_approval(),
       }
     } else return {};
+  }, [election]);
+
+  const electionOutcomesFull = React.useMemo(() => {
+    if (election) {
+      const methods = [
+        'fptp', 'veto', 'signed', 'vfa',
+        'irv', 'coombs', 'fab_irv',
+        'contingency', 'supplementary', 'sl_contingency',
+        'borda', 'nauru', 'eurovision', 'dabagh',
+        'approval', 'combined_approval',
+      ];
+  
+      return methods.reduce((acc, key) => {
+        const result = election.useMethod(key as keyof SuperElection);
+        if (result) acc[key] = result;
+  
+        return acc;
+      }, {} as { [key: string]: ResultFull });
+    }
   }, [election]);
 
   return {
     election,
     elect,
     ballots,
-    electionOutcomes
+    electionOutcomes, electionOutcomesFull
   };
 };
 
