@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { ResultFull } from '../../services/voting/SuperElection';
 import ContingencyBlock from './blocks/ContingencyBlock';
 import { MemoizedIRVBlock } from './blocks/IRVBlock';
-import PluralityBlock from './blocks/PluralityBlock';
 import { MemoizedStaticBlock as StaticBlock } from './blocks/StaticBlock';
 
 const Container = styled.div`
@@ -42,7 +41,7 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
       />
       <StaticBlock
         title="Approval"
-        methods={['approval', 'combined_approval']}
+        methods={['approval', 'cav']}
         results={dataFull}
       />
     </Container>
