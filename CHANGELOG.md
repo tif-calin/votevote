@@ -20,6 +20,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sl_contingency`
  - title capitalization changed from "votevote" to "VoteVote" :')
  - add new voters to the top of the voter display
+ - changed default voter preset to show off scrollable voter display
 
 ## [0.1.1.1] - 2022-02-18
 ### Fixed

@@ -128,7 +128,7 @@ const initialCandidates = [
   'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
   // 'amethyst', 'azure', 'beige', 'blush', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
 ];
-const top16 = Object.keys(xkcd).slice(-16).reduce((a, c) => ({ ...a, [c]: c.length }), {});
+const initialVoters = Object.keys(xkcd).slice(-24).reduce((a, c) => ({ ...a, [c]: c.length }), {});
 const colorList = Object.keys(xkcd).sort();
 
 const formatVoterPreferences = (ballot?: { [key: string]: number }) => {
@@ -172,7 +172,7 @@ const InputLeft: React.FC<Props> = ({
     setSelected: setSelectedVoter,
     selectedN: selectedVoterN,
     setSelectedN: setSelectedVoterN,
-  } = useWeightedRoster(top16, 'acid green');
+  } = useWeightedRoster(initialVoters, 'acid green');
 
   const handleAddVoter = React.useCallback(() => {
     addVoter();
@@ -180,7 +180,7 @@ const InputLeft: React.FC<Props> = ({
   }, [addVoter, selectedVoter, setSelectedVoter]);
 
   const handleResetVoters = React.useCallback(() => {
-    resetVoters(top16);
+    resetVoters(initialVoters);
   }, [resetVoters]);
 
   React.useEffect(() => {
