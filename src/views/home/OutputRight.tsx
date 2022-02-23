@@ -41,7 +41,7 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
       />
       <StaticBlock
         title="Evaluative"
-        methods={['approval', 'disapproval', 'cav']}
+        methods={['approval', 'disapproval', 'cav', 'score', 'range']}
         results={dataFull}
       />
     </Container>

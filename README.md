@@ -7,12 +7,12 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 ## list of voting methods
 
-(18 implemented as of v0.1.2)
+(20 implemented as of v0.1.2)
 plurality: fptp, veto, signed, vfa
 contingent: contingency, supplementary, sl_contingency
 runoff: irv, coombs, fab_irv
 positional: borda, nauru, eurovision, dabagh, binary_positional
-approval: approval, disapproval, cav, 
+evaluative: approval, disapproval, cav, score, range
 
 condorcet: copeland, kemeny_young
 bucklin: fallback, bucklin, vfa_runoff

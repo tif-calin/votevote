@@ -509,6 +509,35 @@ class SuperElection {
     return combinedApprovalResults;
   };
 
+  // Score
+  score(candidates = this.candidates, maxScore = 5): ResultSimple {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const scoreResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        const score = Math.round(ballot[candidate] * maxScore);
+        a[candidate] += score * weight;
+      }
+
+      return a;
+    }, initialShape as ResultSimple);
+
+    return scoreResults;
+  };
+
+  // Range
+  range(candidates = this.candidates): ResultSimple {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const rangeResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        a[candidate] = ballot[candidate] * weight;
+      }
+
+      return a;
+    }, initialShape as ResultSimple);
+
+    return rangeResults;
+  };
+
   // Copeland
   copeland(
     candidates = this.candidates,

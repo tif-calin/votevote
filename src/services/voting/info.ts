@@ -101,6 +101,14 @@ const info: { [methodKey: string]: Info } = {
       wikipedia: 'https://en.wikipedia.org/wiki/Combined_approval_voting',
     }
   },
+  score: {
+    names: ['Score', 'Range', 'Evaluative', 'Utilitarian', 'The Point System', 'Ratings Summation', 'Average'],
+    explanation: 'If you think of Combined Approval as a range letting you mark each candidate -1, 0, or 1, then the logical next step is to extend that range right? Range voting allows voters to mark each candidate (here from 0 to 5) and then add up the marks. The candidate with the highest score wins (you can also use the average score. The result would be the same).',
+  },
+  range: {
+    names: ['Range', '0-99', 'Evaluative', 'Average'],
+    explanation: 'I think the logical next step in this series is to just make the scale continuous instead of discrete. You can mark any candidate anywhere between 0 and 100% (including any decimal). The candidate with the highest (again, or average) score wins.',
+  },
   /* condorcet block */
   copeland: {
     names: ['Copeland'],
