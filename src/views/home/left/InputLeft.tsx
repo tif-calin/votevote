@@ -233,7 +233,7 @@ const InputLeft: React.FC<Props> = ({
         count={Object.values(voters)?.reduce((a, v) => a+v, 0)}
       >
         <VoterDisplay>
-          {Object.keys(voters).map((voter) => {
+          {Object.keys(voters).reverse().map((voter) => {
             return (
               <li key={voter}>
                 <ColorBox 
