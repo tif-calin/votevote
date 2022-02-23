@@ -1,10 +1,37 @@
 type Info = {
   names?: string[];
   explanation?: string;
+  links?: {
+    wikipedia?: string;
+    electowiki?: string;
+  }
   visualization?: React.FC;
 };
 
 const info: { [methodKey: string]: Info } = {
+  /* plurality block */
+  fptp: {
+    names: ['First Past the Post', 'Plurality', 'Choose-One Voting'],
+    explanation: 'First Past the Post, aka Plurality, is one of the most common voting methods. Every voter votes for a single candidate and the candidate with the most votes wins.',
+  },
+  veto: {
+    names: ['Anti-Plurality', 'Veto'],
+    explanation: 'Veto is essentially the same except instead of voting FOR a candidate, you vote against a candidate. The least hated candidate wins.',
+    links: {
+      wikipedia: 'https://en.wikipedia.org/wiki/Anti-plurality_voting',
+    },
+  },
+  signed: {
+    names: ['Boehm Signed', 'Balanced Plurality', 'Negative Voting', 'Bipolar Voting'],
+    explanation: 'What if you could choose whether you want to vote FOR a candidate or AGAINST a candidate?',
+    links: {
+      electowiki: 'https://electowiki.org/wiki/Negative_vote',
+    },
+  },
+  vfa: {
+    names: ['Vote for and Against'],
+    explanation: 'Vote For and Against is similar to Signed, but you don\'t have to choose! In fact, you\'re required to vote both FOR a candidate as well as against another.',
+  },
   /* positional block */
   borda: {
     names: ['Borda', 'Borda Count'],
@@ -21,6 +48,21 @@ const info: { [methodKey: string]: Info } = {
   dabagh: {
     names: ['Dabagh', 'Vote and a Half', 'Dabagh Vote and a Half'],
     explanation: 'The Dabagh method simply gives 1 point to the first choice and 0.5 points to the second choice. With the rest of the choices getting 0. I know it might feel like cheating, but it\'s technically a positional method too.'
+  },
+  /* approval block */
+  approval: {
+    names: ['Approval'],
+    explanation: 'Just mark every option you\'d be cool with winning. The candidate with the most marks wins.',
+    links: {
+      electowiki: 'https://electowiki.org/wiki/Approval_voting',
+    }
+  },
+  combined_approval: {
+    names: ['Combined Approval'],
+    explanation: 'Mark every option you\'re cool with positive and every option you definitely aren\'t cool with negative. The candidate with the highest score (total positive marks minus total negative marks) wins.',
+    links: {
+      electowiki: 'https://en.wikipedia.org/wiki/Combined_approval_voting',
+    }
   }
 };
 
