@@ -3,9 +3,9 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.2.0] - 2022-02-19
 ### Added
- - 5 new voting methods:
+ - 6 new voting methods:
     - positional: borda, nauru, eurovision, dabagh
-    - approval: approval, combinedApproval
+    - approval: approval, cav
 
 ### Improved
  - title text for ballot preferences now sorted and formatted better 

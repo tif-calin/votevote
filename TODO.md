@@ -4,7 +4,7 @@
  - [ ] deal with large number of voters problem
  - [ ] add some fun methods
     - [x] positional: borda, nauru, euorvision, dabagh
-    - [ ] approval, 
+    - [x] approval, 
     - [ ] threeTwoOne, 
     - [ ] quadratic, 
     - [ ] star, 
@@ -73,6 +73,7 @@
  - improve the title text showing voter preferences
  - [ ] removing a candidate/voter should set selected to the removed candidate/voter
  - [ ] change the app icon for mobile to not have transparent background
+ - [ ] create an About page with an FAQ
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
