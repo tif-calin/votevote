@@ -45,7 +45,7 @@ const info: { [methodKey: string]: Info } = {
   },
   /* positional block */
   borda: {
-    names: ['Borda', 'Borda Count'],
+    names: ['Borda Count', 'Borda Count'],
     explanation: 'Say there\'s 5 candidates. Your first choice gets 4 points, your second choice gets 3, your third gets 2, fourth gets 1, and last choice gets none. This is the Borda count method!',
     classifications: [
       'positional' /* N - i - 1 */
@@ -59,14 +59,14 @@ const info: { [methodKey: string]: Info } = {
     ],
   },
   eurovision: {
-    names: ['Eurovision', 'Eurovision Song Contest'],
+    names: ['Eurovision Song Contest', 'Eurovision'],
     explanation: 'Eurovision uses a unique (arbitrary) voting system where the first candidate gets 12 points, the second gets 10, and the next 8 get 8, 7, 6, ..., etc. All others get 0. This voting method is used in the Eurovision Song Contest.',
     classifications: [
       'positional' /* 12, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0, 0, ..., 0 */
     ],
   },
   dabagh: {
-    names: ['Dabagh', 'Vote and a Half', 'Dabagh Vote and a Half'],
+    names: ['Dabagh Vote and a Half', 'Dabagh', 'Vote and a Half'],
     explanation: 'The Dabagh method simply gives 1 point to the first choice and 0.5 points to the second choice. With the rest of the choices getting 0. I know it might feel like cheating, but it\'s technically a positional method too.',
     classifications: [
       'positional' /* 1, 0.5, 0, 0, ..., 0 */
@@ -95,7 +95,7 @@ const info: { [methodKey: string]: Info } = {
     },
   },
   cav: {
-    names: ['Combined Approval', 'Balanced Approval', 'Net Approval', 'Dis&Approval', 'Evaluative'],
+    names: ['Combined Approval Voting', 'Combined Approval', 'Balanced Approval', 'Net Approval', 'Dis&Approval', 'Evaluative'],
     explanation: 'Mark every option you\'re cool with positive and every option you definitely aren\'t cool with negative. The candidate with the highest score (total positive marks minus total negative marks) wins.',
     links: {
       wikipedia: 'https://en.wikipedia.org/wiki/Combined_approval_voting',
@@ -103,8 +103,10 @@ const info: { [methodKey: string]: Info } = {
   },
   /* condorcet block */
   copeland: {
-
-  }
+    names: ['Copeland'],
+    explanation: '',
+    links: {}
+  },
 };
 
 export default info;

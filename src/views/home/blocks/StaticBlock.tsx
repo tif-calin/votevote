@@ -1,7 +1,7 @@
 import React from 'react';
 import SignedBarChart from '../../../components/charts/SignedBarChart';
 import Block from './Block';
-import info from '../info';
+import info from '../../../services/voting/info';
 import { ResultFull } from '../../../services/voting/SuperElection';
 import xkcd from '../../../data/xkcd';
 

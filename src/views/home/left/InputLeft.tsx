@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import xkcd from '../../data/xkcd';
-import { VoterBallots } from '../../hooks/useElection';
-import useRoster, { useWeightedRoster } from '../../hooks/useRoster';
+import xkcd from '../../../data/xkcd';
+import { VoterBallots } from '../../../hooks/useElection';
+import useRoster, { useWeightedRoster } from '../../../hooks/useRoster';
 import RosterControls from './RosterControls';
 
 const Container = styled.form`

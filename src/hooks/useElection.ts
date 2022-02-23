@@ -1,7 +1,7 @@
 import React from 'react';
 import { convertDetailedToSimple } from '../services/voting/helpers';
 import SuperElection, { ResultFull } from '../services/voting/SuperElection';
-import info from '../views/home/info';
+import info from '../services/voting/info';
 
 type VoterBallots = {
   [voter: string]: {
