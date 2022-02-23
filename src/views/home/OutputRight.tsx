@@ -35,6 +35,11 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
         data={data}
       />
       <StaticBlock
+        title="Condorcet"
+        methods={['copeland', 'lull']}
+        results={dataFull}
+      />
+      <StaticBlock
         title="Positional"
         methods={['borda', 'nauru', 'eurovision', 'dabagh', 'binary_positional']}
         results={dataFull}
@@ -42,11 +47,6 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
       <StaticBlock
         title="Evaluative"
         methods={['approval', 'disapproval', 'cav', 'score', 'range']}
-        results={dataFull}
-      />
-      <StaticBlock
-        title="Condorcet"
-        methods={['copeland']}
         results={dataFull}
       />
     </Container>

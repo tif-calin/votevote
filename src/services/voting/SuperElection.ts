@@ -571,6 +571,11 @@ class SuperElection {
 
     return copelandResults;
   };
+
+  // Lull
+  lull(candidates = this.candidates): ResultDetailed {
+    return this.copeland(candidates, 1, 1, 0);
+  };
 };
 
 export default SuperElection;

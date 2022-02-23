@@ -7,15 +7,16 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 ## list of voting methods
 
-(20 implemented as of v0.1.2)
+(22 implemented as of v0.1.2)
 plurality: fptp, veto, signed, vfa
 contingent: contingency, supplementary, sl_contingency
 runoff: irv, coombs, fab_irv
 positional: borda, nauru, eurovision, dabagh, binary_positional
 evaluative: approval, disapproval, cav, score, range
+condorcet: copeland, lull
 
 median: typical_judgement, usual_judgement, central_judgement (evaluative aka average, so median is natural successor)
-condorcet: copeland, kemeny_young
+condorcet: kemeny_young
 bucklin: fallback, bucklin, vfa_runoff
 hybrid: star, three_two_one
 weighted: cumulative, quadratic
@@ -23,7 +24,6 @@ other: majority_judgement
 
 other
  - [ ] tournament_borda (allows for ties and unranked candidates)
- - [ ] lull_copeland
  - [ ] minimax
  - [ ] nanson
  - [ ] baldwin
@@ -33,12 +33,12 @@ other
  - [ ] tidemansAlternativeSmith
  - [ ] tidemansAlternativeSchwartz
  - [ ] river
- - [ ] black
  - [ ] irv_btr (bottomTwoRunoffIRV)
  - [ ] fallback (aka bucklin, expandingApproval)
  - [ ] historical_bucklin
- - [ ] cumulative, range, score
+ - [ ] cumulative
  - [ ] sir (https://electowiki.org/wiki/Support/Include/Reject_voting) 
+ - [ ] black, dasgupta_maskin https://en.wikipedia.org/wiki/Copeland%27s_method
 
 ### Not supported
  - **non-deterministic methods**: At the moment we only support deterministic methods.

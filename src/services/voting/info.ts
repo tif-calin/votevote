@@ -111,10 +111,16 @@ const info: { [methodKey: string]: Info } = {
   },
   /* condorcet block */
   copeland: {
-    names: ['Copeland'],
-    explanation: '',
-    links: {}
+    names: ['Copeland', 'Lull', 'Condorcet', '1/1⁄2/0 Method'],
+    explanation: 'To find a "Condorcet winner", you take every candidate and compare them against each other. Count up how many times candidate A is preferred over candidate B. A Condorcet winner is one that wins every such matchup against all the other candidates. A "Condorcet method" is a method that will always elect a Condorcet winner if one exists (it\'s quite common for none to exist). Copeland is one of the simplest to understand Condorcet methods. For a given candidate, it gets 1 point for every other candidate that it beats and half a point for every candidate it ties with. The candidate with the highest of such score wins.',
+    links: {
+      wikipedia: 'https://en.wikipedia.org/wiki/Copeland%27s_method',
+    },
   },
+  lull: {
+    names: ['Lull', '1/1/0 Method'],
+    explanation: 'This is almost the same as Copeland except instead of awarding half a point for every tie, you award a full point. Hence why Copeland is sometimes called the \'1/1⁄2/0 method\' and Lull is sometimes called the \'1/1/0 method\'.'
+  }
 };
 
 export default info;

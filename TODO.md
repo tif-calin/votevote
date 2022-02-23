@@ -9,7 +9,7 @@
     - [ ] quadratic, 
     - [ ] star, 
     - [ ] cumulative,
-    - [ ] copeland
+    - [x] copeland
  - [ ] threshold lines, marks
 
 ## 2022-02-16
