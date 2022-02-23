@@ -1,7 +1,7 @@
 # TODO
 ## 2022-02-19
 ### priority for v0.1.2
- - [ ] deal with large number of voters problem
+ - [x] deal with large number of voters problem
  - [ ] add some fun methods
     - [x] positional: borda, nauru, euorvision, dabagh
     - [x] approval, 
@@ -76,6 +76,7 @@
  - [ ] removing a candidate/voter should set selected to the removed candidate/voter
  - [ ] change the app icon for mobile to not have transparent background
  - [ ] create an About page with an FAQ
+ - [ ] add a sitemap
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??

@@ -1,4 +1,4 @@
-# votevote
+# VoteVote
 Deployed at https://votevote.page/
 
 VoteVote takes a scored ballot and calculates what its equivalent ballot would look like for a large number of voting systems. Through this we can simulate the same election in FPTP, Instant Runoff, Approval, Borda, Condorcet, and many many more. The [original prototype](https://dontplaywithculi.netlify.app/votevote) of this implemented 26 different methods and this rebirth of it aims to surpass that. 
@@ -44,3 +44,7 @@ other
  - **multi-winner methods**: This wasn't the original intention of the site, but who knows.
  - **two/multi round methods**: We support contingent votes as well as some variations of it like runoff or sriLankanContingent. Two-round runoff is generally considered to be the mathematical equivalent of a two-round runoff by assuming voters don't change their minds from one the first round to the second. However, in the real world, voters often change their minds. We can possibly support a twoRoundRunoff if we come up with a method of changing views that's fair and mathematically sound. It might be non-deterministic, like adding some noise to the voter's preference of each candidate.
  - **methods that involve candidate behavior**: Methods like xxx involve the candidates themselves negotiating or voting. We don't have a good way of modeling candidate behavior.
+
+## Tech
+### Shoutouts
+ - [lea verou's guide to scroll shadows](https://lea.verou.me/2012/04/background-attachment-local/)
