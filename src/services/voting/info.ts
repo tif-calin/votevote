@@ -120,7 +120,16 @@ const info: { [methodKey: string]: Info } = {
   lull: {
     names: ['Lull', '1/1/0 Method'],
     explanation: 'This is almost the same as Copeland except instead of awarding half a point for every tie, you award a full point. Hence why Copeland is sometimes called the \'1/1⁄2/0 method\' and Lull is sometimes called the \'1/1/0 method\'.'
-  }
+  },
+  /* cumulative block */
+  cumulative: {
+    names: ['Cumulative', 'Accumulation', 'Multi', 'Weighted'],
+    explanation: 'Each voter gets N (in this case N=10) points to distribute to the candidates however they like. If they only love one candidate, they can give all 10 to that one. If they\'re split between a few options they could give a little bit to each!'
+  },
+  fractional: {
+    names: ['Fractional Cumulative'],
+    explanation: 'I think the natural next question to ask about Cumulative Voting is what happens if you give each voter an extremely large amount of points to distribute so that they could be really detailed in their preferences. Eventually you get to the point where you can give each candidate a continuous (rather than discrete) portion of your points. E.g. candidate A gets 33.4% of my points, candidate B gets 22.46%, etc. This is Fractional Cumulative voting.'
+  },
 };
 
 export default info;

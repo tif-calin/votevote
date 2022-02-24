@@ -71,16 +71,25 @@ const getPermutations = (arr: string[]): string[][] => {
  */
 const parseScoredBallot = (
   ballot: { [key: string]: number }
-): [Array<Array<string>>, number, number] => {
+): [Array<Array<string>>, number, number, { [key: string]: number }] => {
+  let total = 0;
+
   // organize the candidates by their scores
   const byScore = Object.keys(ballot).reduce((acc, candidate) => {
     const score = ballot[candidate];
+    total += score;
 
     if (acc[score]) acc[score].push(candidate);
     else acc[score] = [candidate];
 
     return acc;
   }, {} as { [key: number]: string[] });
+
+  // get proportioned version of ballot
+  const proportioned: { [key: string]: number } = {};
+  Object.entries(ballot).forEach(([c, v]) => {
+    proportioned[c] = v / total;
+  });
 
   // get list of all scores and sort it
   const scores = Object.keys(byScore).map(s => Number(s)).sort((a, b) => b - a);
@@ -107,7 +116,7 @@ const parseScoredBallot = (
     ballots = newBallots;
   };
 
-  return [ballots, highestScore, lowestScore];
+  return [ballots, highestScore, lowestScore, proportioned];
 };
 
 /**

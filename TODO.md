@@ -8,7 +8,7 @@
     - [ ] threeTwoOne, 
     - [ ] quadratic, 
     - [ ] star, 
-    - [ ] cumulative,
+    - [x] cumulative,
     - [x] copeland
  - [ ] threshold lines, marks
 

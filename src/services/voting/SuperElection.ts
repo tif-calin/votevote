@@ -26,6 +26,7 @@ class SuperElection {
     [key: ReturnType<typeof serializeScoredBallot>]: {
       weight: number;
       ballot: { [key: string]: number };
+      proportioned: { [key: string]: number };
       rankings: string[][];
       highestScore: number;
       lowestScore: number;
@@ -70,11 +71,12 @@ class SuperElection {
       } else {
         // parse the scoredBallot for its ranked equivalents 
         // as well as highest/lowest scores
-        const [rankings, highestScore, lowestScore] = parseScoredBallot(roundedBallot);
+        const [rankings, highestScore, lowestScore, proportioned] = parseScoredBallot(roundedBallot);
 
         this.ballotsScored[serialized] = {
           weight: weights[i],
           ballot: roundedBallot,
+          proportioned,
           rankings,
           highestScore,
           lowestScore,
@@ -576,6 +578,51 @@ class SuperElection {
   lull(candidates = this.candidates): ResultDetailed {
     return this.copeland(candidates, 1, 1, 0);
   };
+
+  // Cumulative
+  cumulative(candidates = this.candidates, points = 10): ResultSimple {
+    // Assumption: custom quota method is used
+
+    const cumulativeResult = Object.values(this.ballotsScored).reduce((a, { proportioned, weight, rankings }) => {
+      const rankingWeight = weight / rankings.length;
+
+      for (let ranking of rankings) {
+        let allotment = points;
+        for (let candidate of ranking) {
+          const toGive = Math.min(allotment, Math.ceil(proportioned[candidate] * points));
+          a[candidate] = ~~a[candidate] + (toGive * rankingWeight);
+
+          allotment -= toGive;
+          console.log(candidate, toGive);
+          if (!allotment) break;
+        }
+      }
+
+      return a;
+    }, {} as ResultSimple);
+
+    return cumulativeResult;
+  };
+
+  // Equal&Even
+  equal_even() {};
+
+  // Fractional
+  fractional(candidates = this.candidates): ResultSimple {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const fractionalResult = Object.values(this.ballotsScored).reduce((a, { proportioned, weight }) => {
+      for (const candidate of candidates) {
+        a[candidate] += proportioned[candidate] * weight;
+      }
+
+      return a;
+    }, initialShape as ResultSimple);
+
+    return fractionalResult;
+  };
+
+  // Quadratic
+  quadratic() {};
 };
 
 export default SuperElection;
