@@ -116,10 +116,12 @@ const info: { [methodKey: string]: Info } = {
     links: {
       wikipedia: 'https://en.wikipedia.org/wiki/Copeland%27s_method',
     },
+    classifications: ['condorcet'],
   },
   lull: {
     names: ['Lull', '1/1/0 Method'],
-    explanation: 'This is almost the same as Copeland except instead of awarding half a point for every tie, you award a full point. Hence why Copeland is sometimes called the \'1/1⁄2/0 method\' and Lull is sometimes called the \'1/1/0 method\'.'
+    explanation: 'This is almost the same as Copeland except instead of awarding half a point for every tie, you award a full point. Hence why Copeland is sometimes called the \'1/1⁄2/0 method\' and Lull is sometimes called the \'1/1/0 method\'.',
+    classifications: ['condorcet'],
   },
   /* cumulative block */
   cumulative: {
@@ -129,6 +131,14 @@ const info: { [methodKey: string]: Info } = {
   fractional: {
     names: ['Fractional Cumulative'],
     explanation: 'I think the natural next question to ask about Cumulative Voting is what happens if you give each voter an extremely large amount of points to distribute so that they could be really detailed in their preferences. Eventually you get to the point where you can give each candidate a continuous (rather than discrete) portion of your points. E.g. candidate A gets 33.4% of my points, candidate B gets 22.46%, etc. This is Fractional Cumulative voting.'
+  },
+  quadratic: {
+    names: ['Quadratic'],
+    explanation: 'This is a form of cumulative voting that specifically aims to affect voter behavior and encourage them to vote for more than a few candidates. If you want to give a candidate 5 points it\'ll cost you 25 of your points. If you wanna give a candidate 2 points, it\'ll only cost 4. The net effect is that voters who vote for more candidates end up having more voting power so voters are discouraged from putting all their eggs in one basket.',
+    links: {
+      wikipedia: 'https://en.wikipedia.org/wiki/Quadratic_voting',
+      electowiki: 'https://electowiki.org/wiki/Quadratic_voting'
+    },
   },
 };
 

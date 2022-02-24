@@ -26,7 +26,9 @@ class SuperElection {
     [key: ReturnType<typeof serializeScoredBallot>]: {
       weight: number;
       ballot: { [key: string]: number };
-      proportioned: { [key: string]: number };
+      proportional: { [key: string]: number };
+      approval: { [key: string]: number };
+      approvalProportional: { [key: string]: number };
       rankings: string[][];
       highestScore: number;
       lowestScore: number;
@@ -71,12 +73,17 @@ class SuperElection {
       } else {
         // parse the scoredBallot for its ranked equivalents 
         // as well as highest/lowest scores
-        const [rankings, highestScore, lowestScore, proportioned] = parseScoredBallot(roundedBallot);
+        const [
+          rankings, highestScore, lowestScore, 
+          proportional, approval, approvalProportional
+        ] = parseScoredBallot(roundedBallot);
 
         this.ballotsScored[serialized] = {
           weight: weights[i],
           ballot: roundedBallot,
-          proportioned,
+          proportional,
+          approval,
+          approvalProportional,
           rankings,
           highestScore,
           lowestScore,
@@ -125,7 +132,7 @@ class SuperElection {
       const cache = this.getCache(candidates);
       if (cache.results[method]) return cache.results[method];
 
-      const result = (this[method] as Function)(candidates);
+      const result = (this[method] as Function)();
 
       if (result?.winners) {
         // if ResultFull 
@@ -580,16 +587,15 @@ class SuperElection {
   };
 
   // Cumulative
-  cumulative(candidates = this.candidates, points = 10): ResultSimple {
+  cumulative(points = 10): ResultSimple {
     // Assumption: custom quota method is used
-
-    const cumulativeResult = Object.values(this.ballotsScored).reduce((a, { proportioned, weight, rankings }) => {
+    const cumulativeResult = Object.values(this.ballotsScored).reduce((a, { approvalProportional: ballot, weight, rankings }) => {
       const rankingWeight = weight / rankings.length;
 
       for (let ranking of rankings) {
         let allotment = points;
         for (let candidate of ranking) {
-          const toGive = Math.min(allotment, Math.ceil(proportioned[candidate] * points));
+          const toGive = Math.min(allotment, Math.ceil(ballot[candidate] * points));
           a[candidate] = ~~a[candidate] + (toGive * rankingWeight);
 
           allotment -= toGive;
@@ -609,9 +615,9 @@ class SuperElection {
   // Fractional
   fractional(candidates = this.candidates): ResultSimple {
     const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
-    const fractionalResult = Object.values(this.ballotsScored).reduce((a, { proportioned, weight }) => {
+    const fractionalResult = Object.values(this.ballotsScored).reduce((a, { approvalProportional: ballot, weight }) => {
       for (const candidate of candidates) {
-        a[candidate] += proportioned[candidate] * weight;
+        a[candidate] += (ballot[candidate] || 0) * weight;
       }
 
       return a;
@@ -621,7 +627,16 @@ class SuperElection {
   };
 
   // Quadratic
-  quadratic() {};
+  quadratic(candidates = this.candidates): ResultSimple {
+    // TODO make it more like cumulative instead of like fractional lol wut
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const quadraticResult = Object.values(this.ballotsScored).reduce((a, { approvalProportional: ballot, weight }) => {
+      for (const c of candidates) a[c] += Math.sqrt(ballot[c]) * weight;
+      return a;
+    }, initialShape as ResultSimple);
+
+    return quadraticResult;
+  };
 };
 
 export default SuperElection;

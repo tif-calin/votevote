@@ -31,7 +31,7 @@ const deserializeScoredBallot = (
  * @param {string[]} list - a list of candidates
  * @returns {string}
  */
-const serializeList = (list: string[]) => [...list].join(',,');
+const serializeList = (list: string[]): string => [...list].join(',,');
 
 /**
  * Deserialize a serialized list.
@@ -64,20 +64,27 @@ const getPermutations = (arr: string[]): string[][] => {
   return result;
 };
 
+type Ballot = { [key: string]: number };
 /**
  * Convert a scored ballot to its equivalent ranked ballot(s).
  * @param {Object<string, number>} ballot - a scored ballot
  * @returns {[Array.<Array.<string>>, number, number]}
  */
 const parseScoredBallot = (
-  ballot: { [key: string]: number }
-): [Array<Array<string>>, number, number, { [key: string]: number }] => {
+  ballot: Ballot
+): [Array<Array<string>>, number, number, Ballot, Ballot, Ballot] => {
   let total = 0;
+  let totalApproved = 0;
+  const proportionalBallot: Ballot = {};
+  const approvalBallot: Ballot = {};
+  const approvalProportionalBallot: Ballot = {};
 
   // organize the candidates by their scores
   const byScore = Object.keys(ballot).reduce((acc, candidate) => {
     const score = ballot[candidate];
     total += score;
+    if (score > 0.5) totalApproved += score;
+    approvalBallot[candidate] = Math.max(0, (score * 2) - 1)
 
     if (acc[score]) acc[score].push(candidate);
     else acc[score] = [candidate];
@@ -85,10 +92,10 @@ const parseScoredBallot = (
     return acc;
   }, {} as { [key: number]: string[] });
 
-  // get proportioned version of ballot
-  const proportioned: { [key: string]: number } = {};
+  // get proportional version of ballot
   Object.entries(ballot).forEach(([c, v]) => {
-    proportioned[c] = v / total;
+    proportionalBallot[c] = v / total;
+    approvalProportionalBallot[c] = totalApproved ? approvalBallot[c] / totalApproved : 0;
   });
 
   // get list of all scores and sort it
@@ -116,7 +123,10 @@ const parseScoredBallot = (
     ballots = newBallots;
   };
 
-  return [ballots, highestScore, lowestScore, proportioned];
+  return [
+    ballots, highestScore, lowestScore, 
+    proportionalBallot, approvalBallot, approvalProportionalBallot,
+  ];
 };
 
 /**
