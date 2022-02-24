@@ -9,7 +9,7 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 (22 implemented as of v0.1.2)
 plurality: fptp, veto, signed, vfa
-contingent: contingency, supplementary, sl_contingency
+contingent: contingency, supplementary, sri_lanka
 runoff: irv, coombs, fab_irv
 positional: borda, nauru, eurovision, dabagh, binary_positional
 evaluative: approval, disapproval, cav, score, range

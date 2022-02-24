@@ -387,7 +387,7 @@ class SuperElection {
   };
 
   // Sri Lankan Contingency
-  sl_contingency(candidates = this.candidates): ResultSimple[] {
+  sri_lanka(candidates = this.candidates): ResultSimple[] {
     return this.supplementary(candidates, 3);
   };
 
@@ -593,7 +593,6 @@ class SuperElection {
           a[candidate] = ~~a[candidate] + (toGive * rankingWeight);
 
           allotment -= toGive;
-          console.log(candidate, toGive);
           if (!allotment) break;
         }
       }

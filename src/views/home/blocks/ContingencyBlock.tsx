@@ -25,7 +25,7 @@ const info: Info = {
     name: 'Supplementary',
     explanation: 'The Supplementary vote is similar to contingency except voters only rank 1 alternative. If neither of their two votes makes it to the second round (if there is a second round), then they simply don\'t vote for anyone.'
   },
-  sl_contingency: {
+  sri_lanka: {
     name: 'Sri Lankan Contingency',
     explanation: 'In Sri Lanka, they use a version of the supplmentary vote to elect their president. Instead of ranking only their top 2 choices, they rank their top 3.'
   },

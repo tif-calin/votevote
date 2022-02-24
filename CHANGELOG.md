@@ -19,7 +19,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
     - voter display now becomes scrollable if there's too many voters
 
 ### Changed
- - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sl_contingency`
+ - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sri_lanka`
  - title capitalization changed from "votevote" to "VoteVote" :')
  - add new voters to the top of the voter display
  - changed default voter preset to show off scrollable voter display

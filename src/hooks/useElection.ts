@@ -41,7 +41,7 @@ const useElection = () => {
         fab_irv: election.fab_irv().map(convertDetailedToSimple),
         contingency: election.contingency(),
         supplementary: election.supplementary(),
-        sl_contingency: election.sl_contingency(),
+        sri_lanka: election.sri_lanka(),
       }
     } else return {};
   }, [election]);
