@@ -19,8 +19,9 @@
     - [x] cumulative,
     - [x] copeland
  - [x] bar scores
- - [ ] fix random voter bug
+ - [x] fix random voter bug
  - [ ] removing a voter or candidate should automatically select them
+ - [ ] fix `copeland` and `lull` score is wrong because it compares candidates against themselves lol
 
 ## 2022-02-16
 ### priority for v0.1.1
@@ -87,6 +88,7 @@
  - [ ] change the app icon for mobile to not have transparent background
  - [ ] create an About page with an FAQ
  - [ ] add a sitemap
+ - [ ] secret menu for debugging and things I like to do like randomly select n+1 voters m times
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -104,8 +106,9 @@
     - [x] firefox: cahrt sizing is off
  - [x] contingency methods still have 2 rounds even if there's a majority winner
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
- - [ ] random candidate/voter button might choose one that's not in the list of options 
+ - [x] random candidate/voter button might choose one that's not in the list of options 
  - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
+ - [ ] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods

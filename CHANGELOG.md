@@ -26,6 +26,9 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - longer default voter preset to show off scrollable voter display
  - increased left padding on bar charts
 
+### Fixed
+ - random selection might choose a candidate/voter that's already in the roster
+
 ## [0.1.1.1] - 2022-02-18
 ### Fixed
  - firefox charts don't take up full height of container

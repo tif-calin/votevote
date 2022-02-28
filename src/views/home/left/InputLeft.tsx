@@ -152,10 +152,14 @@ const InputLeft: React.FC<Props> = ({
     setSelected: setSelectedCandidate,
   } = useRoster(initialCandidates, 'acid green');
 
+  const candidateOptions = React.useMemo(() => {
+    return colorList.filter(c => !candidates.includes(c));
+  }, [candidates]);
+
   const handleAddCandidate = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
     addCandidate();
-    setSelectedCandidate(colorList.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
-  }, [addCandidate, selectedCandidate, setSelectedCandidate]);
+    setSelectedCandidate(candidateOptions.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
+  }, [addCandidate, candidateOptions, selectedCandidate, setSelectedCandidate]);
 
   const handleResetCandidates = React.useCallback(() => {
     resetCandidates(initialCandidates);
@@ -173,11 +177,15 @@ const InputLeft: React.FC<Props> = ({
     selectedN: selectedVoterN,
     setSelectedN: setSelectedVoterN,
   } = useWeightedRoster(initialVoters, 'acid green');
+  
+  const voterOptions = React.useMemo(() => {
+    return colorList.filter(v => !Object.keys(voters).includes(v));
+  }, [voters]);
 
   const handleAddVoter = React.useCallback(() => {
     addVoter();
-    setSelectedVoter(colorList.find((_, i, arr) => arr[i - 1] === selectedVoter) || '');  
-  }, [addVoter, selectedVoter, setSelectedVoter]);
+    setSelectedVoter(voterOptions.find((_, i, arr) => arr[i - 1] === selectedVoter) || '');  
+  }, [addVoter, selectedVoter, setSelectedVoter, voterOptions]);
 
   const handleResetVoters = React.useCallback(() => {
     resetVoters(initialVoters);
@@ -196,7 +204,7 @@ const InputLeft: React.FC<Props> = ({
         That's a lot of candidates! To update the charts, please use the button at the bottom.
       </span>}
       <RosterControls
-        options={colorList.filter(c => !candidates.includes(c))}
+        options={candidateOptions}
         name="candidates"
         add={handleAddCandidate}
         reset={handleResetCandidates}
@@ -221,7 +229,7 @@ const InputLeft: React.FC<Props> = ({
       </RosterControls>
 
       <RosterControls
-        options={colorList.filter(v => !Object.keys(voters).includes(v))}
+        options={voterOptions}
         name="voters"
         add={handleAddVoter}
         reset={handleResetVoters}
