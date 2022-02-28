@@ -12,9 +12,8 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - bars will show scores on hover
 
 ### Improved
- - title text for ballot preferences now sorted and formatted better 
- - x-offset for bar text no longer wacky for smol screens
  - method options won't take up more than 50% of the block width and now scrolls for more options
+ - input menu now stickies to screen on desktop view
  - voter display improvements
     - hovering over a voter to see their preference ratings is much more readable now
     - voter display now becomes scrollable if there's too many voters
@@ -25,9 +24,11 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - add new voters to the top of the voter display
  - longer default voter preset to show off scrollable voter display
  - increased left padding on bar charts
+ - removing voter or candidate sets selection to removed option
 
 ### Fixed
  - random selection might choose a candidate/voter that's already in the roster
+ - x-offset for bar text no longer wacky for smol screens
 
 ## [0.1.1.1] - 2022-02-18
 ### Fixed

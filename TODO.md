@@ -20,8 +20,8 @@
     - [x] copeland
  - [x] bar scores
  - [x] fix random voter bug
- - [ ] removing a voter or candidate should automatically select them
- - [ ] fix `copeland` and `lull` score is wrong because it compares candidates against themselves lol
+ - [x] removing a voter or candidate should automatically select them
+ - [x] fix `copeland` and `lull` score is wrong because it compares candidates against themselves lol
 
 ## 2022-02-16
 ### priority for v0.1.1
@@ -108,7 +108,7 @@
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
  - [x] random candidate/voter button might choose one that's not in the list of options 
  - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
- - [ ] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
+ - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
