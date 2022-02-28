@@ -28,7 +28,28 @@ const Top = styled.div`
     border: 1px solid hsl(var(--shadow-color));
     border-radius: 0.25rem;
 
+    max-width: 60%;
     overflow: hidden;
+    @supports (scrollbar-width: none) {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    @supports selector(::-webkit-scrollbar) {
+      overflow-x: overlay;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    background:
+      linear-gradient(90deg, var(--color-white) 30%, transparent),
+      linear-gradient(90deg, transparent, var(--color-white) 70%) 100% 100%,
+      radial-gradient(farthest-side at 0 50%, rgba(var(--color-black-rgb), 0.1), transparent),
+      radial-gradient(farthest-side at 100% 50%, rgba(var(--color-black-rgb), 0.1), transparent) 100% 100%
+    ;
+    background-repeat: no-repeat;
+    background-size: 3rem 100%, 3rem 100%, 0.5rem 100%, 0.5rem 100%;
+    background-attachment: local, local, scroll, scroll;
 
     & > * {
       display: flex;

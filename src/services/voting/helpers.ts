@@ -31,7 +31,7 @@ const deserializeScoredBallot = (
  * @param {string[]} list - a list of candidates
  * @returns {string}
  */
-const serializeList = (list: string[]) => [...list].join(',,');
+const serializeList = (list: string[]): string => [...list].join(',,');
 
 /**
  * Deserialize a serialized list.
@@ -64,23 +64,39 @@ const getPermutations = (arr: string[]): string[][] => {
   return result;
 };
 
+type Ballot = { [key: string]: number };
 /**
  * Convert a scored ballot to its equivalent ranked ballot(s).
  * @param {Object<string, number>} ballot - a scored ballot
  * @returns {[Array.<Array.<string>>, number, number]}
  */
 const parseScoredBallot = (
-  ballot: { [key: string]: number }
-): [Array<Array<string>>, number, number] => {
+  ballot: Ballot
+): [Array<Array<string>>, number, number, Ballot, Ballot, Ballot] => {
+  let total = 0;
+  let totalApproved = 0;
+  const proportionalBallot: Ballot = {};
+  const approvalBallot: Ballot = {};
+  const approvalProportionalBallot: Ballot = {};
+
   // organize the candidates by their scores
   const byScore = Object.keys(ballot).reduce((acc, candidate) => {
     const score = ballot[candidate];
+    total += score;
+    if (score > 0.5) totalApproved += score;
+    approvalBallot[candidate] = Math.max(0, (score * 2) - 1)
 
     if (acc[score]) acc[score].push(candidate);
     else acc[score] = [candidate];
 
     return acc;
   }, {} as { [key: number]: string[] });
+
+  // get proportional version of ballot
+  Object.entries(ballot).forEach(([c, v]) => {
+    proportionalBallot[c] = v / total;
+    approvalProportionalBallot[c] = totalApproved ? approvalBallot[c] / totalApproved : 0;
+  });
 
   // get list of all scores and sort it
   const scores = Object.keys(byScore).map(s => Number(s)).sort((a, b) => b - a);
@@ -107,24 +123,55 @@ const parseScoredBallot = (
     ballots = newBallots;
   };
 
-  return [ballots, highestScore, lowestScore];
+  return [
+    ballots, highestScore, lowestScore, 
+    proportionalBallot, approvalBallot, approvalProportionalBallot,
+  ];
 };
 
 /**
  * Convert detailed results to simple ones
- * 
  */
 const convertDetailedToSimple = (
   detailed: ResultDetailed
-): ResultSimple => Object.entries(detailed).reduce((acc, [k, v]) => ({ 
+): ResultSimple => Object.entries(detailed).reduce(
+  (acc, [k, v]) => ({ 
     ...acc, [k]: v.score 
   }), {}
 );
+
+/**
+ * Convert a simple result to a detailed one
+ */
+const convertSimpleToDetailed = (
+  simple: ResultSimple
+): ResultDetailed => Object.entries(simple).reduce(
+  (acc, [k, v]) => ({
+    ...acc, [k]: { score: v }
+  }), {}
+);
+
+/**
+ * Get the top scoring candidates from a simple result
+ */
+const getWinnersSimple = (result: ResultSimple): string[] => {
+  const maxScore = Math.max(...Object.values(result));
+  return Object.keys(result).filter(k => result[k] === maxScore);
+};
+
+/**
+ * Get the top scoring candidates from a detailed result
+ */
+const getWinnersDetailed = (result: ResultDetailed): string[] => {
+  const maxScore = Math.max(...Object.values(result).map(v => v.score));
+  return Object.keys(result).filter(k => result[k].score === maxScore);
+};
 
 export {
   serializeScoredBallot, deserializeScoredBallot,
   serializeList, deserializeList,
   getPermutations,
   parseScoredBallot,
-  convertDetailedToSimple,
+  convertDetailedToSimple, convertSimpleToDetailed,
+  getWinnersSimple, getWinnersDetailed
 };

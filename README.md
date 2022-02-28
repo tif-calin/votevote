@@ -1,4 +1,4 @@
-# votevote
+# VoteVote
 Deployed at https://votevote.page/
 
 VoteVote takes a scored ballot and calculates what its equivalent ballot would look like for a large number of voting systems. Through this we can simulate the same election in FPTP, Instant Runoff, Approval, Borda, Condorcet, and many many more. The [original prototype](https://dontplaywithculi.netlify.app/votevote) of this implemented 26 different methods and this rebirth of it aims to surpass that. 
@@ -7,54 +7,56 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 ## list of voting methods
 
-plurality: fptp, veto, signed
-contingent: cont, supp, sl_cont
-instant runoff: irv, coombs, fabirv
-condorcet: copeland, kemenyyoung
-positional: borda
-approval: approval, combinedApproval, vfa
-bucklin: fallback, bucklin, vfar
-hybrid: star, threeTwoOne
-weighted: cumulative, quadratic
-other: majorityJudgement
+(25 implemented as of v0.1.2)
+plurality: fptp, veto, signed, vfa
+contingent: contingency, supplementary, sri_lanka
+runoff: irv, coombs, fab_irv
+positional: borda, nauru, eurovision, dabagh, binary_positional
+evaluative: approval, disapproval, cav, score, range
+condorcet: copeland, lull
+budgetary: cumulative, fractional, quadratic
 
- - [x] firstPastThePost
- - [x] contingent
- - [x] supplementary
- - [x] sriLankanContingent 
- - [x] irv (aka rankedChoice, alternativeVote, hare)
- - [x] irvCoombs (aka coombs)
- - [x] fabIRV (aka front and back irv)
- - [x] copeland
- - [x] lullCopeland
- - [x] kemenyYoung (aka medianRelation)
- - [x] vfa (aka voteForAndAgainst, venzkeDisqualification)
- - [x] vfaRunoff (aka vfar)
+median: typical_judgement, usual_judgement, central_judgement (evaluative aka average, so median is natural successor)
+condorcet: kemeny_young
+bucklin: fallback, bucklin, vfa_runoff
+hybrid: star, three_two_one
+other: majority_judgement
+
+other
+ - [ ] tournament_borda (allows for ties and unranked candidates)
  - [ ] minimax
  - [ ] nanson
  - [ ] baldwin
  - [ ] dodgeson
- - [ ] rankedPairs
- - [ ] beatPathWinner
+ - [ ] ranked_pairs
+ - [ ] beat_path_winner
  - [ ] tidemansAlternativeSmith
  - [ ] tidemansAlternativeSchwartz
  - [ ] river
- - [ ] black
- - [ ] irvBTR (bottomTwoRunoffIRV)
- - [x] borda
- - [x] bucklin (aka grandJunction)
- - [x] fallback (aka bucklin, expandingApproval)
- - [x] historicalBucklin
- - [x] cumulative (aka range, score)
- - [x] majorityJudgement
- - [x] approval
- - [x] combinedApproval
- - [x] star
- - [x] quadratic
- - [x] threeTwoOne
+ - [ ] irv_btr (bottomTwoRunoffIRV)
+ - [ ] fallback (aka bucklin, expandingApproval)
+ - [ ] historical_bucklin
+ - [ ] cumulative
+ - [ ] sir (https://electowiki.org/wiki/Support/Include/Reject_voting) 
+ - [ ] black, dasgupta_maskin https://en.wikipedia.org/wiki/Copeland%27s_method
 
 ### Not supported
  - **non-deterministic methods**: At the moment we only support deterministic methods.
  - **multi-winner methods**: This wasn't the original intention of the site, but who knows.
  - **two/multi round methods**: We support contingent votes as well as some variations of it like runoff or sriLankanContingent. Two-round runoff is generally considered to be the mathematical equivalent of a two-round runoff by assuming voters don't change their minds from one the first round to the second. However, in the real world, voters often change their minds. We can possibly support a twoRoundRunoff if we come up with a method of changing views that's fair and mathematically sound. It might be non-deterministic, like adding some noise to the voter's preference of each candidate.
  - **methods that involve candidate behavior**: Methods like xxx involve the candidates themselves negotiating or voting. We don't have a good way of modeling candidate behavior.
+
+### Lists of voting methods I wanna reach feature parity with:
+ - [ ] [nicky case's to build a better ballot](https://ncase.me/ballot/) - 5/6 (no condorcet)
+ - [ ] [the original prototype](https://dontplaywithculi.netlify.app/votevote/): 26-28 methods
+ - [ ] [condorcet.org's list](https://web.archive.org/web/20050706055744/http://condorcet.org/emr/methods.shtml): ~21 methods
+ - [ ] [aceproject](https://aceproject.org/main/english/es/esd01.htm)
+ - [ ] [wikipedia](https://en.wikipedia.org/wiki/Comparison_of_electoral_systems): ~15
+ - [ ] [howtofixtheelection.com](https://www.howtofixtheelection.com/ballot/): 14
+ - [ ] [electionscience.org](https://electionscience.org/voting-methods/an-assessment-of-six-single-winner-voting-methods/)
+ - [ ] [electowiki category:single-winner](https://electowiki.org/wiki/Category:Single-winner_voting_methods)
+ - [ ] [accurateddemocracy](https://www.accuratedemocracy.com/c_other.htm) 
+
+## Tech
+### Shoutouts
+ - [lea verou's guide to scroll shadows](https://lea.verou.me/2012/04/background-attachment-local/)

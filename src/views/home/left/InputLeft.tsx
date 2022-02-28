@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import xkcd from '../../data/xkcd';
-import { VoterBallots } from '../../hooks/useElection';
-import useRoster, { useWeightedRoster } from '../../hooks/useRoster';
+import xkcd from '../../../data/xkcd';
+import { VoterBallots } from '../../../hooks/useElection';
+import useRoster, { useWeightedRoster } from '../../../hooks/useRoster';
 import RosterControls from './RosterControls';
 
 const Container = styled.form`
@@ -20,6 +20,11 @@ const Container = styled.form`
   & > span.warning {
     line-height: 1.25;
     font-size: 0.8rem;
+  }
+
+  @media (min-width: 693px) {
+    position: sticky; 
+    top: var(--padding);
   }
 `;
 
@@ -69,11 +74,37 @@ const VoterDisplay = styled.ul`
   list-style: none;
   gap: 0.25rem;
 
+  max-height: calc(100px + 50vh);
+  overflow-y: auto;
+  @supports (scrollbar-width: none) {
+    scrollbar-width: none;
+  }
+  @supports selector(::-webkit-scrollbar) {
+    overflow-y: overlay;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  background:
+    linear-gradient(var(--color-white) 30%, transparent),
+    linear-gradient(transparent, var(--color-white) 70%) 0 100%,
+    radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), transparent),
+    radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), transparent) 0 100%
+  ;
+  background-repeat: no-repeat;
+	background-size: 100% 3rem, 100% 3rem, 200% 1rem, 200% 1rem;
+  background-attachment: local, local, scroll, scroll;
+
   & > li {
     width: 100%;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    & > span[title] {
+      cursor: help;
+    }
 
     & > *:last-child {
       margin-left: auto;
@@ -102,8 +133,16 @@ const initialCandidates = [
   'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
   // 'amethyst', 'azure', 'beige', 'blush', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
 ];
-const top16 = Object.keys(xkcd).slice(-16).reduce((a, c) => ({ ...a, [c]: c.length }), {});
+const initialVoters = Object.keys(xkcd).slice(-24).reduce((a, c) => ({ ...a, [c]: c.length }), {});
 const colorList = Object.keys(xkcd).sort();
+
+const formatVoterPreferences = (ballot?: { [key: string]: number }) => {
+  if (ballot) {
+    return Object.entries(ballot).sort((a, b) => b[1] - a[1]).map(([c, s]) => {
+      return `${(Number(s) * 100).toFixed(1)}% - ${c}`;
+    }).join('\n');
+  } else return '';
+};
 
 const InputLeft: React.FC<Props> = ({ 
   elect, auto = true, ballots = {}
@@ -118,10 +157,14 @@ const InputLeft: React.FC<Props> = ({
     setSelected: setSelectedCandidate,
   } = useRoster(initialCandidates, 'acid green');
 
+  const candidateOptions = React.useMemo(() => {
+    return colorList.filter(c => !candidates.includes(c));
+  }, [candidates]);
+
   const handleAddCandidate = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
     addCandidate();
-    setSelectedCandidate(colorList.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
-  }, [addCandidate, selectedCandidate, setSelectedCandidate]);
+    setSelectedCandidate(candidateOptions.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
+  }, [addCandidate, candidateOptions, selectedCandidate, setSelectedCandidate]);
 
   const handleResetCandidates = React.useCallback(() => {
     resetCandidates(initialCandidates);
@@ -138,15 +181,19 @@ const InputLeft: React.FC<Props> = ({
     setSelected: setSelectedVoter,
     selectedN: selectedVoterN,
     setSelectedN: setSelectedVoterN,
-  } = useWeightedRoster(top16, 'acid green');
+  } = useWeightedRoster(initialVoters, 'acid green');
+  
+  const voterOptions = React.useMemo(() => {
+    return colorList.filter(v => !Object.keys(voters).includes(v));
+  }, [voters]);
 
   const handleAddVoter = React.useCallback(() => {
     addVoter();
-    setSelectedVoter(colorList.find((_, i, arr) => arr[i - 1] === selectedVoter) || '');  
-  }, [addVoter, selectedVoter, setSelectedVoter]);
+    setSelectedVoter(voterOptions.find((_, i, arr) => arr[i - 1] === selectedVoter) || '');  
+  }, [addVoter, selectedVoter, setSelectedVoter, voterOptions]);
 
   const handleResetVoters = React.useCallback(() => {
-    resetVoters(top16);
+    resetVoters(initialVoters);
   }, [resetVoters]);
 
   React.useEffect(() => {
@@ -162,7 +209,7 @@ const InputLeft: React.FC<Props> = ({
         That's a lot of candidates! To update the charts, please use the button at the bottom.
       </span>}
       <RosterControls
-        options={colorList.filter(c => !candidates.includes(c))}
+        options={candidateOptions}
         name="candidates"
         add={handleAddCandidate}
         reset={handleResetCandidates}
@@ -187,7 +234,7 @@ const InputLeft: React.FC<Props> = ({
       </RosterControls>
 
       <RosterControls
-        options={colorList.filter(v => !Object.keys(voters).includes(v))}
+        options={voterOptions}
         name="voters"
         add={handleAddVoter}
         reset={handleResetVoters}
@@ -199,7 +246,7 @@ const InputLeft: React.FC<Props> = ({
         count={Object.values(voters)?.reduce((a, v) => a+v, 0)}
       >
         <VoterDisplay>
-          {Object.keys(voters).map((voter) => {
+          {Object.keys(voters).reverse().map((voter) => {
             return (
               <li key={voter}>
                 <ColorBox 
@@ -207,7 +254,7 @@ const InputLeft: React.FC<Props> = ({
                   onClick={() => removeVoter(voter)}
                 ><span>x</span></ColorBox>
                 <span 
-                  title={JSON.stringify(ballots?.[voter]?.ballot || '', null, 2)}
+                  title={formatVoterPreferences(ballots?.[voter]?.ballot)}
                 >{voter}</span>
                 {/* <span>{voters[voter]}</span> */}
                 <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />

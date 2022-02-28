@@ -16,7 +16,8 @@ const useRoster = (arr: string[] = [], initiallySelected = '') => {
 
   const remove = React.useCallback((item: string) => {
     setRoster(roster => roster.filter(i => i !== item));
-  }, [setRoster]);
+    setSelected(item);
+  }, [setRoster, setSelected]);
 
   const reset = React.useCallback((arr) => setRoster(arr), [setRoster]);
 
@@ -36,11 +37,13 @@ const useWeightedRoster = (initialRoster = {}, initialSelected = '') => {
   }, [selected, selectedN, setRoster]);
 
   const remove = React.useCallback((item: string) => {
+    setSelectedN(roster[item]);
     setRoster(current => {
       const { [item]: _, ...rest } = current;
       return rest;
     });
-  }, [setRoster]);
+    setSelected(item);
+  }, [setRoster, setSelected, setSelectedN, roster]);
 
   const setN = React.useCallback((item: string, n: number) => {
     setRoster(current => ({ ...current, [item]: n }));

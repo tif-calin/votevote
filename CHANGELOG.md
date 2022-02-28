@@ -1,10 +1,42 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
+## [0.1.2.0] - 2022-02-19
+### Added
+ - 15 new voting methods:
+    - positional: borda, nauru, eurovision, dabagh, binary_positional
+    - evaluative: approval, disapproval, cav, score, range
+    - condorcet: copeland, lull
+    - cumulative: cumulative, fractional, quadratic
+ - styling: amazing scroll shadows
+ - bars will show scores on hover
+
+### Improved
+ - method options won't take up more than 50% of the block width and now scrolls for more options
+ - input menu now stickies to screen on desktop view
+ - voter display improvements
+    - hovering over a voter to see their preference ratings is much more readable now
+    - voter display now becomes scrollable if there's too many voters
+ - navigating between routes scrolls to top
+
+### Changed
+ - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sri_lanka`
+ - title capitalization changed from "votevote" to "VoteVote" :')
+ - add new voters to the top of the voter display
+ - longer default voter preset to show off scrollable voter display
+ - increased left padding on bar charts
+ - removing voter or candidate sets selection to removed option
+
+### Fixed
+ - random selection might choose a candidate/voter that's already in the roster
+ - x-offset for bar text no longer wacky for smol screens
+
 ## [0.1.1.1] - 2022-02-18
 ### Fixed
  - firefox charts don't take up full height of container
  - firefox number input styling fix
+
+**Archive**: https://web.archive.org/web/20220216065954/https://votevote.page/
 
 ## [0.1.1.0] - 2022-02-18
 ### Added

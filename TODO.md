@@ -1,4 +1,28 @@
 # TODO
+## 2022-02-27
+### priority for v0.1.3
+ - [ ] add hybrid methods: star and 3-2-1
+ - [ ] seo best practices: h-tags 
+ - [ ] more info on charts: threshold lines, marks, etc
+ - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
+ - [ ] optimize existing methods to use cacheing
+ - [ ] an about page
+ - [ ] add a site map
+
+## 2022-02-19
+### priority for v0.1.2
+ - [x] deal with large number of voters problem
+ - [x] add some fun methods
+    - [x] positional: borda, nauru, euorvision, dabagh
+    - [x] approval, 
+    - [x] quadratic, 
+    - [x] cumulative,
+    - [x] copeland
+ - [x] bar scores
+ - [x] fix random voter bug
+ - [x] removing a voter or candidate should automatically select them
+ - [x] fix `copeland` and `lull` score is wrong because it compares candidates against themselves lol
+
 ## 2022-02-16
 ### priority for v0.1.1
  - [x] add contingency block
@@ -19,6 +43,8 @@
  - [x] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
 
 ### other
+ - [ ] come up with a nice visualization for pairwise matrices
+ - [ ] change the pairwise matrix in ElectionCache so it uses ballotsScored
  - [ ] redo the whole bar chart system:
     - [ ] create a Bar class
     - [ ] create a common BarChart component that can be used for all charts
@@ -31,7 +57,7 @@
  - [x] SuperElection2
     - [x] use the Cache class 
     - [x] rewrite all the methods to utilize the new Cache object
-    - [ ] store winners for each Cache object
+    - [x] store winners for each Cache object
     - [ ] do we really have to regenerate the whole object everytime a candidate is removed? 
     - [x] make the election method results return more info (e.g. `signed` should show the number for/against)
  - clean up code
@@ -40,23 +66,29 @@
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
  - [ ] more docs/info
     - [ ] add references for each method
-    - [ ] alternative names
+    - [x] alternative names
     - [ ] mathematical properties
-    - [ ] electowiki / wikipedia link if existing 
+    - [x] electowiki / wikipedia link if existing 
  - [ ] fancy star pattern for the winner 
  - [x] a way for user to see voter preference ratings 
- - [ ] show numbers on bars... somehow (on hover?)
+ - [x] show numbers on bars... somehow (on hover?)
  - [ ] figure out a nice solution for a shitton of candidates 
  - [ ] make a particular election shareable by url
  - [ ] show a threshold line for relevant methods (passed in from parent blocks)
- - [ ] give a max size to the voter list and make overflow scrollable 
+ - [x] give a max size to the voter list and make overflow scrollable 
  - [ ] SEO and frontendchecklist stuffs
  - [ ] support for alternative datasets
     - [ ] each dataset has its own data structure and distance calculating method
     - [ ] custom datasets with manually entered preferences
- - accessibility overhaul
- - build as a static site
- - make the method options scrollable with a max-width (50%?) to support longer method names
+ - [ ] accessibility overhaul
+ - [ ] build as a static site
+ - [x] make the method options scrollable with a max-width (50%?) to support longer method names
+ - [x] improve the title text showing voter preferences
+ - [ ] removing a candidate/voter should set selected to the removed candidate/voter
+ - [ ] change the app icon for mobile to not have transparent background
+ - [ ] create an About page with an FAQ
+ - [ ] add a sitemap
+ - [ ] secret menu for debugging and things I like to do like randomly select n+1 voters m times
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -71,9 +103,12 @@
     - [ ] mobile: consistency in unicode/emoji formatting
     - [ ] safari-iphone: why is the select text blue on my iphone?
     - [ ] lambdatest: flexbox seems to be broken
-    - [ ] firefox: cahrt sizing is off
+    - [x] firefox: cahrt sizing is off
  - [x] contingency methods still have 2 rounds even if there's a majority winner
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
+ - [x] random candidate/voter button might choose one that's not in the list of options 
+ - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
+ - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods

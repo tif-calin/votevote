@@ -6,6 +6,7 @@ interface Props {
   name: string;
   x: number;
   y: number;
+  score?: number;
   width: number;
   floor: number;
   isWinner?: boolean;
@@ -13,7 +14,7 @@ interface Props {
 };
 
 const BarPositive: React.FC<Props> = ({ 
-  name, x, y, width, floor, isWinner, isNegative, ...style 
+  name, x, y, score, width, floor, isWinner, isNegative, ...style 
 }) => {
   const notZero = Boolean(floor - y);
 
@@ -23,11 +24,21 @@ const BarPositive: React.FC<Props> = ({
     floor = temp;
   }
 
+  const xOffset = Math.min(16, width / 3);
+
   return (
     <Bar 
       isWinner={isWinner}
       transform={`translate(${x}, 0)`}
     >
+      {score && (
+        <text
+          className='bar-score'
+          x={isNegative ? width : 0} y={isNegative ? floor + 10 : y - 8}
+          textAnchor={isNegative ? 'end' : 'start'}
+          alignmentBaseline="middle"
+        >{score}</text>
+      )}
       <rect
         y={y}
         width={width} height={floor - y}
@@ -38,8 +49,8 @@ const BarPositive: React.FC<Props> = ({
         transform={`
           translate(
             ${isNegative 
-                ? notZero ? 16 : width * 0.25
-                : notZero ? width - 16 : width * 0.75
+                ? notZero ? xOffset : width * 0.25
+                : notZero ? width - xOffset : width * 0.75
               }, 
             ${isNegative ? y + 4 : floor - 4}
           ) 

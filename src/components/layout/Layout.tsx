@@ -11,7 +11,7 @@ const StyledLayout = styled.div`
 
   min-height: 100vh;
   width: 100vw;
-  overflow-y: overlay;
+  // overflow-y: overlay;
 
   & > :where(header, main, footer) {
     width: 100%;

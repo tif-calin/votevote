@@ -24,7 +24,7 @@ const Header: React.FC<Props> = () => {
     <StyledHeader>
       <Link to="/">
         <h1>
-          <RainbowText text="votevote" />
+          <RainbowText text="VoteVote" />
         </h1>
       </Link>
     </StyledHeader>

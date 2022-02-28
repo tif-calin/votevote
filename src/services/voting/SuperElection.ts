@@ -1,5 +1,5 @@
 import ElectionCache from './ElectionCache';
-import { parseScoredBallot, serializeList, serializeScoredBallot } from './helpers';
+import { convertSimpleToDetailed, getWinnersDetailed, getWinnersSimple, parseScoredBallot, serializeList, serializeScoredBallot } from './helpers';
 
 type ResultSimple = {
   [candidate: string]: number;
@@ -12,6 +12,12 @@ type ResultDetailed = {
   };
 };
 
+type ResultFull = {
+  winners: string[];
+  result: ResultDetailed[];
+  thresholds?: number[];
+};
+
 class SuperElection {
   _cache: { [key: string]: ElectionCache} = {};
   candidates: string[];
@@ -20,6 +26,9 @@ class SuperElection {
     [key: ReturnType<typeof serializeScoredBallot>]: {
       weight: number;
       ballot: { [key: string]: number };
+      proportional: { [key: string]: number };
+      approval: { [key: string]: number };
+      approvalProportional: { [key: string]: number };
       rankings: string[][];
       highestScore: number;
       lowestScore: number;
@@ -64,11 +73,17 @@ class SuperElection {
       } else {
         // parse the scoredBallot for its ranked equivalents 
         // as well as highest/lowest scores
-        const [rankings, highestScore, lowestScore] = parseScoredBallot(roundedBallot);
+        const [
+          rankings, highestScore, lowestScore, 
+          proportional, approval, approvalProportional
+        ] = parseScoredBallot(roundedBallot);
 
         this.ballotsScored[serialized] = {
           weight: weights[i],
           ballot: roundedBallot,
+          proportional,
+          approval,
+          approvalProportional,
           rankings,
           highestScore,
           lowestScore,
@@ -107,6 +122,46 @@ class SuperElection {
       this._cache[serialized] = new ElectionCache(this, list);
     }
     return this._cache[serialized];
+  };
+
+  useMethod(
+    method: keyof typeof SuperElection.prototype,
+    candidates = this.candidates
+  ): ResultFull | null {
+    if (this[method] instanceof Function) {
+      const cache = this.getCache(candidates);
+      if (cache.results[method]) return cache.results[method];
+
+      const result = (this[method] as Function)();
+
+      if (result?.winners) {
+        // if ResultFull 
+        cache.results[method] = result as ResultFull;
+      } else {
+        const final = Array.isArray(result) ? result[result.length - 1] : result;
+
+        if (typeof Object.values(final)[0] === 'number') {
+          // if ResultSimple | ResultSimple[]
+          cache.results[method] = {
+            winners: getWinnersSimple(final),
+            result: Array.isArray(result)
+              ? result.map(round => convertSimpleToDetailed(round))
+              : [convertSimpleToDetailed(result)]
+            ,
+          };
+        } else {
+          // if ResultDetailed | ResultDetailed[]
+          cache.results[method] = {
+            winners: getWinnersDetailed(final),
+            result: Array.isArray(result) ? result : [result],
+          };
+        }
+      }
+
+      return cache.results[method];
+    }
+
+    return null;
   };
 
   // First Past the Post
@@ -187,6 +242,9 @@ class SuperElection {
 
   // Instant Runoff Voting
   irv(candidates = this.candidates): ResultSimple[] {
+    // const cache = this.getCache(candidates);
+    // if (cache.results.irv) return cache.results.irv;
+    
     const rounds: ResultSimple[] = [];
     const majority = this.totalVoters / 2;
 
@@ -288,7 +346,7 @@ class SuperElection {
   };
 
   // Contingency
-  cont(candidates = this.candidates): ResultSimple[] {
+  contingency(candidates = this.candidates): ResultSimple[] {
     const majority = this.totalVoters / 2;
 
     const round1Cache = this.getCache(candidates);
@@ -309,7 +367,7 @@ class SuperElection {
   };
 
   // Supplementary
-  supp(candidates = this.candidates, n = 2): ResultSimple[] {
+  supplementary(candidates = this.candidates, n = 2): ResultSimple[] {
     const majority = this.totalVoters / 2;
 
     const cache = this.getCache(candidates);
@@ -336,10 +394,251 @@ class SuperElection {
   };
 
   // Sri Lankan Contingency
-  sl_cont(candidates = this.candidates): ResultSimple[] {
-    return this.supp(candidates, 3);
+  sri_lanka(candidates = this.candidates): ResultSimple[] {
+    return this.supplementary(candidates, 3);
+  };
+
+  // Borda Count
+  borda(candidates = this.candidates): ResultSimple {
+    const bordaResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        for (let i = 0; i < ballot.length - 1; i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + (candidates.length - i - 1) * weight;
+        }
+        
+        return a;
+    }, {} as ResultSimple);
+
+    return bordaResults;
+  };
+
+  // Nauru
+  nauru(): ResultSimple {
+    const nauruResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        for (let i = 0; i < ballot.length - 1; i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + (1 / (i + 1)) * weight;
+        }
+        
+        return a;
+    }, {} as ResultSimple);
+
+    return nauruResults;
+  };
+
+  // Eurovision
+  eurovision(): ResultSimple {
+    const eurovisionResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        a[ballot[0]] = ~~a[ballot[0]] + (12 * weight);
+        a[ballot[1]] = ~~a[ballot[1]] + (10 * weight);
+        if (ballot[2]) a[ballot[2]] = ~~a[ballot[2]] + (8 * weight);
+
+        if (ballot[2]) for (let i = 2; i < Math.min(ballot.length, 10); i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + ((10 - i) * weight);
+        }
+
+        return a;
+      }, {} as ResultSimple)
+    ;
+
+    return eurovisionResults;
+  };
+
+  // Dabagh's Vote and a Half
+  dabagh(): ResultSimple {
+    const dabaghResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        a[ballot[0]] = ~~a[ballot[0]] + weight;
+        a[ballot[1]] = ~~a[ballot[1]] + weight / 2;
+        return a;
+      }, {} as ResultSimple)
+    ;
+
+    return dabaghResults;
+  };
+
+  // Binary Positional
+  binary_positional(): ResultSimple {
+    const binaryPositionalResults = Object.values(this.ballotsRanked)
+      .reduce((a, { ballot, weight }) => {
+        for (let i = 0; i < ballot.length; i++) {
+          a[ballot[i]] = ~~a[ballot[i]] + (1 / Math.pow(2, i)) * weight;
+        }
+
+        return a;
+      }, {} as ResultSimple)
+
+    return binaryPositionalResults;
+  };
+
+  // Approval
+  approval(candidates = this.candidates): ResultSimple {    
+    const approvalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        if (ballot[candidate] > (2/3)) a[candidate] = ~~a[candidate] + weight;
+      }
+
+      return a;
+    }, {} as ResultSimple);
+
+    return approvalResults;
+  };
+
+  // Disapproval
+  disapproval(candidates = this.candidates): ResultSimple {
+    const disapprovalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        if (ballot[candidate] < (1/3)) a[candidate] = ~~a[candidate] - weight;
+      }
+
+      return a;
+    }, {} as ResultSimple);
+
+    return disapprovalResults;
+  };
+
+  // Combined Approval
+  cav(candidates = this.candidates): ResultDetailed {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: { score: 0, positive: 0, negative: 0 } }), {});
+    const combinedApprovalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        if (ballot[candidate] > (2/3)) {
+          a[candidate].score += weight;
+          a[candidate].positive += weight;
+        } else if (ballot[candidate] < (1/3)) {
+          a[candidate].score -= weight;
+          a[candidate].negative -= weight;
+        }
+      }
+
+      return a;
+    }, initialShape as ResultDetailed);
+
+    return combinedApprovalResults;
+  };
+
+  // Score
+  score(candidates = this.candidates, maxScore = 5): ResultSimple {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const scoreResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        const score = Math.round(ballot[candidate] * maxScore);
+        a[candidate] += score * weight;
+      }
+
+      return a;
+    }, initialShape as ResultSimple);
+
+    return scoreResults;
+  };
+
+  // Range
+  range(candidates = this.candidates): ResultSimple {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const rangeResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      for (let candidate of candidates) {
+        a[candidate] += ballot[candidate] * weight;
+      }
+
+      return a;
+    }, initialShape as ResultSimple);
+
+    return rangeResults;
+  };
+
+  // Copeland
+  copeland(
+    candidates = this.candidates,
+    wWeight = 1, tWeight = 0.5, lWeight = 0
+  ): ResultDetailed {
+    const cache = this.getCache(candidates);
+
+    const prefMatrix = cache.pairwisePreferenceMatrix;
+    
+    const copelandResults = candidates.reduce((a, c1) => {
+      a[c1] = { score: 0, wins: 0, ties: 0, losses: 0 };
+      const prefs = prefMatrix[c1];
+
+      Object.entries(prefs).forEach(([c2, c1Score]) => {
+        if (c1 !== c2) {
+          const c2Score = prefMatrix[c2][c1];
+  
+          if (c1Score > c2Score) {
+            a[c1].wins++;
+            a[c1].score += wWeight;
+          } else if (c1Score < c2Score) {
+            a[c1].losses++;
+            a[c1].score -= lWeight;
+          } else {
+            a[c1].ties++;
+            a[c1].score += tWeight;
+          }
+        }
+      });
+
+      return a;
+    }, {} as ResultDetailed);
+
+    return copelandResults;
+  };
+
+  // Lull
+  lull(candidates = this.candidates): ResultDetailed {
+    return this.copeland(candidates, 1, 1, 0);
+  };
+
+  // Cumulative
+  cumulative(points = 10): ResultSimple {
+    // Assumption: custom quota method is used
+    const cumulativeResult = Object.values(this.ballotsScored).reduce((a, { approvalProportional: ballot, weight, rankings }) => {
+      const rankingWeight = weight / rankings.length;
+
+      for (let ranking of rankings) {
+        let allotment = points;
+        for (let candidate of ranking) {
+          const toGive = Math.min(allotment, Math.ceil(ballot[candidate] * points));
+          a[candidate] = ~~a[candidate] + (toGive * rankingWeight);
+
+          allotment -= toGive;
+          if (!allotment) break;
+        }
+      }
+
+      return a;
+    }, {} as ResultSimple);
+
+    return cumulativeResult;
+  };
+
+  // Equal&Even
+  equal_even() {};
+
+  // Fractional
+  fractional(candidates = this.candidates): ResultSimple {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const fractionalResult = Object.values(this.ballotsScored).reduce((a, { approvalProportional: ballot, weight }) => {
+      for (const candidate of candidates) {
+        a[candidate] += (ballot[candidate] || 0) * weight;
+      }
+
+      return a;
+    }, initialShape as ResultSimple);
+
+    return fractionalResult;
+  };
+
+  // Quadratic
+  quadratic(candidates = this.candidates): ResultSimple {
+    const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
+    const quadraticResult = Object.values(this.ballotsScored).reduce((a, { approvalProportional: ballot, weight }) => {
+      for (const c of candidates) a[c] += Math.sqrt(ballot[c]) * weight;
+      return a;
+    }, initialShape as ResultSimple);
+
+    return quadraticResult;
   };
 };
 
 export default SuperElection;
-export type { ResultSimple, ResultDetailed };
+export type { ResultSimple, ResultDetailed, ResultFull };

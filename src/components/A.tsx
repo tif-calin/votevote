@@ -4,7 +4,7 @@ const A = styled(({ children, ...props }: any) => <a target="_blank" rel="noopen
   transition: color 0.1s;
   color: var(--blue);
 
-  &:hover { color: unset }
+  &:hover { color: unset; }
 `;
 
 export default A;

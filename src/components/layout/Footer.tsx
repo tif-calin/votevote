@@ -54,7 +54,7 @@ const Footer: React.FC<Props> = () => {
           className="copyleft"
           href="https://github.com/tif-calin/votevote/"
         >steal this</A>
-        <Link to="/changelog" className="version">v0.1.1.1</Link>
+        <Link to="/changelog" className="version">{process.env.REACT_APP_VERSION || 'v0.1.2.0'}</Link>
       </div>
     </StyledFooter>
   );

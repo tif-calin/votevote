@@ -1,8 +1,11 @@
-import SuperElection from './SuperElection';
+import SuperElection, { ResultFull } from './SuperElection';
 
 class ElectionCache {
   election: SuperElection;
   candidates: string[];
+  results: {
+    [method: string]: ResultFull;
+  } = {};
 
   _firstVotes?: { [key: string]: number };
   _firstVotesScores?: number[];
@@ -12,6 +15,10 @@ class ElectionCache {
   _firstVotesWinners?: string[];
   _firstVotesLowest?: number;
   _firstVotesLosers?: string[];
+
+  _pairwisePreferenceMatrix?: { 
+    [key: string]: { [key: string]: number; } 
+  };
 
   _lastVotes?: { [key: string]: number };
   _lastVotesHighest?: number;
@@ -30,6 +37,7 @@ class ElectionCache {
     this.candidates = [...candidates];
   };
 
+  /* firstVotes */
   get firstVotes(): { [key: string]: number } {
     if (this._firstVotes) return this._firstVotes;
 
@@ -144,6 +152,35 @@ class ElectionCache {
     return firstVotesLosers;
   };
 
+  get pairwisePreferenceMatrix(): { [key: string]: { [key: string]: number; } } {
+    // NOTE: this uses ballotsRanked instead of ballotsScored so there are no ties
+    // someone should prolly do something about that... 
+    if (this._pairwisePreferenceMatrix) return this._pairwisePreferenceMatrix;
+
+    const matrix = this.candidates.reduce((a, c1) => {
+      a[c1] = {};
+      this.candidates.forEach(c2 => {
+        a[c1][c2] = 0;
+      });
+      return a;
+    }, {} as { [key: string]: { [key: string]: number; } });
+
+    Object.values(this.election.ballotsRanked).forEach(({ ballot, weight }) => {
+      for (let i = 0; i < ballot.length - 1; i++) {
+        const c1 = ballot[i];
+
+        for (let j = i + 1; j < ballot.length; j++) {
+          const c2 = ballot[j];
+          matrix[c1][c2] += weight;
+        }
+      }
+    });
+
+    this._pairwisePreferenceMatrix = matrix;
+    return matrix;
+  };
+
+  /* lastVotes */
   get lastVotes(): { [key: string]: number } {
     if (this._lastVotes) return this._lastVotes;
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { convertDetailedToSimple } from '../services/voting/helpers';
-import SuperElection from '../services/voting/SuperElection';
+import SuperElection, { ResultFull } from '../services/voting/SuperElection';
+import info from '../services/voting/info';
 
 type VoterBallots = {
   [voter: string]: {
@@ -35,25 +36,34 @@ const useElection = () => {
   const electionOutcomes = React.useMemo(() => {
     if (election) {
       return {
-        fptp: election.fptp(),
-        veto: election.veto(),
-        signed: convertDetailedToSimple(election.signed()),
-        vfa: convertDetailedToSimple(election.vfa()),
         irv: election.irv(),
         coombs: election.coombs().map(convertDetailedToSimple),
         fab_irv: election.fab_irv().map(convertDetailedToSimple),
-        cont: election.cont(),
-        supp: election.supp(),
-        sl_cont: election.sl_cont(),
+        contingency: election.contingency(),
+        supplementary: election.supplementary(),
+        sri_lanka: election.sri_lanka(),
       }
     } else return {};
+  }, [election]);
+
+  const electionOutcomesFull = React.useMemo(() => {
+    if (election) {
+      const methods = Object.keys(info);
+  
+      return methods.reduce((acc, key) => {
+        const result = election.useMethod(key as keyof SuperElection);
+        if (result) acc[key] = result;
+  
+        return acc;
+      }, {} as { [key: string]: ResultFull });
+    }
   }, [election]);
 
   return {
     election,
     elect,
     ballots,
-    electionOutcomes
+    electionOutcomes, electionOutcomesFull
   };
 };
 

@@ -81,6 +81,49 @@ const ChangelogPage: React.FC<Props> = () => {
           For more up to date information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
         </p>
 
+        <h3>v0.1.2 <span>2022_02feb2?</span></h3>
+        <div className="release">
+          <h4>Added</h4>
+          <ul>
+            <li>15 new voting methods across 4 different blocks</li>
+            <ul>
+              <li>positional: borda, nauru, eurovision, dabagh, binary_positional</li>
+              <li>evaluative: approval, disapproval, cav, score, range</li>
+              <li>condorcet: copeland, lull</li>
+              <li>cumulative: cumulative, fractional, quadratic</li>
+            </ul>
+            <li>styling improvements: beautiful shadows on scrollable containers</li>
+            <li>bars will show scores if hovered over for 1 second</li>
+          </ul>
+          <h4>Improved</h4>
+          <ul>
+            <li>tooltips showing voter preferences now sorted and nicely formatted</li>
+            <li>block method switcher won't take more than 50% width and is now scrollable for more options</li>
+            <li>voter display becomes scrollable if too many voters</li>
+            <li>input menu always on screen for desktop views</li>
+            <li>navigating between pages scrolls to top of the page</li>
+          </ul>
+          <h4>Changed</h4>
+          <ul>
+            <li>renamed some methods</li>
+            <ul>
+              <li>`cont` is now `contingency`</li>
+              <li>`supp` is now `supplementary`</li>
+              <li>`sl_cont` is now `sri_lanka`</li>
+            </ul>
+            <li>title capitalization changed from "votevote" to "VoteVote" :')</li>
+            <li>new voters are added to top of voter display</li>
+            <li>default voter preset now includes more voters</li>
+            <li>increased left padding on bar charts</li>
+            <li>removing voter or candidate sets selection to removed option</li>
+          </ul>
+          <h4>Fixed</h4>
+          <ul>
+            <li>choosing a random voter/candidate won't select one already in the roster</li>
+            <li>bar label text no longer way off for small screens</li>
+          </ul>
+        </div>
+
         <h3>v0.1.1 <span>2022_02feb18</span></h3>
         <div className="release">
           <h4>Added</h4>
