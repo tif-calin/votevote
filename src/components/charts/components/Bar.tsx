@@ -31,14 +31,20 @@ const Container = styled.g`
     transition: opacity 0.2s ease-in-out;
   }
 
+  & > text.bar-score {
+    opacity: 0;
+    font-size: 0.75rem;
+    transition: opacity 0.1s;
+    transition-delay: 1s;
+
+    &:hover { opacity: 1; }
+  }
+
   & text.zero {
     opacity: 0.5;
-    // filter: blur(0.5px);
-    pointer-events: stroke;
     cursor: default;
 
     &:hover { 
-      // filter: blur(0.1px); 
       opacity: 1;
     }
   }
