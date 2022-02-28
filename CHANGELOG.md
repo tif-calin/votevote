@@ -9,6 +9,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
     - condorcet: copeland, lull
     - cumulative: cumulative, fractional, quadratic
  - styling: amazing scroll shadows
+ - bars will show scores on hover
 
 ### Improved
  - title text for ballot preferences now sorted and formatted better 
@@ -23,6 +24,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - title capitalization changed from "votevote" to "VoteVote" :')
  - add new voters to the top of the voter display
  - longer default voter preset to show off scrollable voter display
+ - increased left padding on bar charts
 
 ## [0.1.1.1] - 2022-02-18
 ### Fixed

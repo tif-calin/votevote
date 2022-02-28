@@ -20,7 +20,7 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
   padding: 1rem;
-  padding-left: 2rem;
+  padding-left: 3rem;
 
   & text {
     font-weight: 400;
