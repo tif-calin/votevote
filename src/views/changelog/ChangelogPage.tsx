@@ -81,7 +81,7 @@ const ChangelogPage: React.FC<Props> = () => {
           For more up to date information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
         </p>
 
-        <h3>v0.1.2 <span>2022_02feb2?</span></h3>
+        <h3>v0.1.2 <span>2022_02feb28</span></h3>
         <div className="release">
           <h4>Added</h4>
           <ul>
