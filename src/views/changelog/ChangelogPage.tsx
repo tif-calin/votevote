@@ -101,6 +101,7 @@ const ChangelogPage: React.FC<Props> = () => {
             <li>block method switcher won't take more than 50% width and is now scrollable for more options</li>
             <li>voter display becomes scrollable if too many voters</li>
             <li>input menu always on screen for desktop views</li>
+            <li>navigating between pages scrolls to top of the page</li>
           </ul>
           <h4>Changed</h4>
           <ul>

@@ -17,6 +17,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - voter display improvements
     - hovering over a voter to see their preference ratings is much more readable now
     - voter display now becomes scrollable if there's too many voters
+ - navigating between routes scrolls to top
 
 ### Changed
  - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sri_lanka`
