@@ -21,6 +21,11 @@ const Container = styled.form`
     line-height: 1.25;
     font-size: 0.8rem;
   }
+
+  @media (min-width: 693px) {
+    position: sticky; 
+    top: var(--padding);
+  }
 `;
 
 const ColorBox = styled.div`
