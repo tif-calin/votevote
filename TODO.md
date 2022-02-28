@@ -2,6 +2,8 @@
 ## 2022-02-27
 ### priority for v0.1.3
  - [ ] add hybrid methods: star and 3-2-1
+ - [ ] seo best practices: h-tags 
+ - [ ] more info on charts: threshold lines, marks, etc
 
 ## 2022-02-19
 ### priority for v0.1.2
@@ -14,7 +16,7 @@
     - [ ] star, 
     - [x] cumulative,
     - [x] copeland
- - [ ] threshold lines, marks
+ - [x] bar scores
 
 ## 2022-02-16
 ### priority for v0.1.1
