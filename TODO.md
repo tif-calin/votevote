@@ -4,6 +4,10 @@
  - [ ] add hybrid methods: star and 3-2-1
  - [ ] seo best practices: h-tags 
  - [ ] more info on charts: threshold lines, marks, etc
+ - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
+ - [ ] optimize existing methods to use cacheing
+ - [ ] an about page
+ - [ ] add a site map
 
 ## 2022-02-19
 ### priority for v0.1.2
@@ -11,12 +15,12 @@
  - [x] add some fun methods
     - [x] positional: borda, nauru, euorvision, dabagh
     - [x] approval, 
-    - [ ] threeTwoOne, 
     - [x] quadratic, 
-    - [ ] star, 
     - [x] cumulative,
     - [x] copeland
  - [x] bar scores
+ - [ ] fix random voter bug
+ - [ ] removing a voter or candidate should automatically select them
 
 ## 2022-02-16
 ### priority for v0.1.1
@@ -52,7 +56,7 @@
  - [x] SuperElection2
     - [x] use the Cache class 
     - [x] rewrite all the methods to utilize the new Cache object
-    - [ ] store winners for each Cache object
+    - [x] store winners for each Cache object
     - [ ] do we really have to regenerate the whole object everytime a candidate is removed? 
     - [x] make the election method results return more info (e.g. `signed` should show the number for/against)
  - clean up code
@@ -61,24 +65,24 @@
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
  - [ ] more docs/info
     - [ ] add references for each method
-    - [ ] alternative names
+    - [x] alternative names
     - [ ] mathematical properties
-    - [ ] electowiki / wikipedia link if existing 
+    - [x] electowiki / wikipedia link if existing 
  - [ ] fancy star pattern for the winner 
  - [x] a way for user to see voter preference ratings 
- - [ ] show numbers on bars... somehow (on hover?)
+ - [x] show numbers on bars... somehow (on hover?)
  - [ ] figure out a nice solution for a shitton of candidates 
  - [ ] make a particular election shareable by url
  - [ ] show a threshold line for relevant methods (passed in from parent blocks)
- - [ ] give a max size to the voter list and make overflow scrollable 
+ - [x] give a max size to the voter list and make overflow scrollable 
  - [ ] SEO and frontendchecklist stuffs
  - [ ] support for alternative datasets
     - [ ] each dataset has its own data structure and distance calculating method
     - [ ] custom datasets with manually entered preferences
- - accessibility overhaul
- - build as a static site
+ - [ ] accessibility overhaul
+ - [ ] build as a static site
  - [x] make the method options scrollable with a max-width (50%?) to support longer method names
- - improve the title text showing voter preferences
+ - [x] improve the title text showing voter preferences
  - [ ] removing a candidate/voter should set selected to the removed candidate/voter
  - [ ] change the app icon for mobile to not have transparent background
  - [ ] create an About page with an FAQ
