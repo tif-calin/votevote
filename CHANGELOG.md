@@ -3,11 +3,11 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.2.0] - 2022-02-19
 ### Added
- - 14 new voting methods:
+ - 15 new voting methods:
     - positional: borda, nauru, eurovision, dabagh, binary_positional
     - evaluative: approval, disapproval, cav, score, range
     - condorcet: copeland, lull
-    - cumulative: cumulative, fractional
+    - cumulative: cumulative, fractional, quadratic
  - styling: amazing scroll shadows
 
 ### Improved
@@ -22,7 +22,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - renamed some methods: `cont` is now `contingency`, `supp` is now `supplementary`, and `sl_cont` is now `sri_lanka`
  - title capitalization changed from "votevote" to "VoteVote" :')
  - add new voters to the top of the voter display
- - changed default voter preset to show off scrollable voter display
+ - longer default voter preset to show off scrollable voter display
 
 ## [0.1.1.1] - 2022-02-18
 ### Fixed

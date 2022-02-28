@@ -7,19 +7,19 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 ## list of voting methods
 
-(22 implemented as of v0.1.2)
+(25 implemented as of v0.1.2)
 plurality: fptp, veto, signed, vfa
 contingent: contingency, supplementary, sri_lanka
 runoff: irv, coombs, fab_irv
 positional: borda, nauru, eurovision, dabagh, binary_positional
 evaluative: approval, disapproval, cav, score, range
 condorcet: copeland, lull
+budgetary: cumulative, fractional, quadratic
 
 median: typical_judgement, usual_judgement, central_judgement (evaluative aka average, so median is natural successor)
 condorcet: kemeny_young
 bucklin: fallback, bucklin, vfa_runoff
 hybrid: star, three_two_one
-weighted: cumulative, quadratic
 other: majority_judgement
 
 other

@@ -50,8 +50,8 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
         results={dataFull}
       />
       <StaticBlock
-        title="Budget"
-        methods={['cumulative', 'fractional']}
+        title="Budgetary"
+        methods={['cumulative', 'fractional', 'quadratic']}
         results={dataFull}
       />
     </Container>

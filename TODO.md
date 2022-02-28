@@ -1,12 +1,16 @@
 # TODO
+## 2022-02-27
+### priority for v0.1.3
+ - [ ] add hybrid methods: star and 3-2-1
+
 ## 2022-02-19
 ### priority for v0.1.2
  - [x] deal with large number of voters problem
- - [ ] add some fun methods
+ - [x] add some fun methods
     - [x] positional: borda, nauru, euorvision, dabagh
     - [x] approval, 
     - [ ] threeTwoOne, 
-    - [ ] quadratic, 
+    - [x] quadratic, 
     - [ ] star, 
     - [x] cumulative,
     - [x] copeland

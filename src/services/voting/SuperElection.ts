@@ -628,7 +628,6 @@ class SuperElection {
 
   // Quadratic
   quadratic(candidates = this.candidates): ResultSimple {
-    // TODO make it more like cumulative instead of like fractional lol wut
     const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: 0 }), {});
     const quadraticResult = Object.values(this.ballotsScored).reduce((a, { approvalProportional: ballot, weight }) => {
       for (const c of candidates) a[c] += Math.sqrt(ballot[c]) * weight;
