@@ -561,17 +561,19 @@ class SuperElection {
       const prefs = prefMatrix[c1];
 
       Object.entries(prefs).forEach(([c2, c1Score]) => {
-        const c2Score = prefMatrix[c2][c1];
-
-        if (c1Score > c2Score) {
-          a[c1].wins++;
-          a[c1].score += wWeight;
-        } else if (c1Score < c2Score) {
-          a[c1].losses++;
-          a[c1].score -= lWeight;
-        } else {
-          a[c1].ties++;
-          a[c1].score += tWeight;
+        if (c1 !== c2) {
+          const c2Score = prefMatrix[c2][c1];
+  
+          if (c1Score > c2Score) {
+            a[c1].wins++;
+            a[c1].score += wWeight;
+          } else if (c1Score < c2Score) {
+            a[c1].losses++;
+            a[c1].score -= lWeight;
+          } else {
+            a[c1].ties++;
+            a[c1].score += tWeight;
+          }
         }
       });
 
