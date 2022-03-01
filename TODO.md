@@ -109,6 +109,7 @@
  - [x] random candidate/voter button might choose one that's not in the list of options 
  - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
  - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
+ - [ ] shadows are broke af on macbooks
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
