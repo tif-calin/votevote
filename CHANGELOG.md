@@ -3,7 +3,10 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.2.1] - 2022-03-01
 ### Fixed
- - [x] Safari transparency interpolation bug work around for scroll shadows
+ - Safari transparency interpolation bug work around for scroll shadows
+
+### Changed
+ - shorter input container for smaller screens
 
 ## [0.1.2.0] - 2022-02-29
 ### Added

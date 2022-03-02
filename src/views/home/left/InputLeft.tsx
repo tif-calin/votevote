@@ -74,7 +74,7 @@ const VoterDisplay = styled.ul`
   list-style: none;
   gap: 0.25rem;
 
-  max-height: calc(100px + 50vh);
+  max-height: calc(50px + 40vh);
   overflow-y: auto;
   @supports (scrollbar-width: none) {
     scrollbar-width: none;
