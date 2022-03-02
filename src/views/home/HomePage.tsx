@@ -13,7 +13,6 @@ const Page = styled.div`
   align-items: stretch;
 
   box-shadow: var(--shadow-inset-medium), inset 0 0 2px hsl(var(--shadow-color));
-  filter: lightness(0.5);
   backdrop-filter: invert(0.05);
 
   & *.island {
