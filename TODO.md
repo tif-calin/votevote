@@ -89,6 +89,7 @@
  - [ ] create an About page with an FAQ
  - [ ] add a sitemap
  - [ ] secret menu for debugging and things I like to do like randomly select n+1 voters m times
+ - [ ] on small screens, make block method switcher and block title on separate lines
 
 ### fix
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -101,17 +102,16 @@
  - [x] netlify breaks if trying to open Link in new tab
  - [ ] clean up styling on mobile devices and across browsers
     - [ ] mobile & safari: consistency in unicode/emoji formatting
-    - [ ] safari-iphone: why is the select text blue on my iphone?
+    - [x] safari-iphone: why is the select text blue on my iphone?
     - [ ] lambdatest: flexbox seems to be broken
     - [x] firefox: cahrt sizing is off
     - [x] safari-mac: scroll shadows are fuqqed
-    - [ ] safari-mac: rainbow text doesn't do fancy transition
+    - [x] safari-mac: rainbow text doesn't do fancy transition
  - [x] contingency methods still have 2 rounds even if there's a majority winner
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
  - [x] random candidate/voter button might choose one that's not in the list of options 
  - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
  - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
- - [ ] shadows are broke af on macbooks
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods

@@ -4,6 +4,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ## [0.1.2.1] - 2022-03-01
 ### Fixed
  - Safari transparency interpolation bug work around for scroll shadows
+ - rainbow title works on Safari
 
 ### Changed
  - shorter input container for smaller screens
