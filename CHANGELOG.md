@@ -1,7 +1,11 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
-## [0.1.2.0] - 2022-02-19
+## [0.1.2.1] - 2022-03-01
+### Fixed
+ - [x] Safari transparency interpolation bug work around for scroll shadows
+
+## [0.1.2.0] - 2022-02-29
 ### Added
  - 15 new voting methods:
     - positional: borda, nauru, eurovision, dabagh, binary_positional

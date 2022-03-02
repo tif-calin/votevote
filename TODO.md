@@ -100,10 +100,12 @@
  - [x] adding more voters to one already on the list doesn't upload the count in the display 
  - [x] netlify breaks if trying to open Link in new tab
  - [ ] clean up styling on mobile devices and across browsers
-    - [ ] mobile: consistency in unicode/emoji formatting
+    - [ ] mobile & safari: consistency in unicode/emoji formatting
     - [ ] safari-iphone: why is the select text blue on my iphone?
     - [ ] lambdatest: flexbox seems to be broken
     - [x] firefox: cahrt sizing is off
+    - [x] safari-mac: scroll shadows are fuqqed
+    - [ ] safari-mac: rainbow text doesn't do fancy transition
  - [x] contingency methods still have 2 rounds even if there's a majority winner
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
  - [x] random candidate/voter button might choose one that's not in the list of options 

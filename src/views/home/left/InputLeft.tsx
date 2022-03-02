@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import xkcd from '../../../data/xkcd';
-import { VoterBallots } from '../../../hooks/useElection';
+import type { VoterBallots } from '../../../hooks/useElection';
 import useRoster, { useWeightedRoster } from '../../../hooks/useRoster';
 import RosterControls from './RosterControls';
 
@@ -87,10 +87,10 @@ const VoterDisplay = styled.ul`
   }
 
   background:
-    linear-gradient(var(--color-white) 30%, transparent),
-    linear-gradient(transparent, var(--color-white) 70%) 0 100%,
-    radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), transparent),
-    radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), transparent) 0 100%
+    linear-gradient(var(--color-white) 30%, #fff0),
+    linear-gradient(#fff0, var(--color-white) 70%) 0 100%,
+    radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), #0000),
+    radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), #0000) 0 100%
   ;
   background-repeat: no-repeat;
 	background-size: 100% 3rem, 100% 3rem, 200% 1rem, 200% 1rem;
