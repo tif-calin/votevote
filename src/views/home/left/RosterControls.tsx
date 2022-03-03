@@ -38,14 +38,10 @@ const Roster = styled.fieldset`
   }
 
   & button.symbol {
-    padding: 0;
-    padding-top: 0.2rem;
     min-width: unset;
     width: 1.5rem;
-    height: calc(1rem + 2 * 0.15rem);
-    line-height: 1;
-    vertical-align: sub;
-    color: rgba(var(--color-black-rgb), 0.95);
+    color: rgba(var(--color-black-rgb), 0.8);
+    font-family: "VoteVote Symbol";
   }
 
   & > .message {
@@ -99,7 +95,7 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
         onClick={() => setSelected(options[Math.floor(Math.random() * options.length)])}
         onMouseEnter={() => setControlMessage('Select a random option')}
         onMouseLeave={resetMessage}
-      >&#x1f500;&#xfe0e;</button>
+      >&#x1f500;</button>
       <select 
         name={name}
         value={selected}
@@ -123,19 +119,19 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
         onClick={add}
         onMouseEnter={() => setControlMessage(`Add ${selected} to the roster`)}
         onMouseLeave={resetMessage}
-      >&#x2795;&#xfe0e;</button>
+      >&#x2795;</button>
       {reset && <button
         className="symbol"
         onClick={reset}
         onMouseEnter={() => setControlMessage(`Reset roster to preset`)}
         onMouseLeave={resetMessage}
-      >&#x21ba;&#xfe0e;</button>}
+      >&#x21ba;</button>}
       <button 
         className="symbol"
         onClick={clear}
         onMouseEnter={() => setControlMessage(`Clear the entire roster`)}
         onMouseLeave={resetMessage}
-      >&#x2716;&#xfe0e;</button>
+      >&#x2716;</button>
       <div className="message">
         <span>{count || 0} total</span>
         <span>{controlMessage || ''}</span>

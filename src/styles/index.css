@@ -1,6 +1,7 @@
 @import url("./reset.css");
 @import url("./open-color.css");
 @import url("./shadow-palette.css");
+@import url("./font/votevote-symbol.css");
 
 :root {
   --font-sans: "Josefin Sans", sans-serif;

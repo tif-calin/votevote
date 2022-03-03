@@ -1,0 +1,7 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'VoteVote Symbol';
+  src: url('../font/votevote_symbol.woff2?64559313') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
