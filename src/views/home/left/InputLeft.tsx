@@ -8,7 +8,6 @@ import RosterControls from './RosterControls';
 const Container = styled.form`
   display: flex;
   flex-direction: column;
-  min-height: calc(100px + 5vh);
   min-width: 200px;
   flex-basis: 35%;
   flex-grow: 1;
@@ -74,7 +73,7 @@ const VoterDisplay = styled.ul`
   list-style: none;
   gap: 0.25rem;
 
-  max-height: calc(50px + 40vh);
+  max-height: calc(1rem + 50vh);
   overflow-y: auto;
   @supports (scrollbar-width: none) {
     scrollbar-width: none;

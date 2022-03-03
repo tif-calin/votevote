@@ -31,10 +31,6 @@ const Roster = styled.fieldset`
 
   & > output {
     width: 100%;
-    display: flex;
-    gap: 0.25rem;
-    flex-wrap: wrap;
-    justify-content: center;
   }
 
   & button.symbol {
