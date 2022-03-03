@@ -1,5 +1,5 @@
 import React from 'react';
-import SignedBarChart from '../../../components/charts/SignedBarChart';
+import BarChart from '../../../components/charts/BarChart';
 import Block from './Block';
 import info from '../../../services/voting/info';
 import { ResultFull } from '../../../services/voting/SuperElection';
@@ -50,7 +50,7 @@ const StaticBlock: React.FC<Props> = ({
       info={blockInfo}
       winners={results?.[selectedMethod]?.winners || []}
     >
-      {results[selectedMethod] ? <SignedBarChart
+      {results[selectedMethod] ? <BarChart
         bars={bars}
       /> : null}
     </Block>

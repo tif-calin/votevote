@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import A from '../../components/A';
+import A from '../../components/ExternalLink';
 
 interface Props {};
 

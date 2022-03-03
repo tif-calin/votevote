@@ -1,5 +1,5 @@
 import React from 'react';
-import Bar from './Bar';
+import BarWrapper from './BarWrapper';
 
 interface Props {
   [styleProp: string]: string | number | boolean | undefined;
@@ -13,7 +13,7 @@ interface Props {
   isNegative?: boolean;
 };
 
-const BarPositive: React.FC<Props> = ({ 
+const FloatingBar: React.FC<Props> = ({ 
   name, x, y, score, width, floor, isWinner, isNegative, ...style 
 }) => {
   const notZero = Boolean(floor - y);
@@ -27,7 +27,7 @@ const BarPositive: React.FC<Props> = ({
   const xOffset = Math.min(16, width / 3);
 
   return (
-    <Bar 
+    <BarWrapper 
       isWinner={isWinner}
       transform={`translate(${x}, 0)`}
     >
@@ -58,8 +58,8 @@ const BarPositive: React.FC<Props> = ({
           scale(${(isNegative ? -1 : 1) * width / 20})
         `}
       >{name}</text>
-    </Bar>
+    </BarWrapper>
   );
 };
 
-export default BarPositive;
+export default FloatingBar;

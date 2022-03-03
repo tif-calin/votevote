@@ -1,5 +1,5 @@
 import React from 'react';
-import { MemoizedSignedBarChart } from './SignedBarChart';
+import { MemoizedBarChart } from './BarChart';
 
 interface Props {
   round: { [key: string]: number };
@@ -20,7 +20,7 @@ const BarChartWithRounds: React.FC<Props> = ({ round, barStyles, maxVal, minVal 
   }, [round, barStyles]);
 
   return (
-    <MemoizedSignedBarChart 
+    <MemoizedBarChart 
       bars={bars}
       maxVal={maxVal}
       minVal={minVal}

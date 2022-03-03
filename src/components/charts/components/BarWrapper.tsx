@@ -55,7 +55,7 @@ const Container = styled.g`
   }
 `;
 
-const Bar: React.FC<Props> = ({ children, isWinner, ...props }) => {
+const BarWrapper: React.FC<Props> = ({ children, isWinner, ...props }) => {
   return (
     <Container
       className={isWinner ? 'bar winner' : 'bar'}
@@ -66,4 +66,4 @@ const Bar: React.FC<Props> = ({ children, isWinner, ...props }) => {
   );
 };
 
-export default Bar;
+export default BarWrapper;

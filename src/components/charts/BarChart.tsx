@@ -1,96 +1,85 @@
 import React from 'react';
-import styled from 'styled-components';
-import XAxisBands from './components/XAxisBands';
-import YAxisLinear from './components/YAxisLinear';
+import * as d3 from 'd3';
+import BarChartWrapper from './BarChartWrapper';
+import useChartDimensions from '../../hooks/useChartDimensions';
+import FloatingBar from './components/FloatingBar';
 
 interface Props {
-  passedRef: React.Ref<any>;
-  height: number;
-  width: number;
-
-  xScale: d3.ScaleBand<string>;
-  yScale: d3.ScaleLinear<number, number>;
-  yTicks?: number[];
-  winners: string[];
-
-  bars?: { [key: string]: { score: number, style: { fill: string,  [key: string]: string } } };
+  bars: { [key: string]: {
+    score: number,
+    style: { fill: string, [key: string]: string }
+  }},
+  maxVal?: number,
+  minVal?: number,
 };
 
-const Container = styled.div`
-  height: 100%;
-  width: 100%;
-  padding: 1rem;
-  padding-left: 3rem;
+const BarChart: React.FC<Props> = ({ bars, maxVal, minVal }) => {
+  const [ref, { height, width }] = useChartDimensions();
 
-  & text {
-    font-weight: 400;
-    stroke: none;
-  }
+  const [minScore, maxScore, winners] = React.useMemo(() => {
+    let minScore = Number.MAX_SAFE_INTEGER;
+    let maxScore = Number.MIN_SAFE_INTEGER;
 
-  & > svg {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    overflow: visible;
-  }
-`;
+    if (maxVal !== undefined && minVal !== undefined) {
+      minScore = minVal;
+      maxScore = maxVal;
+    } else {
+      Object.values(bars).forEach(bar => {
+        if (bar.score > maxScore) maxScore = bar.score;
+        if (bar.score < minScore) minScore = bar.score;
+      });
+    }
 
-const BarChart: React.FC<Props> = ({ 
-  children, passedRef, height, width,
-  xScale, yScale, yTicks, winners,
-  bars
-}) => {
-  const yLevel = yScale(0);
+    const winners = Object.keys(bars).filter(c => bars[c].score === maxScore);
 
-  yTicks = (yTicks || (yScale as any).nice().ticks() as number[]);
+    return [minScore, maxScore, winners];
+  }, [bars, maxVal, minVal]);
 
-  const xTicks: [string, number, boolean][] = xScale.domain().map((name, i) => {
-    const score = Object.values(bars || {})?.[i]?.score;
-    return [
-      name, xScale(name) || 0, score ? score < 0 : score === 0 ? yLevel < height/2 : false
-    ];
-  });
+  const xScale = d3.scaleBand()
+    .domain(Object.keys(bars).sort())
+    .range([0, width])
+    .padding(0.15);
+  ;
+
+  const yScale = d3.scaleLinear()
+    .domain([Math.min(0, minScore) * 1.25, Math.max(0, maxScore) * 1.25])
+    .range([height, 0])
+    .nice()
+  ;
+
+  const yTicks = yScale.ticks();
 
   return (
-    <Container 
-      ref={passedRef} 
-      className="bar-chart"
-      style={
-        yLevel < 1 ? {
-          paddingTop: '2rem',
-        } : yLevel >= height - 1 ? {
-          paddingBottom: '2rem',
-        } : {}
-      }
+    <BarChartWrapper
+      passedRef={ref} height={height} width={width}
+      xScale={xScale} yScale={yScale} 
+      bars={bars}
+      winners={winners}
+      yTicks={yTicks}
     >
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        stroke="var(--color-black)"
-      >
-        <g className="plot">
-          {children}
-        </g>
+      {Object.entries(bars).map(([name, { score, style }]) => {
+        const barWidth = xScale.bandwidth() || 0;
+        const x = xScale(name) || 0;
 
-        <XAxisBands
-          yLevel={yScale(0)} 
-          width={width}
-          barWidth={xScale.bandwidth()}
-          ticks={xTicks}
-          winners={winners}
-          bars={bars}
-        />
-
-        <YAxisLinear
-          height={height}
-          ticks={yTicks.map(tick => [tick, yScale(tick) || 0])}
-        />
-      </svg>
-    </Container>
+        let y = yScale(score);
+        let floor = yScale(0);
+        return (
+          x ? <FloatingBar key={name}
+            name={name}
+            width={barWidth}
+            x={x} y={y} floor={floor}
+            score={score}
+            isWinner={score === maxScore}
+            isNegative={y > floor || (floor === y && floor < height / 2)}
+            {...style}
+          /> : null
+        );
+      })}
+    </BarChartWrapper>
   );
 };
 
-const MemoizedBarChart: React.FC<Props> = React.memo(BarChart);
+const MemoizedBarChart = React.memo(BarChart);
 
 export default BarChart;
 export { MemoizedBarChart };

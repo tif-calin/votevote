@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import A from '../A';
+import A from '../ExternalLink';
 
 const StyledFooter = styled.footer`
   display: flex;
