@@ -104,7 +104,8 @@
     - [ ] mobile & safari: consistency in unicode/emoji formatting
     - [x] safari-iphone: why is the select text blue on my iphone?
     - [ ] lambdatest: flexbox seems to be broken
-    - [x] firefox: cahrt sizing is off
+    - [ ] firefox: bar text invisible past bar
+    - [x] firefox: chart sizing is off
     - [x] safari-mac: scroll shadows are fuqqed
     - [x] safari-mac: rainbow text doesn't do fancy transition
  - [x] contingency methods still have 2 rounds even if there's a majority winner
