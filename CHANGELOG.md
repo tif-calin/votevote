@@ -10,6 +10,8 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ### Changed
  - shorter input container for smaller screens
  - added `accent-color` (pink :P)
+ - cleaned up some parts of the code
+ - consolidated voting system info
 
 ## [0.1.2.0] - 2022-02-29
 ### Added

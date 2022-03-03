@@ -43,6 +43,32 @@ const info: { [methodKey: string]: Info } = {
       'positional' /* (i === 0) - (i === N) */
     ],
   },
+  /* contingency */
+  contingency: {
+    names: ['Contingency', 'Two-Round Runoff'],
+    explanation: 'The Contingent vote is kinda like an automatic version of the primary/general system seen in many parts of the US. With the major assumption that voter preferences wouldn\'t change between the primary and general vote. In Contingent votes, voters rank their preferences. If no candidate gets a majority in the first round, all except for the top 2 (more if there are ties) candidates get eliminated. Every voter that voted for an eliminated candidate will have their vote moved to whichever of the two candidates they prefer over the other.',
+  },
+  supplementary: {
+    names: ['Supplementary'],
+    explanation: 'The Supplementary vote is similar to contingency except voters only rank 1 alternative. If neither of their two votes makes it to the second round (if there is a second round), then they simply don\'t vote for anyone.'
+  },
+  sri_lanka: {
+    names: ['Sri Lankan Contingency'],
+    explanation: 'In Sri Lanka, they use a version of the supplmentary vote to elect their president. Instead of ranking only their top 2 choices, they rank their top 3.'
+  },
+  /* runoff */
+  irv: {
+    names: ['Instant Runoff Voting', 'Alternative Vote', 'Preferrential'],
+    explanation: 'IRV is the most well-known for of ranked-choice voting. Every round, if no candidate has gotten a majority of the remaining votes, the candidate with the fewest votes is eliminated. Those who voted for that candidate will have their vote move to their next highest pick.',
+  },
+  coombs: {
+    names: ['Coombs IRV', 'Coombs Rule'],
+    explanation: 'This is basically the same as IRV except instead of eliminating the candidate with the fewest first-choice votes, you eliminated the candidate with the most last-choice votes. Essentially, you remove the most hated candidate each round.'
+  },
+  fab_irv: {
+    names: ['Front and Back IRV'],
+    explanation: 'I\'m not quite sure what to call this method (I call it "Front and Back IRV"), but it seems like a pretty logical next step in the succession of things to take into account both first-choice and last-choice votes, right? In this method, you calculate a score for each candidate by adding up how many voters picked them first and subtract away how many voters picked them last. If there\'s no candidate with a majority of first-choice votes, you remove the candidate with the lowest score.'
+  },
   /* positional block */
   borda: {
     names: ['Borda Count', 'Borda Count'],

@@ -20,7 +20,6 @@ const info: Info = {
   irv: {
     name: 'Instant Runoff Voting',
     explanation: 'IRV is the most well-known for of ranked-choice voting. Every round, if no candidate has gotten a majority of the remaining votes, the candidate with the fewest votes is eliminated. Those who voted for that candidate will have their vote move to their next highest pick.',
-    visualization: BarChartWithRounds,
   },
   coombs: {
     name: 'Coombs IRV',

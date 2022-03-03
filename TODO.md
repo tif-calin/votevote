@@ -69,7 +69,7 @@
     - [x] alternative names
     - [ ] mathematical properties
     - [x] electowiki / wikipedia link if existing 
-    - [ ] consolidate all voting method info 
+    - [x] consolidate all voting method info 
  - [ ] fancy star pattern for the winner 
  - [x] a way for user to see voter preference ratings 
  - [x] show numbers on bars... somehow (on hover?)
