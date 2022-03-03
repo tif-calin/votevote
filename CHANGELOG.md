@@ -5,6 +5,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ### Fixed
  - Safari transparency interpolation bug work around for scroll shadows
  - rainbow title works on Safari
+ - fixed unicode symbols rendering as emojis by making a custom font lol. TYFYS U+fe0e
 
 ### Changed
  - shorter input container for smaller screens

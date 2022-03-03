@@ -60,3 +60,4 @@ other
 ## Tech
 ### Shoutouts
  - [lea verou's guide to scroll shadows](https://lea.verou.me/2012/04/background-attachment-local/)
+ - [fontella](https://fontello.com) let me make a custom font to get consistent emoji rendering across devices! V cool

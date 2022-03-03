@@ -69,6 +69,7 @@
     - [x] alternative names
     - [ ] mathematical properties
     - [x] electowiki / wikipedia link if existing 
+    - [ ] consolidate all voting method info 
  - [ ] fancy star pattern for the winner 
  - [x] a way for user to see voter preference ratings 
  - [x] show numbers on bars... somehow (on hover?)
@@ -84,7 +85,7 @@
  - [ ] build as a static site
  - [x] make the method options scrollable with a max-width (50%?) to support longer method names
  - [x] improve the title text showing voter preferences
- - [ ] removing a candidate/voter should set selected to the removed candidate/voter
+ - [x] removing a candidate/voter should set selected to the removed candidate/voter
  - [ ] change the app icon for mobile to not have transparent background
  - [ ] create an About page with an FAQ
  - [ ] add a sitemap
@@ -101,9 +102,8 @@
  - [x] adding more voters to one already on the list doesn't upload the count in the display 
  - [x] netlify breaks if trying to open Link in new tab
  - [ ] clean up styling on mobile devices and across browsers
-    - [ ] mobile & safari: consistency in unicode/emoji formatting
+    - [x] mobile & safari: consistency in unicode/emoji formatting
     - [x] safari-iphone: why is the select text blue on my iphone?
-    - [ ] lambdatest: flexbox seems to be broken
     - [ ] firefox: bar text invisible past bar
     - [x] firefox: chart sizing is off
     - [x] safari-mac: scroll shadows are fuqqed
@@ -113,6 +113,8 @@
  - [x] random candidate/voter button might choose one that's not in the list of options 
  - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
  - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
+ - [ ] tab order skips buttons on safari
+ - [ ] tab order skips method switcher in blocks
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
