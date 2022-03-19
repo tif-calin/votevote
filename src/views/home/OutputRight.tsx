@@ -27,6 +27,7 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
         title="Plurality"
         methods={['fptp', 'veto', 'signed', 'vfa']}
         results={dataFull}
+        explanationDefaultsOpen={true}
       />
       <ContingencyBlock
         data={data}

@@ -17,6 +17,7 @@ interface Props {
   winners?: string[];
   isPaused?: boolean;
   handlePause?: () => void;
+  explanationDefaultsOpen?: boolean;
 };
 
 const Container = styled.div`
@@ -30,7 +31,8 @@ const Block: React.FC<Props> = ({
   title, info, round, winners = [],
   method, setMethod,
   isPaused = false, handlePause,
-  children
+  children,
+  explanationDefaultsOpen = false,
 }) => {
   const options = React.useMemo(() => {
     return Object.keys(info);
@@ -57,6 +59,7 @@ const Block: React.FC<Props> = ({
 
       <BlockBottom
         explanation={explanation}
+        explanationDefaultsOpen={explanationDefaultsOpen}
       />
     </Container>
   );

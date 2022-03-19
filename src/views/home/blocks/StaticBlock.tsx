@@ -11,12 +11,14 @@ interface Props {
   results: {
     [method: string]: ResultFull;
   };
+  explanationDefaultsOpen?: boolean;
 };
 
 const StaticBlock: React.FC<Props> = ({
   title,
   methods,
-  results
+  results,
+  explanationDefaultsOpen = false,
 }) => {
   const [selectedMethod, setSelectedMethod] = React.useState<string>(methods[0]);
 
@@ -49,6 +51,7 @@ const StaticBlock: React.FC<Props> = ({
       setMethod={setSelectedMethod}
       info={blockInfo}
       winners={results?.[selectedMethod]?.winners || []}
+      explanationDefaultsOpen={explanationDefaultsOpen}
     >
       {results[selectedMethod] ? <BarChart
         bars={bars}
