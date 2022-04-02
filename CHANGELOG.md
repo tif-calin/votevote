@@ -5,6 +5,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ### Changed
  - first block's explanation defaults to open
+ - add new preview img and apple icon for site links
 
 ## [0.1.2.1] - 2022-03-01
 ### Fixed

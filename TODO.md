@@ -8,6 +8,7 @@
  - [ ] optimize existing methods to use cacheing
  - [ ] an about page
  - [ ] add a site map
+ - [x] fix iPhone icon
 
 ## 2022-02-19
 ### priority for v0.1.2
