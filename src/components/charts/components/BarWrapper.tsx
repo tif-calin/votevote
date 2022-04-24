@@ -6,7 +6,9 @@ interface Props {
   [prop: string]: any;
 };
 
-const Container = styled.g`
+const Container = styled.g<{
+  isWinner?: boolean;
+}>`
   & > rect {
     transition: 
       height 0.5s ease-in-out,
@@ -14,12 +16,12 @@ const Container = styled.g`
     ;
   }
 
-  &.winner {
+  ${({ isWinner }) => isWinner && `
     & rect {
       stroke-width: 6;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
-  }
+  `}
 
   & > text.bar-label {
     pointer-events: none;
@@ -58,7 +60,7 @@ const Container = styled.g`
 const BarWrapper: React.FC<Props> = ({ children, isWinner, ...props }) => {
   return (
     <Container
-      className={isWinner ? 'bar winner' : 'bar'}
+      isWinner={isWinner}
       {...props}
     >
       {children}

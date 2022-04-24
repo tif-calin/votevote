@@ -31,10 +31,13 @@ const FloatingBar: React.FC<Props> = ({
   const xOffset = Math.min(16, width / 3);
 
   return (
-    <BarWrapper 
+    <BarWrapper
       isWinner={isWinner}
       transform={`translate(${x}, 0)`}
     >
+      <rect
+        width={width} y={0} height="100%" fill="var(--color-white)" stroke="transparent"
+      />
       {score && (
         <text
           className='bar-score'
@@ -43,9 +46,6 @@ const FloatingBar: React.FC<Props> = ({
           alignmentBaseline="middle"
         >{score.toLocaleString("en-US", numberFormat)}</text>
       )}
-      <rect
-        width={width} y={0} height="100%" fill="var(--color-white)" stroke="transparent"
-      />
       <rect
         y={y}
         width={width} height={floor - y}

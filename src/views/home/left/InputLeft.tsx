@@ -9,6 +9,7 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   min-width: 200px;
+  max-width: 36rem;
   flex-basis: 35%;
   flex-grow: 1;
   padding: var(--padding);
@@ -44,7 +45,7 @@ const ColorBox = styled.div`
   & span {
     width: 100%;
     color: var(--color-white);
-    font-weight: 900;
+    font-weight: 700;
     opacity: 0;
     backdrop-filter: contrast(0.25);
   }
@@ -83,6 +84,10 @@ const VoterDisplay = styled.ul`
     gap: 0.5rem;
 
     & > span[title] {
+      // white-space: nowrap;
+      // max-width: calc(200px - 7.75rem);
+      // text-overflow: ellipsis;
+      // overflow: hidden;
       cursor: help;
     }
 
@@ -234,9 +239,8 @@ const InputLeft: React.FC<Props> = ({
                   onClick={() => removeVoter(voter)}
                 ><span>x</span></ColorBox>
                 <span 
-                  title={formatVoterPreferences(ballots?.[voter]?.ballot)}
+                  title={`${voter}\n---\n` + formatVoterPreferences(ballots?.[voter]?.ballot)}
                 >{voter}</span>
-                {/* <span>{voters[voter]}</span> */}
                 <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
               </li>
             );

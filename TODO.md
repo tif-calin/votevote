@@ -1,18 +1,12 @@
 # TODO
 ## 2022-02-27
 
-### priority for v0.2
- - voting service?
- - make-your-own method
- - votegame
- - allsvote
- - different datasets
- - use webgpu for calculations?
- - content api for offline uses
-
 ### priority for v0.1.4
  - about/faq page
  - disttint
+ - different datasets
+    - other colors datasets, cities, custom dataset, etc
+    - voter preference scoring options
 
 ### priority for v0.1.3
  - [ ] add hybrid methods: star and 3-2-1
@@ -20,10 +14,10 @@
  - [ ] more info on charts: threshold lines, marks, etc
  - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
  - [ ] optimize existing methods to use cacheing
- - [ ] an about page
+ - [x] add explanatory info
  - [ ] add a site map
  - [x] fix iPhone icon
- - [ ] add link for vodle, votyvote
+ - [x] add shoutout for vodle, votyvote
 
 ## 2022-02-19
 ### priority for v0.1.2
@@ -107,9 +101,10 @@
  - [ ] add a sitemap
  - [ ] secret menu for debugging and things I like to do like randomly select n+1 voters m times
  - [ ] on small screens, make block method switcher and block title on separate lines
+ - [ ] clicking "show explanation" should scroll to top
 
 ### fix
- - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
+ - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??
  - [x] nice() the scales
  - [x] site broken on safari mobile
  - [x] really smol bars are hard to hover over... 
@@ -131,12 +126,17 @@
  - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
  - [ ] tab order skips buttons on safari
  - [ ] tab order skips method switcher in blocks
+ - [ ] use webgpu for calculations
+ - [ ] content api for offline uses
+ - [ ] in voter roster, square may get squished and color names show on multiple lines
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
  - [ ] allsvote: vote for which method is best by voting for which method you want the results to be calculated in... Maybe it should be called metavote?
  - [ ] votegame: a game where you try to manipulate voting systems 
  - [ ] individual subpages for each method
+ - [ ] voting service like votyvote
+ - [ ] make-your-own voting systems (e.g. weighted positional, hybrid, etc)
 
 ---
 

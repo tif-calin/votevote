@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
 import useElection from '../../hooks/useElection';
 import { votersToBallots } from '../../services/color/colorDistance';
+import Infobox from './Infobox';
 import { MemoizedInputLeft } from './left/InputLeft';
 import { MemoizedOutputRight } from './OutputRight';
 
@@ -11,6 +12,7 @@ const Page = styled.div`
   flex-wrap: wrap;
   gap: var(--padding);
   align-items: stretch;
+  position: relative;
 
   box-shadow: var(--shadow-inset-medium), inset 0 0 2px hsl(var(--shadow-color));
   background-color: var(--color-backwhite);
@@ -26,15 +28,13 @@ const Page = styled.div`
   }
 `;
 
-interface Props {};
-
 const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
-const HomePage: React.FC<Props> = () => {
+const HomePage = () => {
   const { election, elect, ballots, electionOutcomes: data, electionOutcomesFull: dataFull } = useElection();
   if (dataFull?.fptp) {
     console.log(dataFull);
-    // for (let method of Object.keys(dataFull)) console.log(method, dataFull[method].winners);
+    for (let method of Object.keys(dataFull)) console.log(method, dataFull[method].winners);
   }
   const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
 
@@ -42,6 +42,7 @@ const HomePage: React.FC<Props> = () => {
 
   return (
     <Page>
+      <Infobox />
       <MemoizedInputLeft
         elect={handleElect}
         ballots={ballots}

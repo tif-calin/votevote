@@ -11,7 +11,8 @@ const Container = styled.div`
   align-items: stretch;
 
   box-shadow: var(--shadow-inset-medium), inset 0 0 2px hsl(var(--shadow-color));
-  backdrop-filter: invert(0.05);
+  /* backdrop-filter: invert(0.05); */
+  background: var(--color-backwhite);
 
   & *.island {
     border-radius: 0.25rem;
@@ -25,7 +26,8 @@ const Container = styled.div`
 
     & > .release {
       padding: 0.5rem;
-      backdrop-filter: invert(0.025);
+      /* backdrop-filter: invert(0.025); */
+      background-color: var(--color-lesswhite);
       border-radius: 0.25rem;
       box-shadow: var(--shadow-inset-low), inset 0 0 2px hsl(var(--shadow-color));
     }
@@ -80,6 +82,23 @@ const ChangelogPage: React.FC<Props> = () => {
           For more up to date information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
         </p>
 
+        <h3>v0.1.3 <span>2022_05may??</span></h3>
+        <div className="release">
+          <h4>Added</h4>
+          <ul>
+            <li>explanatory infobox</li>
+          </ul>
+          <h4>Changed</h4>
+          <ul>
+            <li>many misc styling tweaks</li>
+          </ul>
+          <h4>Fixed</h4>
+          <ul>
+            <li>numerous browser styling inconsistencies now fixed</li>
+          </ul>
+        </div>
+
+        <br />
         <h3>v0.1.2 <span>2022_02feb28</span></h3>
         <div className="release">
           <h4>Added</h4>
@@ -123,6 +142,8 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
+
+        <br />
         <h3>v0.1.1 <span>2022_02feb18</span></h3>
         <div className="release">
           <h4>Added</h4>
@@ -151,6 +172,8 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
+
+        <br />
         <h3>v0.1.0 <span>2022_02feb15</span></h3>
         <div className="release">
           <ul>

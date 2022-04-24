@@ -21,7 +21,7 @@ const Container = styled.div`
 
   & > span {
     font-size: 0.8rem;
-    font-weight: 900;
+    font-weight: 700;
     padding: 0;
     color: var(--color);
   }

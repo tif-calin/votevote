@@ -2,11 +2,13 @@
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
 ## [0.1.3.0] - 2022-03-??
+### Added
+ - explanatory infobox
 
 ### Changed
  - first block's explanation defaults to open
  - add new preview img and apple icon for site links
- - minor styling tweaks to left input and bar chart axis labels
+ - minor styling tweaks to: left input sizing, x-axis ticks
 
 ### Improved
  - cross-browser styling tweaks
