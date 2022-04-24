@@ -13,7 +13,11 @@ const Page = styled.div`
   align-items: stretch;
 
   box-shadow: var(--shadow-inset-medium), inset 0 0 2px hsl(var(--shadow-color));
-  backdrop-filter: invert(0.05);
+  background-color: var(--color-backwhite);
+  @supports (backdrop-filter: invert(0.05)) {
+    background-color: unset;
+    backdrop-filter: invert(0.05);
+  }
 
   & *.island {
     border-radius: 0.25rem;

@@ -13,6 +13,10 @@ interface Props {
   isNegative?: boolean;
 };
 
+const numberFormat = {
+  maximumSignificantDigits: 6
+};
+
 const FloatingBar: React.FC<Props> = ({ 
   name, x, y, score, width, floor, isWinner, isNegative, ...style 
 }) => {
@@ -37,8 +41,11 @@ const FloatingBar: React.FC<Props> = ({
           x={isNegative ? width : 0} y={isNegative ? floor + 10 : y - 8}
           textAnchor={isNegative ? 'end' : 'start'}
           alignmentBaseline="middle"
-        >{score}</text>
+        >{score.toLocaleString("en-US", numberFormat)}</text>
       )}
+      <rect
+        width={width} y={0} height="100%" fill="var(--color-white)" stroke="transparent"
+      />
       <rect
         y={y}
         width={width} height={floor - y}

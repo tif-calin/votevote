@@ -1,5 +1,19 @@
 # TODO
 ## 2022-02-27
+
+### priority for v0.2
+ - voting service?
+ - make-your-own method
+ - votegame
+ - allsvote
+ - different datasets
+ - use webgpu for calculations?
+ - content api for offline uses
+
+### priority for v0.1.4
+ - about/faq page
+ - disttint
+
 ### priority for v0.1.3
  - [ ] add hybrid methods: star and 3-2-1
  - [ ] seo best practices: h-tags 
@@ -9,6 +23,7 @@
  - [ ] an about page
  - [ ] add a site map
  - [x] fix iPhone icon
+ - [ ] add link for vodle, votyvote
 
 ## 2022-02-19
 ### priority for v0.1.2
@@ -87,7 +102,7 @@
  - [x] make the method options scrollable with a max-width (50%?) to support longer method names
  - [x] improve the title text showing voter preferences
  - [x] removing a candidate/voter should set selected to the removed candidate/voter
- - [ ] change the app icon for mobile to not have transparent background
+ - [x] change the app icon for mobile to not have transparent background
  - [ ] create an About page with an FAQ
  - [ ] add a sitemap
  - [ ] secret menu for debugging and things I like to do like randomly select n+1 voters m times
@@ -97,15 +112,15 @@
  - [ ] what the hell is happening with that hover effect over the `<text>` of empty bars??
  - [x] nice() the scales
  - [x] site broken on safari mobile
- - [ ] really smol bars are hard to hover over... 
+ - [x] really smol bars are hard to hover over... 
  - [x] all the runoff methods are broken when there's a tie
  - [x] don't overlap x-axis tick labels
  - [x] adding more voters to one already on the list doesn't upload the count in the display 
  - [x] netlify breaks if trying to open Link in new tab
- - [ ] clean up styling on mobile devices and across browsers
+ - [x] clean up styling on mobile devices and across browsers
     - [x] mobile & safari: consistency in unicode/emoji formatting
     - [x] safari-iphone: why is the select text blue on my iphone?
-    - [ ] firefox: bar text invisible past bar
+    - [x] firefox: bar text invisible past bar
     - [x] firefox: chart sizing is off
     - [x] safari-mac: scroll shadows are fuqqed
     - [x] safari-mac: rainbow text doesn't do fancy transition

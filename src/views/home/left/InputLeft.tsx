@@ -15,6 +15,7 @@ const Container = styled.form`
   gap: var(--padding);
 
   height: fit-content;
+  max-height: calc(100vh - var(--padding) * 2);
 
   & > span.warning {
     line-height: 1.25;
@@ -68,35 +69,15 @@ const CandidateDisplay = styled.div`
 const VoterDisplay = styled.ul`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   padding: 0;
   list-style: none;
   gap: 0.25rem;
 
-  max-height: calc(1rem + 50vh);
-  overflow-y: auto;
-  @supports (scrollbar-width: none) {
-    scrollbar-width: none;
-  }
-  @supports selector(::-webkit-scrollbar) {
-    overflow-y: overlay;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  background:
-    linear-gradient(var(--color-white) 30%, #fff0),
-    linear-gradient(#fff0, var(--color-white) 70%) 0 100%,
-    radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), #0000),
-    radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), #0000) 0 100%
-  ;
-  background-repeat: no-repeat;
-	background-size: 100% 3rem, 100% 3rem, 200% 1rem, 200% 1rem;
-  background-attachment: local, local, scroll, scroll;
+  margin: calc(var(--padding) / 2);
 
   & > li {
-    width: 100%;
+    max-width: 100%;
     display: flex;
     align-items: center;
     gap: 0.5rem;

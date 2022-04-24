@@ -6,21 +6,21 @@ VoteVote takes a scored ballot and calculates what its equivalent ballot would l
 Currently its just a toy, but it is completely open-sourced and might some day grow to be an actual tool. The main contributer of this project is culi, but I'm very interested in opening up the project for more contributers if anyone is interested in getting involved. Feel free to use whatever, however. If you do have a use for this tool, I'd LOVE to hear about it :) 
 
 ## list of voting methods
-
 (25 implemented as of v0.1.2)
-plurality: fptp, veto, signed, vfa
-contingent: contingency, supplementary, sri_lanka
-runoff: irv, coombs, fab_irv
-positional: borda, nauru, eurovision, dabagh, binary_positional
-evaluative: approval, disapproval, cav, score, range
-condorcet: copeland, lull
-budgetary: cumulative, fractional, quadratic
+- plurality: fptp, veto, signed, vfa
+- contingent: contingency, supplementary, sri_lanka
+- runoff: irv, coombs, fab_irv
+- positional: borda, nauru, eurovision, dabagh, binary_positional
+- evaluative: approval, disapproval, cav, score, range
+- condorcet: copeland, lull
+- budgetary: cumulative, fractional, quadratic
 
-median: typical_judgement, usual_judgement, central_judgement (evaluative aka average, so median is natural successor)
-condorcet: kemeny_young
-bucklin: fallback, bucklin, vfa_runoff
-hybrid: star, three_two_one
-other: majority_judgement
+### Not yet implemented
+- median: typical_judgement, usual_judgement, central_judgement (evaluative aka average, so median is natural successor)
+- condorcet: kemeny_young
+- bucklin: fallback, bucklin, vfa_runoff
+- hybrid: star, three_two_one
+- other: majority_judgement
 
 other
  - [ ] tournament_borda (allows for ties and unranked candidates)
@@ -37,17 +37,17 @@ other
  - [ ] fallback (aka bucklin, expandingApproval)
  - [ ] historical_bucklin
  - [ ] cumulative
- - [ ] sir (https://electowiki.org/wiki/Support/Include/Reject_voting) 
- - [ ] black, dasgupta_maskin https://en.wikipedia.org/wiki/Copeland%27s_method
+ - [ ] [sir](https://electowiki.org/wiki/Support/Include/Reject_voting) 
+ - [ ] [black, dasgupta_maskin](https://en.wikipedia.org/wiki/Copeland%27s_method)
 
-### Not supported
+### Won't support
  - **non-deterministic methods**: At the moment we only support deterministic methods.
  - **multi-winner methods**: This wasn't the original intention of the site, but who knows.
  - **two/multi round methods**: We support contingent votes as well as some variations of it like runoff or sriLankanContingent. Two-round runoff is generally considered to be the mathematical equivalent of a two-round runoff by assuming voters don't change their minds from one the first round to the second. However, in the real world, voters often change their minds. We can possibly support a twoRoundRunoff if we come up with a method of changing views that's fair and mathematically sound. It might be non-deterministic, like adding some noise to the voter's preference of each candidate.
  - **methods that involve candidate behavior**: Methods like xxx involve the candidates themselves negotiating or voting. We don't have a good way of modeling candidate behavior.
 
 ### Lists of voting methods I wanna reach feature parity with:
- - [ ] [nicky case's to build a better ballot](https://ncase.me/ballot/) - 5/6 (no condorcet)
+ - [ ] [nicky case's to build a better ballot](https://ncase.me/ballot/) - 5/6 (no generic condorcet)
  - [ ] [the original prototype](https://dontplaywithculi.netlify.app/votevote/): 26-28 methods
  - [ ] [condorcet.org's list](https://web.archive.org/web/20050706055744/http://condorcet.org/emr/methods.shtml): ~21 methods
  - [ ] [aceproject](https://aceproject.org/main/english/es/esd01.htm)

@@ -31,6 +31,28 @@ const Roster = styled.fieldset`
 
   & > output {
     width: 100%;
+
+    max-height: calc(6rem + 50vh);
+    overflow-y: auto;
+    @supports (scrollbar-width: none) {
+      scrollbar-width: none;
+    }
+    @supports selector(::-webkit-scrollbar) {
+      overflow-y: overlay;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    background:
+      linear-gradient(var(--color-white) 30%, #fff0),
+      linear-gradient(#fff0, var(--color-white) 70%) 0 100%,
+      radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), #0000),
+      radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), #0000) 0 100%
+    ;
+    background-repeat: no-repeat;
+    background-size: 100% 3rem, 100% 3rem, 200% 1rem, 200% 1rem;
+    background-attachment: local, local, scroll, scroll;
   }
 
   & button.symbol {

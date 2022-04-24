@@ -38,11 +38,9 @@ const XAxisBands: React.FC<Props> = ({
             className={`x-tick${estimatedLabelWidth > barWidth ? ' long' : ''}`}
             transform={`translate(${x + (barWidth / 2)}, 0)`}
           >
-            <line y2={above ? -8 : 8} strokeDasharray="2 2" />
             <text
-              y={above ? -16 : 16}
+              y={above ? -8 : 16}
               textAnchor="middle"
-              alignmentBaseline='middle'
               className={`${winners.includes(name) ? ' winner' : ' '}`}
             >{name}</text>
           </g>
