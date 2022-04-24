@@ -88,6 +88,9 @@ const VoterDisplay = styled.ul`
       // max-width: calc(200px - 7.75rem);
       // text-overflow: ellipsis;
       // overflow: hidden;
+      max-height: 1.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
       cursor: help;
     }
 
@@ -99,6 +102,7 @@ const VoterDisplay = styled.ul`
       & input[type="number"] {
         text-align: right;
         backdrop-filter: none;
+        border: none;
   
         &::-webkit-textfield-decoration-container {
           flex-direction: row-reverse;
@@ -241,7 +245,11 @@ const InputLeft: React.FC<Props> = ({
                 <span 
                   title={`${voter}\n---\n` + formatVoterPreferences(ballots?.[voter]?.ballot)}
                 >{voter}</span>
-                <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
+                <input 
+                  type="number" 
+                  value={voters[voter]} 
+                  onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} 
+                />
               </li>
             );
           })}

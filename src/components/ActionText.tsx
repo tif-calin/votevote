@@ -11,7 +11,7 @@ interface Props {
 const Container = styled.span<{
   mt?: string;
 }>`
-  color: var(--oc-pink-4);
+  color: var(--oc-pink-3);
   cursor: pointer;
   margin-top: ${({ mt }) => mt || 'var(--padding)'};
 `;

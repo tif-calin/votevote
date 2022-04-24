@@ -4,13 +4,18 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ## [0.1.3.0] - 2022-03-??
 ### Added
  - explanatory infobox
+ - added a sitemap.xml
 
 ### Changed
  - first block's explanation defaults to open
  - add new preview img and apple icon for site links
- - minor styling tweaks to: left input sizing, x-axis ticks
+ - minor styling tweaks 
+    - left input sizing
+    - x-axis ticks
+    - input buttons now pink on hover
+    - input selects and inputs now have dashed borders
 
-### Improved
+### Fixed
  - cross-browser styling tweaks
     - firefox lacks support for invert() for backdrop-filter so I hardcoded the background color
     - improved styling consistency for selects and inputs

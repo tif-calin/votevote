@@ -60,6 +60,14 @@ const Roster = styled.fieldset`
     width: 1.5rem;
     color: rgba(var(--color-black-rgb), 0.8);
     font-family: "VoteVote Symbol";
+
+    transition-property: color, background-color, border-color;
+    transition-duration: 0.1s;
+    &:hover {
+      background-color: var(--oc-pink-4);
+      color: var(--color-white);
+      border-color: transparent;
+    }
   }
 
   & > .message {

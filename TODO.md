@@ -2,11 +2,13 @@
 ## 2022-02-27
 
 ### priority for v0.1.4
- - about/faq page
- - disttint
- - different datasets
-    - other colors datasets, cities, custom dataset, etc
-    - voter preference scoring options
+ - [ ] new methods: median
+ - [ ] about/faq page
+ - [ ] disttint
+ - [ ] different datasets
+    - [ ] other colors datasets, cities, custom dataset, etc
+    - [ ] voter preference scoring options
+ - [ ] submit sitemap to google
 
 ### priority for v0.1.3
  - [ ] add hybrid methods: star and 3-2-1
@@ -15,7 +17,7 @@
  - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
  - [ ] optimize existing methods to use cacheing
  - [x] add explanatory info
- - [ ] add a site map
+ - [x] add a sitemap.xml
  - [x] fix iPhone icon
  - [x] add shoutout for vodle, votyvote
 
@@ -122,13 +124,19 @@
  - [x] contingency methods still have 2 rounds even if there's a majority winner
  - [x] veto method doesn't thicken border around winner sometimes (e.g. no non-zero winners)
  - [x] random candidate/voter button might choose one that's not in the list of options 
- - [ ] when resetting voters to preset, number display doesn't change if a voter is in both lists
+ - [x] when resetting voters to preset, number display doesn't change if a voter is in both lists
  - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
  - [ ] tab order skips buttons on safari
  - [ ] tab order skips method switcher in blocks
  - [ ] use webgpu for calculations
  - [ ] content api for offline uses
  - [ ] in voter roster, square may get squished and color names show on multiple lines
+ - [ ] open it up for external contributions
+    - [ ] PR template
+    - [ ] CONTRIBUTING.md
+    - [ ] use GitHub versioning
+    - [ ] use GitHub issues instead of TODO.md
+ - [ ] ability to sort rosters by name, weight, order, etc
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods

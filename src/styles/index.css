@@ -62,6 +62,10 @@ button, select, input[type="number"] {
   background: none;
 }
 
+.symbol {
+  font-family: "VoteVote Symbol";
+}
+
 button {
   border: 1px solid hsl(var(--shadow-color));
   /* backdrop-filter: invert(0.05); */

@@ -41,7 +41,7 @@ const Container = styled.div<{
 
     transition: opacity 0.1s, color 0.1s;
     &:hover {
-      color: var(--oc-pink-4);
+      color: var(--oc-pink-3);
       opacity: 1;
     }
   }

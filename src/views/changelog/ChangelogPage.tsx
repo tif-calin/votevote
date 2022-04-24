@@ -79,7 +79,7 @@ const ChangelogPage: React.FC<Props> = () => {
       <section className="island">
         <h2>Changelog</h2>
         <p>
-          For more up to date information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
+          For more up-to-date and in-depth information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
         </p>
 
         <h3>v0.1.3 <span>2022_05may??</span></h3>
@@ -87,6 +87,7 @@ const ChangelogPage: React.FC<Props> = () => {
           <h4>Added</h4>
           <ul>
             <li>explanatory infobox</li>
+            <li>sitemap.xml</li>
           </ul>
           <h4>Changed</h4>
           <ul>
@@ -94,6 +95,7 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
           <h4>Fixed</h4>
           <ul>
+            <li>a voter&apos;s input number amount updates on reset</li>
             <li>numerous browser styling inconsistencies now fixed</li>
           </ul>
         </div>

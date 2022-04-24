@@ -16,10 +16,10 @@ const Page = styled.div`
 
   box-shadow: var(--shadow-inset-medium), inset 0 0 2px hsl(var(--shadow-color));
   background-color: var(--color-backwhite);
-  @supports (backdrop-filter: invert(0.05)) {
-    background-color: unset;
-    backdrop-filter: invert(0.05);
-  }
+  // @supports (backdrop-filter: invert(0.05)) {
+  //   background-color: unset;
+  //   backdrop-filter: invert(0.05);
+  // }
 
   & *.island {
     border-radius: 0.25rem;
@@ -34,7 +34,7 @@ const HomePage = () => {
   const { election, elect, ballots, electionOutcomes: data, electionOutcomesFull: dataFull } = useElection();
   if (dataFull?.fptp) {
     console.log(dataFull);
-    for (let method of Object.keys(dataFull)) console.log(method, dataFull[method].winners);
+    // for (let method of Object.keys(dataFull)) console.log(method, dataFull[method].winners);
   }
   const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
 
