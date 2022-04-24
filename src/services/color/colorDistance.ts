@@ -29,7 +29,7 @@ const colorDistance = (voter: string, candidate: string, dict: { [key:string]: {
   let dist = (rgbDist + hslDist) / 2;
   dist = Math.pow(Math.sqrt(dist) / (1 + Math.exp(-12 * (dist - 0.5))), 0.8);
 
-  // console.log({
+  // console.debug({
   //   dist: dist.toFixed(3),
   //   [voter]: dict[voter].hex,
   //   [candidate]: dict[candidate].hex,

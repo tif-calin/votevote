@@ -33,8 +33,8 @@ const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(
 const HomePage = () => {
   const { election, elect, ballots, electionOutcomes: data, electionOutcomesFull: dataFull } = useElection();
   if (dataFull?.fptp) {
-    console.log(dataFull);
-    // for (let method of Object.keys(dataFull)) console.log(method, dataFull[method].winners);
+    console.debug(dataFull);
+    // for (let method of Object.keys(dataFull)) console.debug(method, dataFull[method].winners);
   }
   const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
 
