@@ -31,14 +31,32 @@ const Page = styled.div`
 const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
 const HomePage = () => {
-  const { election, elect, ballots, electionOutcomes: data, electionOutcomesFull: dataFull } = useElection();
-  if (dataFull?.fptp) {
-    console.debug(dataFull);
-    // for (let method of Object.keys(dataFull)) console.debug(method, dataFull[method].winners);
-  }
-  const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
+  const { 
+    election, 
+    elect, 
+    ballots, 
+    electionOutcomes: data, 
+    electionOutcomesFull: dataFull 
+  } = useElection();
 
-  const handleElect = React.useCallback((c, v) => elect(c, v, ballotMaker), [elect]);
+  React.useEffect(() => {
+    console.debug(election);
+    if (dataFull?.fptp) {
+      console.debug(dataFull);
+      const winSet = new Set(
+        Object.values(dataFull).reduce(
+          (acc, { winners }) => winners.length === 1 ? [acc, winners].flat() : acc, 
+          [] as string[]
+        )
+      );
+      console.log(winSet.size);
+      // for (let method of Object.keys(dataFull)) console.debug(method, dataFull[method].winners);
+    }
+  }, [dataFull, election]);
+
+  const handleElect = React.useCallback(
+    (c, v) => elect(c, v, ballotMaker), [elect]
+  );
 
   return (
     <Page>
@@ -46,7 +64,7 @@ const HomePage = () => {
       <MemoizedInputLeft
         elect={handleElect}
         ballots={ballots}
-        auto={auto}
+        auto={(election?.candidates?.length || 0) < 20}
       />
       <MemoizedOutputRight 
         data={data}

@@ -166,6 +166,10 @@ const info: { [methodKey: string]: Info } = {
       electowiki: 'https://electowiki.org/wiki/Quadratic_voting'
     },
   },
+  equal_even: {
+    names: ['Equal & Even Cumulative'],
+    explanation: 'Each voter\'s budget is split equally amongst all of the candidates they approve of.'
+  }
 };
 
 export default info;

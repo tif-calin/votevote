@@ -86,6 +86,7 @@ const ChangelogPage: React.FC<Props> = () => {
         <div className="release">
           <h4>Added</h4>
           <ul>
+            <li>1 new voting method: equal_even</li>
             <li>explanatory infobox</li>
             <li>sitemap.xml</li>
           </ul>
@@ -184,9 +185,9 @@ const ChangelogPage: React.FC<Props> = () => {
               <ul>
                 <li>plurality: fptp, veto, signed, vfa</li>
                 <li>runoff: irv, coombs, fab_irv</li>
-                <li>bootiful graphs</li>
               </ul>
             </li>
+            <li>bootiful graphs</li>
             <li>
               <span>1 dataset: xkcd's RGB colors</span>
               <ul>

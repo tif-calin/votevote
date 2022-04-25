@@ -142,6 +142,8 @@
  - [ ] disttint: see most related colors and compare different distancing methods
  - [ ] allsvote: vote for which method is best by voting for which method you want the results to be calculated in... Maybe it should be called metavote?
  - [ ] votegame: a game where you try to manipulate voting systems 
+    - achievements: e.g. find an election that results in different baldwin and nanson results
+    - get the largest number of different candidates as winners
  - [ ] individual subpages for each method
  - [ ] voting service like votyvote
  - [ ] make-your-own voting systems (e.g. weighted positional, hybrid, etc)

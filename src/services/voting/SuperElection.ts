@@ -46,8 +46,9 @@ class SuperElection {
     ballots: { [key: string]: number }[],
     weights: number[]
   ) {
-    /* Assumptions:
-       - weights length should equal the number of ballots
+    /* 
+    Assumptions:
+      - weights length should equal the number of ballots
     */
 
     /* 1 ===CANDIDATES=== */
@@ -117,6 +118,7 @@ class SuperElection {
   };
 
   getCache(list: string[]) {
+    // if cache doesn't exist, create it first
     const serialized = serializeList(list);
     if (!this._cache[serialized]) {
       this._cache[serialized] = new ElectionCache(this, list);
@@ -128,6 +130,12 @@ class SuperElection {
     method: keyof typeof SuperElection.prototype,
     candidates = this.candidates
   ): ResultFull | null {
+    // Ideally this "pseudo-accessor" function shouldn't exist, but it's a
+    // stopgap measure because not all the method have yet been restructured
+    // to return the winners list. This method calculates the winners for
+    // any methods that don't have winners already
+    //
+    // TODO: Deprecate this.
     if (this[method] instanceof Function) {
       const cache = this.getCache(candidates);
       if (cache.results[method]) return cache.results[method];
@@ -476,6 +484,17 @@ class SuperElection {
   approval(candidates = this.candidates): ResultSimple {    
     const approvalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
       for (let candidate of candidates) {
+        // TODO: This type of list is reused in many other methods and should
+        // be abstracted and cached. Ideally with the flexibility to ability to
+        // specify I (integer between 0 and D-1) and D (integer greater than 2) 
+        // where D is the number of classes you divide the scores into and I
+        // is the index of the class you want to count. 
+        //
+        // For example, in this implementation of Approval, we have D=3 and I=0
+        // because we are dividing the scores into 3 classes: (0-0.333), 
+        // (0.333-0.666), and (0.666-1). and we are taking all the scores at the top
+        //
+        // Record<number, Record<number, Set<string>>>
         if (ballot[candidate] > (2/3)) a[candidate] = ~~a[candidate] + weight;
       }
 
@@ -612,7 +631,23 @@ class SuperElection {
   };
 
   // Equal&Even
-  equal_even() {};
+  equal_even(candidates = this.candidates): ResultSimple {
+    // https://en.wikipedia.org/wiki/Cumulative_voting#Voting
+    // takes list of approved candidates
+    // equally splits budget amongst them
+    const equalEvenResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
+      const approved = new Array<string>();
+      for (let candidate of candidates) {
+        if (ballot[candidate] > (2/3)) approved.push(candidate);
+      }
+
+      approved.forEach(c => a[c] = ~~a[c] + (weight / approved.length));
+
+      return a;
+    }, {} as ResultSimple);
+
+    return equalEvenResults;
+  };
 
   // Fractional
   fractional(candidates = this.candidates): ResultSimple {

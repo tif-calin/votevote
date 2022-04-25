@@ -36,7 +36,7 @@ const FloatingBar: React.FC<Props> = ({
       transform={`translate(${x}, 0)`}
     >
       <rect
-        width={width} y={0} height="100%" fill="var(--color-white)" stroke="transparent"
+        width={width} y="-1rem" height="calc(100% + 2rem)" fill="var(--color-white)" stroke="transparent"
       />
       {score && (
         <text

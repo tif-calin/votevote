@@ -6,14 +6,14 @@ VoteVote takes a scored ballot and calculates what its equivalent ballot would l
 Currently its just a toy, but it is completely open-sourced and might some day grow to be an actual tool. The main contributer of this project is culi, but I'm very interested in opening up the project for more contributers if anyone is interested in getting involved. Feel free to use whatever, however. If you do have a use for this tool, I'd LOVE to hear about it :) 
 
 ## list of voting methods
-(25 implemented as of v0.1.2)
+(26 implemented as of v0.1.2)
 - plurality: fptp, veto, signed, vfa
 - contingent: contingency, supplementary, sri_lanka
 - runoff: irv, coombs, fab_irv
 - positional: borda, nauru, eurovision, dabagh, binary_positional
 - evaluative: approval, disapproval, cav, score, range
 - condorcet: copeland, lull
-- budgetary: cumulative, fractional, quadratic
+- budgetary: cumulative, fractional, quadratic, equal_even
 
 ### Not yet implemented
 - median: typical_judgement, usual_judgement, central_judgement (evaluative aka average, so median is natural successor)
@@ -22,7 +22,7 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 - hybrid: star, three_two_one
 - other: majority_judgement
 
-other
+### Not yet implemented or well-researched
  - [ ] tournament_borda (allows for ties and unranked candidates)
  - [ ] minimax
  - [ ] nanson
@@ -30,13 +30,14 @@ other
  - [ ] dodgeson
  - [ ] ranked_pairs
  - [ ] beat_path_winner
- - [ ] tidemansAlternativeSmith
- - [ ] tidemansAlternativeSchwartz
+ - [ ] tideman_smith
+ - [ ] tideman_schwartz
  - [ ] river
+ - [ ] smith_minimax
+ - [ ] smith_irv
  - [ ] irv_btr (bottomTwoRunoffIRV)
  - [ ] fallback (aka bucklin, expandingApproval)
  - [ ] historical_bucklin
- - [ ] cumulative
  - [ ] [sir](https://electowiki.org/wiki/Support/Include/Reject_voting) 
  - [ ] [black, dasgupta_maskin](https://en.wikipedia.org/wiki/Copeland%27s_method)
 
@@ -47,15 +48,52 @@ other
  - **methods that involve candidate behavior**: Methods like xxx involve the candidates themselves negotiating or voting. We don't have a good way of modeling candidate behavior.
 
 ### Lists of voting methods I wanna reach feature parity with:
- - [ ] [nicky case's to build a better ballot](https://ncase.me/ballot/) - 5/6 (no generic condorcet)
+ - [x] [nicky case's to build a better ballot](https://ncase.me/ballot/)
  - [ ] [the original prototype](https://dontplaywithculi.netlify.app/votevote/): 26-28 methods
+   - [ ] vfa_runoff
+   - [ ] bucklin
+   - [ ] fallback
+   - [ ] bucklin_historical
+   - [ ] star
+   - [ ] three_two_one
+   - [ ] majority_judgement
+   - [ ] kemeny_young
  - [ ] [condorcet.org's list](https://web.archive.org/web/20050706055744/http://condorcet.org/emr/methods.shtml): ~21 methods
- - [ ] [aceproject](https://aceproject.org/main/english/es/esd01.htm)
+   - [ ] black
+   - [ ] baldwin (sometimes called nanson. like rcv but with borda scores)
+   - [ ] nanson (similar to baldwin but elimate all candidates with score below avg borda score)
+   - [ ] bucklin
+   - [ ] dodgeson
+   - [ ] kemeny_young
+   - [ ] median_rating
+   - [ ] minmax
+   - [ ] pairwise_elimination
+   - [ ] ranked_pairs
+   - [ ] schulze
+   - [ ] smith_minimax
+   - [ ] sum_of_defeats
  - [ ] [wikipedia](https://en.wikipedia.org/wiki/Comparison_of_electoral_systems): ~15
- - [ ] [howtofixtheelection.com](https://www.howtofixtheelection.com/ballot/): 14
- - [ ] [electionscience.org](https://electionscience.org/voting-methods/an-assessment-of-six-single-winner-voting-methods/)
+   - [ ] bucklin
+   - [ ] kemeny_young
+   - [ ] highest_median / majority_judgement
+   - [ ] ranked_pairs
+   - [ ] star
+   - [ ] schulze
+   - [ ] tideman
+   - [ ] nanson
+   - [ ] black
+   - [ ] smith_irv
+   - [ ] minimax
+   - [ ] baldwin
+   - [ ] dodgeson
+   - leximin
+   - fishburn
+ - [ ] [howtofixtheelection.com](https://www.howtofixtheelection.com/ballot/)
+ - [x] [electionscience.org](https://electionscience.org/voting-methods/an-assessment-of-six-single-winner-voting-methods/)
  - [ ] [electowiki category:single-winner](https://electowiki.org/wiki/Category:Single-winner_voting_methods)
  - [ ] [accurateddemocracy](https://www.accuratedemocracy.com/c_other.htm) 
+ - [ ] [smith2006](www.9mail.de/m-schulze/votedesc.pdf)
+ - [ ] [this electowiki diagram](https://electowiki.org/wiki/File:Voting_system_Euler_diagram.svg)
 
 ## Tech
 ### Shoutouts

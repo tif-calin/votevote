@@ -3,6 +3,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.3.0] - 2022-03-??
 ### Added
+ - new voting method: equal_even
  - explanatory infobox
  - added a sitemap.xml
 
