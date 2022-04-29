@@ -9,6 +9,7 @@
     - [ ] other colors datasets, cities, custom dataset, etc
     - [ ] voter preference scoring options
  - [ ] submit sitemap to google
+ - [ ] gamify with high score thing
 
 ### priority for v0.1.3
  - [ ] add hybrid methods: star and 3-2-1
@@ -16,6 +17,7 @@
  - [ ] more info on charts: threshold lines, marks, etc
  - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
  - [ ] optimize existing methods to use cacheing
+    - [ ] cache approval threshold classes
  - [x] add explanatory info
  - [x] add a sitemap.xml
  - [x] fix iPhone icon
