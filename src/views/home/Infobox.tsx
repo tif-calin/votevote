@@ -77,7 +77,7 @@ const Container = styled.div<{
 const Infobox = () => {
   const [showInfo, setShowInfo] = useLocalStorage('votevote_showinfo', true);
   const [showMore, setShowMore] = React.useState(false);
-  const toggleShowInfo = React.useCallback(() => setShowInfo(b => !b), []);
+  const toggleShowInfo = React.useCallback(() => setShowInfo(b => !b), [setShowInfo]);
   const toggleShowMore = React.useCallback(() => setShowMore(b => !b), []);
 
   return (
