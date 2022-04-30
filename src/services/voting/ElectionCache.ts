@@ -3,9 +3,7 @@ import SuperElection, { ResultFull } from './SuperElection';
 class ElectionCache {
   election: SuperElection;
   candidates: string[];
-  results: {
-    [method: string]: ResultFull;
-  } = {};
+  results: Record<string, ResultFull> = {};
 
   _firstVotes?: { [key: string]: number };
   _firstVotesScores?: number[];

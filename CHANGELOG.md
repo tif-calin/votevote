@@ -1,6 +1,28 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
+## [0.1.2.2] - 2022-04-30
+### Added
+ - new voting method: equal_even
+ - explanatory infobox
+ - added a sitemap.xml
+
+### Changed
+ - first block's explanation defaults to open
+ - add new preview img and apple icon for site links
+ - minor styling tweaks 
+    - left input sizing
+    - x-axis ticks
+    - input buttons now pink on hover
+    - input selects and inputs now have dashed borders
+
+### Fixed
+ - cross-browser styling tweaks
+    - firefox lacks support for invert() for backdrop-filter so I hardcoded the background color
+    - improved styling consistency for selects and inputs
+    - x-axis labels are the now in the same position
+    - firefox bar labels don't disappear when longer than bar
+
 ## [0.1.2.1] - 2022-03-01
 ### Fixed
  - Safari transparency interpolation bug work around for scroll shadows

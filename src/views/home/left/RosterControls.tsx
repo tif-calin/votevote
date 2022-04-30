@@ -11,6 +11,7 @@ const Roster = styled.fieldset`
   padding: 0;
   padding-bottom: 0.25rem;
   margin: 0;
+  height: 100%;
 
   & legend {
     padding-right: 0.5rem;
@@ -20,17 +21,35 @@ const Roster = styled.fieldset`
   & :is(select, button) {
     min-width: 3rem;
 
-    &:is(select) {
-      flex-grow: 2;
-    }
-
-    &:is(button) {
-      flex-grow: 0;
-    }
+    &:is(select) { flex-grow: 2; }
+    &:is(button) { flex-grow: 0; }
   }
 
   & > output {
     width: 100%;
+    border-radius: 0.15rem;
+
+    max-height: calc(6rem + 50vh);
+    overflow-y: auto;
+    @supports (scrollbar-width: none) {
+      scrollbar-width: none;
+    }
+    @supports selector(::-webkit-scrollbar) {
+      overflow-y: overlay;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    background:
+      linear-gradient(var(--color-white) 30%, #fff0),
+      linear-gradient(#fff0, var(--color-white) 70%) 0 100%,
+      radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), #0000),
+      radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), #0000) 0 100%
+    ;
+    background-repeat: no-repeat;
+    background-size: 100% 3rem, 100% 3rem, 200% 1rem, 200% 1rem;
+    background-attachment: local, local, scroll, scroll;
   }
 
   & button.symbol {
@@ -38,6 +57,14 @@ const Roster = styled.fieldset`
     width: 1.5rem;
     color: rgba(var(--color-black-rgb), 0.8);
     font-family: "VoteVote Symbol";
+
+    transition-property: color, background-color, border-color;
+    transition-duration: 0.1s;
+    &:hover {
+      background-color: var(--oc-pink-4);
+      color: var(--color-white);
+      border-color: transparent;
+    }
   }
 
   & > .message {

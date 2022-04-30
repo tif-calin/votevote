@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ResultFull } from '../../services/voting/SuperElection';
+import { ResultFull } from '../../../services/voting/SuperElection';
 import ContingencyBlock from './blocks/ContingencyBlock';
 import { MemoizedIRVBlock } from './blocks/IRVBlock';
 import { MemoizedStaticBlock as StaticBlock } from './blocks/StaticBlock';
@@ -27,6 +27,7 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
         title="Plurality"
         methods={['fptp', 'veto', 'signed', 'vfa']}
         results={dataFull}
+        explanationDefaultsOpen={true}
       />
       <ContingencyBlock
         data={data}
@@ -51,7 +52,7 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
       />
       <StaticBlock
         title="Budgetary"
-        methods={['cumulative', 'fractional', 'quadratic']}
+        methods={['cumulative', 'fractional', 'quadratic', 'equal_even']}
         results={dataFull}
       />
     </Container>

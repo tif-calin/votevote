@@ -1,7 +1,7 @@
 import React from 'react';
-import BarChartWithRounds from '../../../components/charts/BarChartWithRounds';
-import xkcd from '../../../data/xkcd';
-import useInterval from '../../../hooks/useInterval';
+import BarChartWithRounds from '../../../../components/charts/BarChartWithRounds';
+import xkcd from '../../../../data/xkcd';
+import useInterval from '../../../../hooks/useInterval';
 import Block from './Block';
 
 interface Props {
@@ -9,14 +9,12 @@ interface Props {
 };
 
 type Info = { 
-  [key: string]: { 
-    name?: string,
-    explanation?: string, 
-    visualization?: React.FC<any>, 
-  };
+  name?: string,
+  explanation?: string, 
+  visualization?: React.FC<any>, 
 };
 
-const info: Info = {
+const info: Record<string, Info> = {
   irv: {
     name: 'Instant Runoff Voting',
     explanation: 'IRV is the most well-known for of ranked-choice voting. Every round, if no candidate has gotten a majority of the remaining votes, the candidate with the fewest votes is eliminated. Those who voted for that candidate will have their vote move to their next highest pick.',
@@ -32,15 +30,15 @@ const info: Info = {
 };
 
 const IRVBlock: React.FC<Props> = ({ data }) => {
+  // Local state variables
   const [selectedMethod, setSelectedMethod] = React.useState('irv');
   const [currentRound, setCurrentRound] = React.useState(0);
   const [isPaused, setIsPaused] = React.useState(false);
+  const [resetRoundOnSwitch] = React.useState(false);
+  const currentRoundNumber = Math.min(currentRound, data?.[selectedMethod]?.length - 1 || 0);
 
-  useInterval(() => {
-    setCurrentRound(current => 
-      (current + 1) % ((data?.[selectedMethod]?.length || 0) + 2)
-    );
-  }, isPaused ? null : 1900);
+  // Memoized state
+  const togglePause = React.useCallback(() => setIsPaused(b => !b), [setIsPaused]);
 
   const Chart = React.useMemo(() => {
     return info?.[selectedMethod]?.visualization || BarChartWithRounds
@@ -69,8 +67,18 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
     } else return [undefined, undefined, []];
   }, [data, selectedMethod]);
 
-  // React.useEffect(() => { setCurrentRound(0); }, [selectedMethod]);
-  const currentRoundNumber = Math.min(currentRound, data?.[selectedMethod]?.length - 1 || 0);
+  // Effects
+  useInterval(() => {
+    setCurrentRound(current => 
+      (current + 1) % ((data?.[selectedMethod]?.length || 0) + 2)
+    );
+  }, isPaused ? null : 1900);
+
+
+  React.useEffect(
+    () => { if (resetRoundOnSwitch) setCurrentRound(0); }, 
+    [resetRoundOnSwitch, selectedMethod]
+  );
 
   return (
     <Block
@@ -81,7 +89,7 @@ const IRVBlock: React.FC<Props> = ({ data }) => {
       round={currentRoundNumber}
       winners={winners}
       isPaused={isPaused}
-      handlePause={() => setIsPaused(!isPaused)}
+      handlePause={togglePause}
     >
       {
         data[selectedMethod] ? <Chart

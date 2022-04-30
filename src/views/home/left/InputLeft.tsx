@@ -9,11 +9,11 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   min-width: 200px;
+  max-width: 36rem;
   flex-basis: 35%;
   flex-grow: 1;
   padding: var(--padding);
   gap: var(--padding);
-
   height: fit-content;
 
   & > span.warning {
@@ -29,6 +29,7 @@ const Container = styled.form`
 
 const ColorBox = styled.div`
   width: 1.25rem;
+  min-width: 1.25rem;
   height: 1.25rem;
   border-radius: 0.25rem;
   transition: border 0.1s;
@@ -43,7 +44,7 @@ const ColorBox = styled.div`
   & span {
     width: 100%;
     color: var(--color-white);
-    font-weight: 900;
+    font-weight: 700;
     opacity: 0;
     backdrop-filter: contrast(0.25);
   }
@@ -68,40 +69,27 @@ const CandidateDisplay = styled.div`
 const VoterDisplay = styled.ul`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   padding: 0;
   list-style: none;
   gap: 0.25rem;
 
-  max-height: calc(1rem + 50vh);
-  overflow-y: auto;
-  @supports (scrollbar-width: none) {
-    scrollbar-width: none;
-  }
-  @supports selector(::-webkit-scrollbar) {
-    overflow-y: overlay;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  background:
-    linear-gradient(var(--color-white) 30%, #fff0),
-    linear-gradient(#fff0, var(--color-white) 70%) 0 100%,
-    radial-gradient(farthest-side at 0 0, rgba(var(--color-black-rgb), 0.1), #0000),
-    radial-gradient(farthest-side at 0 100%, rgba(var(--color-black-rgb), 0.1), #0000) 0 100%
-  ;
-  background-repeat: no-repeat;
-	background-size: 100% 3rem, 100% 3rem, 200% 1rem, 200% 1rem;
-  background-attachment: local, local, scroll, scroll;
+  margin: calc(var(--padding) / 2);
 
   & > li {
-    width: 100%;
+    max-width: 100%;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 
     & > span[title] {
+      // white-space: nowrap;
+      // max-width: calc(200px - 7.75rem);
+      // text-overflow: ellipsis;
+      // overflow: hidden;
+      max-height: 1.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
       cursor: help;
     }
 
@@ -113,6 +101,7 @@ const VoterDisplay = styled.ul`
       & input[type="number"] {
         text-align: right;
         backdrop-filter: none;
+        border: none;
   
         &::-webkit-textfield-decoration-container {
           flex-direction: row-reverse;
@@ -253,10 +242,13 @@ const InputLeft: React.FC<Props> = ({
                   onClick={() => removeVoter(voter)}
                 ><span>x</span></ColorBox>
                 <span 
-                  title={formatVoterPreferences(ballots?.[voter]?.ballot)}
+                  title={`${voter}\n---\n` + formatVoterPreferences(ballots?.[voter]?.ballot)}
                 >{voter}</span>
-                {/* <span>{voters[voter]}</span> */}
-                <input type="number" defaultValue={voters[voter]} onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} />
+                <input 
+                  type="number" 
+                  value={voters[voter]} 
+                  onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} 
+                />
               </li>
             );
           })}

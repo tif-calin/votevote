@@ -11,7 +11,8 @@ const Container = styled.div`
   align-items: stretch;
 
   box-shadow: var(--shadow-inset-medium), inset 0 0 2px hsl(var(--shadow-color));
-  backdrop-filter: invert(0.05);
+  /* backdrop-filter: invert(0.05); */
+  background: var(--color-backwhite);
 
   & *.island {
     border-radius: 0.25rem;
@@ -25,7 +26,8 @@ const Container = styled.div`
 
     & > .release {
       padding: 0.5rem;
-      backdrop-filter: invert(0.025);
+      /* backdrop-filter: invert(0.025); */
+      background-color: var(--color-lesswhite);
       border-radius: 0.25rem;
       box-shadow: var(--shadow-inset-low), inset 0 0 2px hsl(var(--shadow-color));
     }
@@ -77,9 +79,29 @@ const ChangelogPage: React.FC<Props> = () => {
       <section className="island">
         <h2>Changelog</h2>
         <p>
-          For more up to date information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>.
+          For more up-to-date and in-depth information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>. In addition, you can see <A href="https://dev--votevote.netlify.app/">this Netlify deployment</A> of the upcoming version.
         </p>
 
+        {/* <h3>v0.1.3 <span>2022_05may??</span></h3>
+        <div className="release">
+          <h4>Added</h4>
+          <ul>
+            <li>1 new voting method: equal_even</li>
+            <li>explanatory infobox</li>
+            <li>sitemap.xml</li>
+          </ul>
+          <h4>Changed</h4>
+          <ul>
+            <li>many misc styling tweaks</li>
+          </ul>
+          <h4>Fixed</h4>
+          <ul>
+            <li>a voter&apos;s input number amount updates on reset</li>
+            <li>numerous browser styling inconsistencies now fixed</li>
+          </ul>
+        </div> */}
+
+        <br />
         <h3>v0.1.2 <span>2022_02feb28</span></h3>
         <div className="release">
           <h4>Added</h4>
@@ -123,6 +145,8 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
+
+        <br />
         <h3>v0.1.1 <span>2022_02feb18</span></h3>
         <div className="release">
           <h4>Added</h4>
@@ -151,6 +175,8 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
+
+        <br />
         <h3>v0.1.0 <span>2022_02feb15</span></h3>
         <div className="release">
           <ul>
@@ -159,9 +185,9 @@ const ChangelogPage: React.FC<Props> = () => {
               <ul>
                 <li>plurality: fptp, veto, signed, vfa</li>
                 <li>runoff: irv, coombs, fab_irv</li>
-                <li>bootiful graphs</li>
               </ul>
             </li>
+            <li>bootiful graphs</li>
             <li>
               <span>1 dataset: xkcd's RGB colors</span>
               <ul>

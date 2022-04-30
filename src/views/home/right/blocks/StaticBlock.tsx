@@ -1,9 +1,9 @@
 import React from 'react';
-import BarChart from '../../../components/charts/BarChart';
+import BarChart from '../../../../components/charts/BarChart';
 import Block from './Block';
-import info from '../../../services/voting/info';
-import { ResultFull } from '../../../services/voting/SuperElection';
-import xkcd from '../../../data/xkcd';
+import info from '../../../../services/voting/info';
+import { ResultFull } from '../../../../services/voting/SuperElection';
+import xkcd from '../../../../data/xkcd';
 
 interface Props {
   title: string;
@@ -11,12 +11,14 @@ interface Props {
   results: {
     [method: string]: ResultFull;
   };
+  explanationDefaultsOpen?: boolean;
 };
 
 const StaticBlock: React.FC<Props> = ({
   title,
   methods,
-  results
+  results,
+  explanationDefaultsOpen = false,
 }) => {
   const [selectedMethod, setSelectedMethod] = React.useState<string>(methods[0]);
 
@@ -49,6 +51,7 @@ const StaticBlock: React.FC<Props> = ({
       setMethod={setSelectedMethod}
       info={blockInfo}
       winners={results?.[selectedMethod]?.winners || []}
+      explanationDefaultsOpen={explanationDefaultsOpen}
     >
       {results[selectedMethod] ? <BarChart
         bars={bars}

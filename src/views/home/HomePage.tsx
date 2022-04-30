@@ -3,17 +3,23 @@ import styled from 'styled-components';
 import xkcd from '../../data/xkcd';
 import useElection from '../../hooks/useElection';
 import { votersToBallots } from '../../services/color/colorDistance';
+import Infobox from './Infobox';
 import { MemoizedInputLeft } from './left/InputLeft';
-import { MemoizedOutputRight } from './OutputRight';
+import { MemoizedOutputRight } from './right/OutputRight';
 
 const Page = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: var(--padding);
   align-items: stretch;
+  position: relative;
 
   box-shadow: var(--shadow-inset-medium), inset 0 0 2px hsl(var(--shadow-color));
-  backdrop-filter: invert(0.05);
+  background-color: var(--color-backwhite);
+  // @supports (backdrop-filter: invert(0.05)) {
+  //   background-color: unset;
+  //   backdrop-filter: invert(0.05);
+  // }
 
   & *.island {
     border-radius: 0.25rem;
@@ -22,26 +28,43 @@ const Page = styled.div`
   }
 `;
 
-interface Props {};
-
 const ballotMaker = (voters: string[], candidates: string[]) => votersToBallots(voters, candidates, xkcd);
 
-const HomePage: React.FC<Props> = () => {
-  const { election, elect, ballots, electionOutcomes: data, electionOutcomesFull: dataFull } = useElection();
-  if (dataFull?.fptp) {
-    console.log(dataFull);
-    // for (let method of Object.keys(dataFull)) console.log(method, dataFull[method].winners);
-  }
-  const auto = React.useMemo(() => (election?.candidates?.length || 0) < 20, [election?.candidates]);
+const HomePage = () => {
+  const { 
+    election, 
+    elect, 
+    ballots, 
+    electionOutcomes: data, 
+    electionOutcomesFull: dataFull 
+  } = useElection();
 
-  const handleElect = React.useCallback((c, v) => elect(c, v, ballotMaker), [elect]);
+  React.useEffect(() => {
+    console.debug(election);
+    if (dataFull?.fptp) {
+      console.debug(dataFull);
+      const winSet = new Set(
+        Object.values(dataFull).reduce(
+          (acc, { winners }) => winners.length === 1 ? [acc, winners].flat() : acc, 
+          [] as string[]
+        )
+      );
+      console.log(winSet.size);
+      // for (let method of Object.keys(dataFull)) console.debug(method, dataFull[method].winners);
+    }
+  }, [dataFull, election]);
+
+  const handleElect = React.useCallback(
+    (c, v) => elect(c, v, ballotMaker), [elect]
+  );
 
   return (
     <Page>
+      <Infobox />
       <MemoizedInputLeft
         elect={handleElect}
         ballots={ballots}
-        auto={auto}
+        auto={(election?.candidates?.length || 0) < 20}
       />
       <MemoizedOutputRight 
         data={data}

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ColorName from '../../../../components/ColorName';
+import ColorName from '../../../../../components/ColorName';
 
 const Top = styled.div`
   display: flex;

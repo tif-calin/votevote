@@ -76,7 +76,7 @@ const parseScoredBallot = (
   let total = 0;
   let totalApproved = 0;
   const proportionalBallot: Ballot = {};
-  const approvalBallot: Ballot = {};
+  const approvalBallot: Ballot = {}; // maps scores over 0.5 from 0..1 to -1..1
   const approvalProportionalBallot: Ballot = {};
 
   // organize the candidates by their scores
@@ -90,7 +90,7 @@ const parseScoredBallot = (
     else acc[score] = [candidate];
 
     return acc;
-  }, {} as { [key: number]: string[] });
+  }, {} as Record<number, string[]>);
 
   // get proportional version of ballot
   Object.entries(ballot).forEach(([c, v]) => {

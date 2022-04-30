@@ -32,13 +32,18 @@ const Explanation = styled.details`
 
 interface Props {
   explanation?: string;
+  explanationDefaultsOpen?: boolean;
 };
 
-const BlockBottom: React.FC<Props> = ({ explanation }) => {
-
+const BlockBottom: React.FC<Props> = ({ 
+  explanation,
+  explanationDefaultsOpen = false,
+ }) => {
   if (!explanation) return null;
   else return (
-    <Explanation>
+    <Explanation
+      open={explanationDefaultsOpen}
+    >
       <summary>Explanation</summary>
       <p>{explanation}</p>
     </Explanation>
