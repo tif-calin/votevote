@@ -630,7 +630,7 @@ class SuperElection {
     return cumulativeResult;
   };
 
-  // Equal&Even
+  // Equal & Even
   equal_even(candidates = this.candidates): ResultSimple {
     // https://en.wikipedia.org/wiki/Cumulative_voting#Voting
     // takes list of approved candidates

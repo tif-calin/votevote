@@ -56,7 +56,7 @@
  - [x] save current election to localStorage and add reset button
  - [x] fix errors for edge cases (0 candidates, 0 voters, negative voter weight, etc)
 
-### other
+### features
  - [ ] come up with a nice visualization for pairwise matrices
  - [ ] change the pairwise matrix in ElectionCache so it uses ballotsScored
  - [ ] redo the whole bar chart system:
@@ -74,9 +74,6 @@
     - [x] store winners for each Cache object
     - [ ] do we really have to regenerate the whole object everytime a candidate is removed? 
     - [x] make the election method results return more info (e.g. `signed` should show the number for/against)
- - clean up code
-    - [ ] organize typescript types into a separate file
-    - [ ] remove `as any` typescript stuff
  - [ ] settings icon next to selected method if it has extra options like tie-breaking methods or being calculated with incomplete ballots
  - [ ] more docs/info
     - [ ] add references for each method
@@ -90,16 +87,10 @@
  - [ ] figure out a nice solution for a shitton of candidates 
  - [ ] make a particular election shareable by url
  - [ ] show a threshold line for relevant methods (passed in from parent blocks)
- - [x] give a max size to the voter list and make overflow scrollable 
- - [ ] SEO overhaul
-    - [x] add a sitemap
-    - [ ] frontendchecklist stuffs
+ - [x] give a max size to the voter list and make overflow scrollable
  - [ ] support for alternative datasets
     - [ ] each dataset has its own data structure and distance calculating method
     - [ ] custom datasets with manually entered preferences
- - [ ] accessibility overhaul
-    - [ ] screen reader accessibility
-    - [ ] keyboard accessibility
  - [x] make the method options scrollable with a max-width (50%?) to support longer method names
  - [x] improve the title text showing voter preferences
  - [x] removing a candidate/voter should set selected to the removed candidate/voter
@@ -109,17 +100,7 @@
  - [ ] on small screens, make block method switcher and block title on separate lines
  - [ ] clicking "show explanation" should scroll to top
  - [ ] shift + clicking shuffle will also randomly change the amount
- - [ ] open it up for external contributions
-    - [ ] PR template
-    - [ ] CONTRIBUTING.md
-    - [ ] use GitHub versioning
-    - [ ] use GitHub issues instead of TODO.md
  - [ ] ability to sort rosters by name, weight, order, etc
- - [ ] progressive web apps?
-    - [ ] build as a static site
-    - [publish to f-droid](https://forum.f-droid.org/t/progressive-web-apps/1691/2)
-    - [ ] use webgpu for calculations
-    - [ ] content api for offline uses
 
 ### fix
  - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -146,6 +127,29 @@
  - [ ] tab order skips method switcher in blocks
  - [x] in voter roster, square may get squished and color names show on multiple lines
  - [ ] when the method is switched and the y-axis varies drastically, bars don't smoothly transition
+
+### longterm
+ - open it up for external contributions
+    - [ ] clean up the code
+       - [ ] organize typescript types into a separate file
+       - [ ] remove `as any` typescript stuff
+    - [ ] PR template
+    - [ ] CONTRIBUTING.md
+    - [ ] use GitHub versioning
+    - [ ] use GitHub issues instead of TODO.md
+    - [ ] add linting rules
+    - [ ] unit testing!
+ - accessibility (a11y)
+    - [ ] screen reader accessibility
+    - [ ] keyboard accessibility
+ - search engine optimization (seo)
+    - [x] add a sitemap
+    - [ ] frontendchecklist stuffs
+ - progressive web apps?
+    - [ ] build as a static site
+    - [ ] [publish to f-droid](https://forum.f-droid.org/t/progressive-web-apps/1691/2)
+    - [ ] use webgpu for calculations
+    - [ ] content api for offline uses
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
