@@ -94,6 +94,7 @@ Currently its just a toy, but it is completely open-sourced and might some day g
  - [ ] [accurateddemocracy](https://www.accuratedemocracy.com/c_other.htm) 
  - [ ] [smith2006](www.9mail.de/m-schulze/votedesc.pdf)
  - [ ] [this electowiki diagram](https://electowiki.org/wiki/File:Voting_system_Euler_diagram.svg)
+ - [ ] [colin champion's experiments](https://www.masterlyinactivity.com/condorcet/condorcet.html#qdc)
 
 ## Tech
 ### Shoutouts

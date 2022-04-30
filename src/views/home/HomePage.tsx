@@ -5,7 +5,7 @@ import useElection from '../../hooks/useElection';
 import { votersToBallots } from '../../services/color/colorDistance';
 import Infobox from './Infobox';
 import { MemoizedInputLeft } from './left/InputLeft';
-import { MemoizedOutputRight } from './OutputRight';
+import { MemoizedOutputRight } from './right/OutputRight';
 
 const Page = styled.div`
   display: flex;

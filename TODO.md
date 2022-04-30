@@ -91,21 +91,35 @@
  - [ ] make a particular election shareable by url
  - [ ] show a threshold line for relevant methods (passed in from parent blocks)
  - [x] give a max size to the voter list and make overflow scrollable 
- - [ ] SEO and frontendchecklist stuffs
+ - [ ] SEO overhaul
+    - [x] add a sitemap
+    - [ ] frontendchecklist stuffs
  - [ ] support for alternative datasets
     - [ ] each dataset has its own data structure and distance calculating method
     - [ ] custom datasets with manually entered preferences
  - [ ] accessibility overhaul
- - [ ] build as a static site
+    - [ ] screen reader accessibility
+    - [ ] keyboard accessibility
  - [x] make the method options scrollable with a max-width (50%?) to support longer method names
  - [x] improve the title text showing voter preferences
  - [x] removing a candidate/voter should set selected to the removed candidate/voter
  - [x] change the app icon for mobile to not have transparent background
  - [ ] create an About page with an FAQ
- - [ ] add a sitemap
  - [ ] secret menu for debugging and things I like to do like randomly select n+1 voters m times
  - [ ] on small screens, make block method switcher and block title on separate lines
  - [ ] clicking "show explanation" should scroll to top
+ - [ ] shift + clicking shuffle will also randomly change the amount
+ - [ ] open it up for external contributions
+    - [ ] PR template
+    - [ ] CONTRIBUTING.md
+    - [ ] use GitHub versioning
+    - [ ] use GitHub issues instead of TODO.md
+ - [ ] ability to sort rosters by name, weight, order, etc
+ - [ ] progressive web apps?
+    - [ ] build as a static site
+    - [publish to f-droid](https://forum.f-droid.org/t/progressive-web-apps/1691/2)
+    - [ ] use webgpu for calculations
+    - [ ] content api for offline uses
 
 ### fix
  - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -130,15 +144,8 @@
  - [x] `copeland` and `lull` score is wrong because it compares candidates against themselves lol
  - [ ] tab order skips buttons on safari
  - [ ] tab order skips method switcher in blocks
- - [ ] use webgpu for calculations
- - [ ] content api for offline uses
- - [ ] in voter roster, square may get squished and color names show on multiple lines
- - [ ] open it up for external contributions
-    - [ ] PR template
-    - [ ] CONTRIBUTING.md
-    - [ ] use GitHub versioning
-    - [ ] use GitHub issues instead of TODO.md
- - [ ] ability to sort rosters by name, weight, order, etc
+ - [x] in voter roster, square may get squished and color names show on multiple lines
+ - [ ] when the method is switched and the y-axis varies drastically, bars don't smoothly transition
 
 ### sidequests
  - [ ] disttint: see most related colors and compare different distancing methods
@@ -148,7 +155,12 @@
     - get the largest number of different candidates as winners
  - [ ] individual subpages for each method
  - [ ] voting service like votyvote
- - [ ] make-your-own voting systems (e.g. weighted positional, hybrid, etc)
+ - [ ] make-your-own voting systems
+    - runoff
+       - drop_condition (e.g. all candidates with less than average copeland score, least of borda score, etc)
+       - win_condition (e.g. more than 50% of remaining first-choice votes)
+    - weighted positional
+       - vector constructor
 
 ---
 

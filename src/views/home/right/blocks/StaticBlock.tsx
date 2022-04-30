@@ -1,9 +1,9 @@
 import React from 'react';
-import BarChart from '../../../components/charts/BarChart';
+import BarChart from '../../../../components/charts/BarChart';
 import Block from './Block';
-import info from '../../../services/voting/info';
-import { ResultFull } from '../../../services/voting/SuperElection';
-import xkcd from '../../../data/xkcd';
+import info from '../../../../services/voting/info';
+import { ResultFull } from '../../../../services/voting/SuperElection';
+import xkcd from '../../../../data/xkcd';
 
 interface Props {
   title: string;

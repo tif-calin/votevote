@@ -14,9 +14,7 @@ const Container = styled.form`
   flex-grow: 1;
   padding: var(--padding);
   gap: var(--padding);
-
   height: fit-content;
-  max-height: calc(100vh - var(--padding) * 2);
 
   & > span.warning {
     line-height: 1.25;
@@ -31,6 +29,7 @@ const Container = styled.form`
 
 const ColorBox = styled.div`
   width: 1.25rem;
+  min-width: 1.25rem;
   height: 1.25rem;
   border-radius: 0.25rem;
   transition: border 0.1s;

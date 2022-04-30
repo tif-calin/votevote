@@ -1,7 +1,7 @@
 import React from 'react';
-import BarChartWithRounds from '../../../components/charts/BarChartWithRounds';
-import xkcd from '../../../data/xkcd';
-import useInterval from '../../../hooks/useInterval';
+import BarChartWithRounds from '../../../../components/charts/BarChartWithRounds';
+import xkcd from '../../../../data/xkcd';
+import useInterval from '../../../../hooks/useInterval';
 import Block from './Block';
 
 type Info = {

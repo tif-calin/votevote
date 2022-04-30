@@ -11,6 +11,7 @@ const Roster = styled.fieldset`
   padding: 0;
   padding-bottom: 0.25rem;
   margin: 0;
+  height: 100%;
 
   & legend {
     padding-right: 0.5rem;
@@ -20,17 +21,13 @@ const Roster = styled.fieldset`
   & :is(select, button) {
     min-width: 3rem;
 
-    &:is(select) {
-      flex-grow: 2;
-    }
-
-    &:is(button) {
-      flex-grow: 0;
-    }
+    &:is(select) { flex-grow: 2; }
+    &:is(button) { flex-grow: 0; }
   }
 
   & > output {
     width: 100%;
+    border-radius: 0.15rem;
 
     max-height: calc(6rem + 50vh);
     overflow-y: auto;
