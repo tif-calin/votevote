@@ -145,7 +145,6 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
-
         <br />
         <h3>v0.1.1 <span>2022_02feb18</span></h3>
         <div className="release">
@@ -171,10 +170,9 @@ const ChangelogPage: React.FC<Props> = () => {
             <li>navigating by direct url no longer results in 404</li>
             <li>too long x-tick labels won't show unless hovered over</li>
             <li>winners with negative scores now show thick borders</li>
-            <li>crash on mobile devices due to unsupport .at() feature</li>
+            <li>crash on mobile devices due to unsupported .at() feature</li>
           </ul>
         </div>
-
 
         <br />
         <h3>v0.1.0 <span>2022_02feb15</span></h3>
@@ -209,7 +207,6 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
-        
       </section>
     </Container>
   );

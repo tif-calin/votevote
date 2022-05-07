@@ -6,6 +6,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - new voting method: equal_even
  - explanatory infobox
  - added a sitemap.xml
+ - link to dev deployment in changelog page
 
 ### Changed
  - first block's explanation defaults to open

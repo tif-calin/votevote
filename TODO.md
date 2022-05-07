@@ -18,6 +18,7 @@
  - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
  - [ ] optimize existing methods to use cacheing
     - [ ] cache approval threshold classes
+ - [ ] new favicon
  - [x] add explanatory info
  - [x] add a sitemap.xml
  - [x] fix iPhone icon
@@ -127,6 +128,7 @@
  - [ ] tab order skips method switcher in blocks
  - [x] in voter roster, square may get squished and color names show on multiple lines
  - [ ] when the method is switched and the y-axis varies drastically, bars don't smoothly transition
+ - [ ] zomming in on Safari and the wheel for number inputs also shrinks??
 
 ### longterm
  - open it up for external contributions
@@ -135,6 +137,7 @@
        - [ ] remove `as any` typescript stuff
     - [ ] PR template
     - [ ] CONTRIBUTING.md
+       - how the SuperElection system works
     - [ ] use GitHub versioning
     - [ ] use GitHub issues instead of TODO.md
     - [ ] add linting rules

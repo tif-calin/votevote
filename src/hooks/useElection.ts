@@ -22,7 +22,10 @@ const useElection = () => {
     if (candidates?.length) {
       const weights: number[] = Object.values(voters);
       const ballots = ballotMaker(Object.keys(voters), candidates);
+      const t0 = performance.now();
       const newElection = new SuperElection(candidates, ballots, weights);
+      const t1 = performance.now();
+      console.log(`Election took ${t1 - t0}ms to calculate`);
       setElection(newElection);
       setBallots(Object.keys(voters).reduce((acc, voter, i) => ({
         ...acc, [voter]: { 
