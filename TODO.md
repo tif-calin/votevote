@@ -18,7 +18,7 @@
  - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
  - [ ] optimize existing methods to use cacheing
     - [ ] cache approval threshold classes
- - [ ] new favicon
+ - [x] new favicon
  - [x] add explanatory info
  - [x] add a sitemap.xml
  - [x] fix iPhone icon
