@@ -135,16 +135,22 @@
     - [ ] clean up the code
        - [ ] organize typescript types into a separate file
        - [ ] remove `as any` typescript stuff
-    - [ ] PR template
+    - [ ] PR templates, issue templates, etc
     - [ ] CONTRIBUTING.md
        - how the SuperElection system works
     - [ ] use GitHub versioning
     - [ ] use GitHub issues instead of TODO.md
     - [ ] add linting rules
     - [ ] unit testing!
+    - [ ] ROADMAP.md
+       - move that feature parity section from the README to here
+       - sidequests 
  - accessibility (a11y)
     - [ ] screen reader accessibility
     - [ ] keyboard accessibility
+    - [ ] theme switcher and/or dark/light mode
+ - internationalization (i18n)
+    - [ ] support different languages
  - search engine optimization (seo)
     - [x] add a sitemap
     - [ ] frontendchecklist stuffs
