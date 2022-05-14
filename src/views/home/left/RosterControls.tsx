@@ -9,13 +9,32 @@ const Roster = styled.fieldset`
   align-items: center;
   gap: 0.5rem;
   padding: 0;
-  padding-bottom: 0.25rem;
   margin: 0;
   height: 100%;
+  position: relative;
 
-  & legend {
+  & > legend {
     padding-right: 0.5rem;
     text-transform: capitalize;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    & > span.symbol {
+      display: none;
+      font-size: 0.5rem;
+      transform: rotate(-180deg);
+      opacity: 0.5;
+      transition-property: transform, opacity;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
+    }
+
+    &:hover > span.symbol { 
+      opacity: 1;
+      transform: rotate(0deg); 
+    }
   }
 
   & :is(select, button) {
@@ -81,6 +100,16 @@ const Roster = styled.fieldset`
   }
 
   &:hover > .message > span:last-child { opacity: 1; }
+  &:hover > legend > span.symbol { display: inline-block; }
+`;
+
+const CollapsedTotal = styled.span`
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  background-color: var(--color-white);
+  padding-left: 0.5rem;
+  font-weight: 350;
 `;
 
 interface Props {
@@ -99,69 +128,84 @@ interface Props {
 
 const RosterControls: React.FC<Props> = ({ count, children, options, name, add, reset, clear, selected, setSelected, selectedN, setSelectedN }) => {
   const [controlMessage, setControlMessage] = React.useState<string>('');
+  const resetMessage = () => setControlMessage('');
+
+  const [expanded, toggleExpanded] = React.useReducer((state: boolean) => !state, true);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     setSelected(e.target.value);
   };
 
-  const resetMessage = () => setControlMessage('');
-
   return (
     <Roster 
       name={name} 
       onSubmit={e => e.preventDefault()}
     >
-      <legend>{name}</legend>
-      <button 
-        className="symbol"
-        onClick={() => setSelected(options[Math.floor(Math.random() * options.length)])}
-        onMouseEnter={() => setControlMessage('Select a random option')}
-        onMouseLeave={resetMessage}
-      >&#x1f500;</button>
-      <select 
-        name={name}
-        value={selected}
-        onChange={handleSelect}
+      <legend
+        onClick={toggleExpanded}
+        onKeyDownCapture={e => (e.key === 'Enter' || e.key === ' ') && toggleExpanded()}
+        role="button"
+        tabIndex={0}
       >
-        {options.map((key) => (
-          <option key={key} value={key}>
-            {key}
-          </option>
-        ))}
-      </select>
-      {setSelectedN ? (
-        <input 
-          type="number"
-          value={selectedN}
-          onChange={e => setSelectedN(parseInt(e.target.value))}
-        />
-      ) : null}
-      <button 
-        className="symbol"
-        onClick={add}
-        onMouseEnter={() => setControlMessage(`Add ${selected} to the roster`)}
-        onMouseLeave={resetMessage}
-      >&#x2795;</button>
-      {reset && <button
-        className="symbol"
-        onClick={reset}
-        onMouseEnter={() => setControlMessage(`Reset roster to preset`)}
-        onMouseLeave={resetMessage}
-      >&#x21ba;</button>}
-      <button 
-        className="symbol"
-        onClick={clear}
-        onMouseEnter={() => setControlMessage(`Clear the entire roster`)}
-        onMouseLeave={resetMessage}
-      >&#x2716;</button>
-      <div className="message">
-        <span>{count || 0} total</span>
-        <span>{controlMessage || ''}</span>
-      </div>
-      <output>
-        {children}
-      </output>
+        {name}
+        {' '}
+        <span className="symbol">&#x1F53D;</span>
+      </legend>
+        <>
+          <button 
+            className="symbol"
+            onClick={() => setSelected(options[Math.floor(Math.random() * options.length)])}
+            onMouseEnter={() => setControlMessage('Select a random option')}
+            onMouseLeave={resetMessage}
+          >&#x1f500;</button>
+          <select 
+            name={name}
+            value={selected}
+            onChange={handleSelect}
+          >
+            {options.map((key) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
+          </select>
+          {setSelectedN ? (
+            <input 
+              type="number"
+              value={selectedN}
+              onChange={e => setSelectedN(parseInt(e.target.value))}
+            />
+          ) : null}
+          <button 
+            className="symbol"
+            onClick={add}
+            onMouseEnter={() => setControlMessage(`Add ${selected} to the roster`)}
+            onMouseLeave={resetMessage}
+          >&#x2795;</button>
+          {reset && <button
+            className="symbol"
+            onClick={reset}
+            onMouseEnter={() => setControlMessage(`Reset roster to preset`)}
+            onMouseLeave={resetMessage}
+          >&#x21ba;</button>}
+          <button 
+            className="symbol"
+            onClick={clear}
+            onMouseEnter={() => setControlMessage(`Clear the entire roster`)}
+            onMouseLeave={resetMessage}
+          >&#x2716;</button>
+          {expanded && (
+            <>
+              <div className="message">
+                <span>{count?.toLocaleString() || 0} total</span>
+                <span>{controlMessage || ''}</span>
+              </div>
+              <output>{children}</output>
+            </>
+          )}
+        </>
+        {!expanded && <CollapsedTotal>{count?.toLocaleString() || 0} total</CollapsedTotal>}
     </Roster>
   );
 };

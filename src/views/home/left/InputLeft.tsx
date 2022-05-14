@@ -119,7 +119,7 @@ interface Props {
 
 const initialCandidates = [
   'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
-  // 'amethyst', 'azure', 'beige', 'blush', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
+  // 'amethyst', 'azure', 'beige', 'blush', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'manilla', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
 ];
 const initialVoters = Object.keys(xkcd).slice(-24).reduce((a, c) => ({ ...a, [c]: c.length }), {});
 const colorList = Object.keys(xkcd).sort();
@@ -133,8 +133,10 @@ const formatVoterPreferences = (ballot?: { [key: string]: number }) => {
 };
 
 const InputLeft: React.FC<Props> = ({ 
-  elect, auto = true, ballots = {}
+  elect, auto = true, ballots
 }) => {
+  ballots ||= {};
+
   const { 
     roster: candidates,
     reset: resetCandidates,

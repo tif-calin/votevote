@@ -8,7 +8,7 @@
  - [ ] different datasets
     - [ ] other colors datasets, cities, custom dataset, etc
     - [ ] voter preference scoring options
- - [ ] submit sitemap to google
+ - [x] submit sitemap to google
  - [ ] gamify with high score thing
 
 ### priority for v0.1.3
@@ -23,6 +23,7 @@
  - [x] add a sitemap.xml
  - [x] fix iPhone icon
  - [x] add shoutout for vodle, votyvote
+ - [ ] add unit tests for fptp, veto, and vfa
 
 ## 2022-02-19
 ### priority for v0.1.2
@@ -102,6 +103,8 @@
  - [ ] clicking "show explanation" should scroll to top
  - [ ] shift + clicking shuffle will also randomly change the amount
  - [ ] ability to sort rosters by name, weight, order, etc
+ - [ ] click on a color to copy scores to clipboard as json (toggleable)
+ - [ ] click on title of voting block to toggle between expanded (with graphs) and collapsed (only winners)
 
 ### fix
  - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -157,7 +160,7 @@
  - progressive web apps?
     - [ ] build as a static site
     - [ ] [publish to f-droid](https://forum.f-droid.org/t/progressive-web-apps/1691/2)
-    - [ ] use webgpu for calculations
+    - [ ] use webgpu for calculations (also [investigate web workers](https://www.youtube.com/watch?v=pQPqhZRUz3U))
     - [ ] content api for offline uses
 
 ### sidequests

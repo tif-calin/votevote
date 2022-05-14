@@ -1,6 +1,10 @@
 # Changelog
 This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
 
+## [0.1.3.0] - 2022-05-13
+### Added
+ - [ ] input sections now collapsible
+
 ## [0.1.2.2] - 2022-04-30
 ### Added
  - new voting method: equal_even
