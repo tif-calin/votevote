@@ -16,6 +16,7 @@ type ResultFull = {
   winners: string[];
   result: ResultDetailed[];
   thresholds?: number[];
+  scoreKind?: 'bar-graph' | 'heatmap';
 };
 
 class SuperElection {
@@ -673,6 +674,17 @@ class SuperElection {
 
     return quadraticResult;
   };
+
+  // STAR
+  // star(candidates = this.candidates): ResultFull {
+  //   const { result } = this.useMethod('borda') as ResultFull;
+  //   const bordaResult = result[0];
+
+  //   return {
+  //     winners: [],
+  //     result: [{}]
+  //   }
+  // }
 };
 
 export default SuperElection;
