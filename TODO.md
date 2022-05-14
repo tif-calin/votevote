@@ -105,6 +105,15 @@
  - [ ] ability to sort rosters by name, weight, order, etc
  - [ ] click on a color to copy scores to clipboard as json (toggleable)
  - [ ] click on title of voting block to toggle between expanded (with graphs) and collapsed (only winners)
+ - [ ] CTRL+Z to undo (will probably need useReducer and useContext)
+ - [ ] achievements
+    - e.g. with at least 6 * N voters, find N candidates where each wins at least one (untied)
+       - I guess the largest N possible is the number of voting systems lol (prolly less)
+       - keep track of highest variety of voters with this achieved
+    - make an "account" (bookbook-esque) to compare (e.g. 12% of people also got this achievement)
+ - [ ] make roster controls scroll with scroll shadows instead of wrapping
+ - [ ] export to csv
+ - [ ] import from csv?
 
 ### fix
  - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??

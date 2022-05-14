@@ -1,6 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const CollapsibleLegend = styled.legend<{ collapsed?: boolean }>`    padding-right: 0.5rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  user-select: none;
+
+  & > span.symbol {
+    display: none;
+    font-size: 0.5rem;
+    transform: rotate(${props => props.collapsed ? 0 : -180}deg);
+    opacity: 0.5;
+    transition-property: transform, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+  }
+
+  &:hover > span.symbol { 
+    opacity: 1;
+    transform: rotate(${props => props.collapsed ? -180 : 0}deg); 
+  }
+`;
+
 const Roster = styled.fieldset`
   border: none;
   border-top: 1px solid hsl(var(--shadow-color));
@@ -13,30 +37,6 @@ const Roster = styled.fieldset`
   height: 100%;
   position: relative;
 
-  & > legend {
-    padding-right: 0.5rem;
-    text-transform: capitalize;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-
-    & > span.symbol {
-      display: none;
-      font-size: 0.5rem;
-      transform: rotate(-180deg);
-      opacity: 0.5;
-      transition-property: transform, opacity;
-      transition-duration: 0.2s;
-      transition-timing-function: ease-in-out;
-    }
-
-    &:hover > span.symbol { 
-      opacity: 1;
-      transform: rotate(0deg); 
-    }
-  }
-
   & :is(select, button) {
     min-width: 3rem;
 
@@ -48,7 +48,7 @@ const Roster = styled.fieldset`
     width: 100%;
     border-radius: 0.15rem;
 
-    max-height: calc(6rem + 50vh);
+    max-height: calc(6rem + 40vh);
     overflow-y: auto;
     @supports (scrollbar-width: none) {
       scrollbar-width: none;
@@ -89,13 +89,21 @@ const Roster = styled.fieldset`
   & > .message {
     width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    gap: 0.5rem;
+
     font-size: 0.8rem;
     font-weight: 350;
     line-height: 1;
 
+    & > span:first-child {
+      flex-grow: 1;
+      white-space: nowrap;
+    }
     & > span:last-child {
       opacity: 0;
+      text-align: right;
     }
   }
 
@@ -142,7 +150,8 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
       name={name} 
       onSubmit={e => e.preventDefault()}
     >
-      <legend
+      <CollapsibleLegend
+        collapsed={!expanded}
         onClick={toggleExpanded}
         onKeyDownCapture={e => (e.key === 'Enter' || e.key === ' ') && toggleExpanded()}
         role="button"
@@ -151,7 +160,7 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
         {name}
         {' '}
         <span className="symbol">&#x1F53D;</span>
-      </legend>
+      </CollapsibleLegend>
         <>
           <button 
             className="symbol"

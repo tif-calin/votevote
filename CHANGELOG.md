@@ -3,7 +3,13 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.3.0] - 2022-05-13
 ### Added
- - [ ] input sections now collapsible
+ - input sections now collapsible
+
+### Fixed
+ - improved infobox typography
+
+### Improved
+ - user-select: none on certain controls
 
 ## [0.1.2.2] - 2022-04-30
 ### Added

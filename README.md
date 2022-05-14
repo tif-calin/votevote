@@ -7,7 +7,7 @@ Currently its just a toy, but it is completely open-sourced and might some day g
 
 [The VoteVote Figma](figma.com/@votevote)
 
-## list of voting methods
+## Voting methods
 (26 implemented as of v0.1.2)
  - plurality: fptp, veto, signed, vfa
  - contingent: contingency, supplementary, sri_lanka
@@ -62,6 +62,11 @@ Currently its just a toy, but it is completely open-sourced and might some day g
  - [ ] [colin champion's experiments](https://www.masterlyinactivity.com/condorcet/condorcet.html#qdc)
 
 ## Tech
+
+### Design philosophy
+ - [gridless.design](https://gridless.design/)
+ - Various "use the platform" takes
+
 ### Shoutouts
  - [lea verou's guide to scroll shadows](https://lea.verou.me/2012/04/background-attachment-local/)
  - [fontella](https://fontello.com) let me make a custom font to get consistent emoji rendering across devices! V cool
