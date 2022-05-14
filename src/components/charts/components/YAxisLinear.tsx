@@ -22,7 +22,7 @@ const YAxisLinear: React.FC<Props> = ({ height, ticks }) => {
           >
             <line x2={-4} />
             <text
-              x={-6} y="0.25rem"
+              x={-6} y="4"
               textAnchor="end"
             >{tick.toLocaleString("en-US")}</text>
           </g>

@@ -3,6 +3,11 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.3.0] - 2022-05-13
 ### Added
+ - stat box
+    - pie chart showing winners
+    - shows biggest winner
+    - shows how many total winners
+    - shows number of non-winners
  - input sections now collapsible
 
 ### Fixed
@@ -10,6 +15,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ### Improved
  - user-select: none on certain controls
+ - various minor styling details
 
 ## [0.1.2.2] - 2022-04-30
 ### Added
@@ -33,6 +39,8 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
     - improved styling consistency for selects and inputs
     - x-axis labels are the now in the same position
     - firefox bar labels don't disappear when longer than bar
+
+**Archive**: [archive](https://web.archive.org/web/20220509015251/https://votevote.page/)
 
 ## [0.1.2.1] - 2022-03-01
 ### Fixed

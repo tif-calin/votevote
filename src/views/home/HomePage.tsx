@@ -5,6 +5,7 @@ import useElection from '../../hooks/useElection';
 import { votersToBallots } from '../../services/color/colorDistance';
 import Infobox from './Infobox';
 import { MemoizedInputLeft } from './left/InputLeft';
+import StatsBox from './left/StatsBox';
 import { MemoizedOutputRight } from './right/OutputRight';
 
 const Page = styled.div`
@@ -39,21 +40,6 @@ const HomePage = () => {
     electionOutcomesFull: dataFull 
   } = useElection();
 
-  React.useEffect(() => {
-    console.debug(election);
-    if (dataFull?.fptp) {
-      console.debug(dataFull);
-      const winSet = new Set(
-        Object.values(dataFull).reduce(
-          (acc, { winners }) => winners.length === 1 ? [acc, winners].flat() : acc, 
-          [] as string[]
-        )
-      );
-      console.log(winSet.size);
-      // for (let method of Object.keys(dataFull)) console.debug(method, dataFull[method].winners);
-    }
-  }, [dataFull, election]);
-
   const handleElect = React.useCallback(
     (c, v) => elect(c, v, ballotMaker), [elect]
   );
@@ -65,7 +51,9 @@ const HomePage = () => {
         elect={handleElect}
         ballots={ballots}
         auto={(election?.candidates?.length || 0) < 20}
-      />
+      >
+        <StatsBox data={dataFull} election={election || undefined} />
+      </MemoizedInputLeft>
       <MemoizedOutputRight 
         data={data}
         dataFull={dataFull || {}}

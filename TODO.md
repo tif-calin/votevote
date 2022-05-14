@@ -114,6 +114,7 @@
  - [ ] make roster controls scroll with scroll shadows instead of wrapping
  - [ ] export to csv
  - [ ] import from csv?
+ - [ ] ability to close the statbox like the infobox
 
 ### fix
  - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??

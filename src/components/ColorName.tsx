@@ -8,7 +8,7 @@ interface Props {
 
 const Container = styled.div`
   --color: ${props => xkcd[props.color || '']?.hex || 'var(--color-black)'};
-  display: flex;
+  display: flex inline;
   place-items: center;
   place-content: center;
   padding: 0.05rem 0.15rem;
