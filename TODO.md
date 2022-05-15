@@ -115,6 +115,7 @@
  - [ ] export to csv
  - [ ] import from csv?
  - [ ] ability to close the statbox like the infobox
+ - [ ] title for method switcher should show full name
 
 ### fix
  - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??
