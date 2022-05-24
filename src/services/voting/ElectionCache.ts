@@ -30,7 +30,7 @@ class ElectionCache {
   _combinedVotesLowest?: number;
   _combinedVotesLosers?: string[];
 
-  constructor(election: SuperElection, candidates: string[]) {
+  constructor(election: SuperElection, candidates: string[] = []) {
     this.election = election;
     this.candidates = [...candidates];
   };

@@ -12,10 +12,18 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ### Fixed
  - improved infobox typography
+ - fixed a crash that would happen with no voters and a single candidate
+ - fixed an error in `eurovision` calculation
 
 ### Improved
  - user-select: none on certain controls
  - various minor styling details
+ - various [a11y](https://www.a11yproject.com/) improvements
+    - various hover effects happen on focus as well (keyboard accesibility)
+    - allow triggerring certain `role="button"` elements with keyboard (keyboard accesibility)
+ 
+### Changed
+ - default candidates for `xkcd`. Now it's both alphabetical and ordered by hue
 
 ## [0.1.2.2] - 2022-04-30
 ### Added

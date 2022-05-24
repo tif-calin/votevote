@@ -167,6 +167,10 @@ class SuperElection {
         }
       }
 
+      // monkey patch for results that don't have all candidates with scores
+      candidates.forEach(c => {
+        if (!cache.results[method].result[0][c]) cache.results[method].result[0][c] = { score: 0 };
+      });
       return cache.results[method];
     }
 
@@ -443,7 +447,7 @@ class SuperElection {
         a[ballot[1]] = ~~a[ballot[1]] + (10 * weight);
         if (ballot[2]) a[ballot[2]] = ~~a[ballot[2]] + (8 * weight);
 
-        if (ballot[2]) for (let i = 2; i < Math.min(ballot.length, 10); i++) {
+        if (ballot[3]) for (let i = 3; i < Math.min(ballot.length, 10); i++) {
           a[ballot[i]] = ~~a[ballot[i]] + ((10 - i) * weight);
         }
 

@@ -116,6 +116,9 @@
  - [ ] import from csv?
  - [ ] ability to close the statbox like the infobox
  - [ ] title for method switcher should show full name
+ - [ ] hcv (aka hcg) color space
+ - [ ] there's a lot of hidden functionality. Pro-tips at the bottom of the page like github has could be helpful
+ - [ ] to reduce bundle size for data, just save the rgb arrays instead and then use lazy loading magic to convert to hsl, hex, etc as needed (and make sure to cache!)
 
 ### fix
  - [x] what the hell is happening with that hover effect over the `<text>` of empty bars??
@@ -143,6 +146,8 @@
  - [x] in voter roster, square may get squished and color names show on multiple lines
  - [ ] when the method is switched and the y-axis varies drastically, bars don't smoothly transition
  - [ ] zomming in on Safari and the wheel for number inputs also shrinks??
+ - [x] 1 candidate with 0 voters leads to crash
+ - [ ] some methods return results that don't include all candidates
 
 ### longterm
  - open it up for external contributions
