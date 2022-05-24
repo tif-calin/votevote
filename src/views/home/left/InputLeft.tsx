@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import xkcd from '../../../data/xkcd';
 import type { VoterBallots } from '../../../hooks/useElection';
 import useRoster, { useWeightedRoster } from '../../../hooks/useRoster';
+import ColorBox from './ColorBox';
 import RosterControls from './RosterControls';
 
 const Wrapper = styled.div`
@@ -52,35 +53,7 @@ const Container = styled.form`
   }
 `;
 
-const ColorBox = styled.div`
-  width: 1.25rem;
-  min-width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 0.25rem;
-  transition: border 0.1s;
-  overflow: hidden;
-  border: 1px solid hsl(var(--shadow-color));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-
-  & span {
-    width: 100%;
-    color: var(--color-white);
-    font-weight: 700;
-    opacity: 0;
-    backdrop-filter: contrast(0.25);
-  }
-
-  &:hover {
-    border: none;
-    & span { opacity: 1; }
-  }
-`;
-
-const CandidateDisplay = styled.div`
+const CandidateDisplay = styled.ul`
   width: 100%;
   height: 100%;
   margin: 0;
@@ -144,7 +117,8 @@ interface Props {
 };
 
 const initialCandidates = [
-  'azure', 'lemon', 'coral', 'periwinkle', 'seafoam',
+  // 'azure', 'lemon', 'coral', 'periwinkle', 'seafoam',
+  'azure', 'celadon', 'manilla', 'orange', 'pink'
   // 'amethyst', 'azure', 'beige', 'blush', 'bubblegum', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'manilla', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
 ];
 const initialVoters = Object.keys(xkcd).slice(-24).reduce((a, c) => ({ ...a, [c]: c.length }), {});
@@ -240,14 +214,11 @@ const InputLeft: React.FC<Props> = ({
           <CandidateDisplay>
             {candidates.map((color) => (
               <ColorBox
-                key={`${color}-candidate`} title={color}
-                onClick={() => removeCandidate(color)}
-                style={{
-                  backgroundColor: xkcd[color as keyof typeof xkcd].hex,
-                }}
-              >
-                <span>x</span>
-              </ColorBox>
+                key={`${color}-candidate`} 
+                aria-label={`Remove ${color} from the list of candidates`}
+                color={color}
+                onColorClick={removeCandidate}
+              />
             ))}
           </CandidateDisplay>
         </RosterControls>
@@ -268,10 +239,10 @@ const InputLeft: React.FC<Props> = ({
             {Object.keys(voters).reverse().map((voter) => {
               return (
                 <li key={voter}>
-                  <ColorBox 
-                    style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }} 
-                    onClick={() => removeVoter(voter)}
-                  ><span>x</span></ColorBox>
+                  <ColorBox
+                    color={voter}
+                    onColorClick={removeVoter}
+                  />
                   <span 
                     title={`${voter}\n---\n` + formatVoterPreferences(ballots?.[voter]?.ballot)}
                   >{voter}</span>

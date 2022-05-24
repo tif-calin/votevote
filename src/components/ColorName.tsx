@@ -8,26 +8,29 @@ interface Props {
 
 const Container = styled.div`
   --color: ${props => xkcd[props.color || '']?.hex || 'var(--color-black)'};
+  
   display: flex inline;
-  place-items: center;
-  place-content: center;
+    place-items: center;
+    place-content: center;
   padding: 0.05rem 0.15rem;
+  user-select: none;
   
   &:hover {
-    border-radius: 0.15rem;
     background: var(--color);
+    border-radius: 0.15rem;
+
     & > span { color: var(--color-black); }
   }
 
   & > span {
+    color: var(--color);
     font-size: 0.8rem;
     font-weight: 700;
     padding: 0;
-    color: var(--color);
   }
 `;
 
-const ColorName: React.FC<Props> = ({ name }) => {
+const ColorName = ({ name }: Props): React.ReactElement => {
   return (
     <Container
       color={name}
