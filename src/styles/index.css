@@ -48,7 +48,8 @@ a {
   text-decoration: none;
 }
 
-summary, button, input[type=radio]:not(:disabled), input[type=checkbox]:not(:disabled) {
+summary, button, [role="button"],
+input[type=radio]:not(:disabled), input[type=checkbox]:not(:disabled) {
   cursor: pointer;
 }  
 

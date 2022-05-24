@@ -19,7 +19,7 @@ const CollapsibleLegend = styled.legend<{ collapsed?: boolean }>`    padding-rig
     transition-timing-function: ease-in-out;
   }
 
-  &:hover > span.symbol { 
+  &:where(:hover, :focus) > span.symbol { 
     opacity: 1;
     transform: rotate(${props => props.collapsed ? -180 : 0}deg); 
   }
@@ -79,7 +79,7 @@ const Roster = styled.fieldset`
 
     transition-property: color, background-color, border-color;
     transition-duration: 0.1s;
-    &:hover {
+    &:where(:hover, :focus) {
       background-color: var(--oc-pink-4);
       color: var(--color-white);
       border-color: transparent;
@@ -107,8 +107,8 @@ const Roster = styled.fieldset`
     }
   }
 
-  &:hover > .message > span:last-child { opacity: 1; }
-  &:hover > legend > span.symbol { display: inline-block; }
+  &:where(:hover, :focus-within) > .message > span:last-child { opacity: 1; }
+  &:where(:hover, :focus-within) > legend > span.symbol { display: inline-block; }
 `;
 
 const CollapsedTotal = styled.span`
@@ -134,7 +134,15 @@ interface Props {
   count?: number;
 };
 
-const RosterControls: React.FC<Props> = ({ count, children, options, name, add, reset, clear, selected, setSelected, selectedN, setSelectedN }) => {
+const clickKeys = new Set(['Enter', ' ']);
+const keyCapturify = (fnc: (e?: any) => void): React.KeyboardEventHandler => 
+  e => clickKeys.has(e?.key) ? fnc(e) : undefined
+;
+
+const RosterControls: React.FC<Props> = ({ 
+  count, children, options, name, add, reset, clear, 
+  selected, setSelected, selectedN, setSelectedN 
+}) => {
   const [controlMessage, setControlMessage] = React.useState<string>('');
   const resetMessage = () => setControlMessage('');
 
@@ -153,7 +161,7 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
       <CollapsibleLegend
         collapsed={!expanded}
         onClick={toggleExpanded}
-        onKeyDownCapture={e => (e.key === 'Enter' || e.key === ' ') && toggleExpanded()}
+        onKeyDownCapture={keyCapturify(toggleExpanded)}
         role="button"
         tabIndex={0}
       >
@@ -164,6 +172,7 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
         <>
           <button 
             className="symbol"
+            aria-label="Select a random option"
             onClick={() => setSelected(options[Math.floor(Math.random() * options.length)])}
             onMouseEnter={() => setControlMessage('Select a random option')}
             onMouseLeave={resetMessage}
@@ -188,25 +197,30 @@ const RosterControls: React.FC<Props> = ({ count, children, options, name, add, 
           ) : null}
           <button 
             className="symbol"
+            aria-label={`Add ${selected} to the roster`}
             onClick={add}
             onMouseEnter={() => setControlMessage(`Add ${selected} to the roster`)}
+            // onBlur={resetMessage}
+            // onFocus={() => setControlMessage(`Add ${selected} to the roster`)}
             onMouseLeave={resetMessage}
           >&#x2795;</button>
           {reset && <button
             className="symbol"
+            aria-label="Reset the roster to preset"
             onClick={reset}
-            onMouseEnter={() => setControlMessage(`Reset roster to preset`)}
+            onMouseEnter={() => setControlMessage(`Reset the roster to preset`)}
             onMouseLeave={resetMessage}
           >&#x21ba;</button>}
           <button 
             className="symbol"
+            aria-label="Clear the entire roster"
             onClick={clear}
             onMouseEnter={() => setControlMessage(`Clear the entire roster`)}
             onMouseLeave={resetMessage}
           >&#x2716;</button>
           {expanded && (
             <>
-              <div className="message">
+              <div className="message" role="status">
                 <span>{count?.toLocaleString() || 0} total</span>
                 <span>{controlMessage || ''}</span>
               </div>
