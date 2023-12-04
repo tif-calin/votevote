@@ -7,8 +7,9 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - stat box
     - pie chart showing winners
     - shows biggest winner
-    - shows how many total winners
+    - shows how many total unique winners
     - shows number of non-winners
+    - can hover over slice
  - input sections now collapsible
  - fixed unit testing and added kemeny_young tests
 
