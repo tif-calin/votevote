@@ -689,6 +689,44 @@ class SuperElection {
   //     result: [{}]
   //   }
   // }
+
+  // Kemeny-Young
+  kemeny_young(candidates = this.candidates): ResultFull {
+    const cache = this.getCache(candidates);
+    const pairwise = cache.pairwisePreferenceMatrix;
+
+    // TODO: this is the most expensive way to do this
+    const allPossiblePaths = getPermutations(candidates);
+
+    const pathResults: Record<string, Record<string, { score: number; }>> = {};
+    const pathScores: Record<string, number> = Object.fromEntries(
+      allPossiblePaths.map(path => {
+        const pathKey = serializeList(path);
+        pathResults[pathKey] = {};
+
+        let score = 0;
+        path.slice(0, path.length - 1).forEach((c1, i) => {
+          pathResults[pathKey][c1] = { score: 0 };
+          path.slice(i + 1).forEach(c2 => {
+            pathResults[pathKey][c1].score += pairwise[c1][c2];
+            score += pairwise[c1][c2];
+          });
+        });
+
+        return [pathKey, score];
+      })
+    );
+
+    const maxScore = Math.max(...Object.values(pathScores));
+    const winningPaths = Object.keys(pathScores).filter(p => pathScores[p] === maxScore).map(deserializeList);
+
+    const winners = winningPaths.map(path => path[0]);
+    // TODO: what happens when multiple paths win?
+    const winningPath = winningPaths[0];
+    const winningPathKey = serializeList(winningPath);
+
+    return { winners, result: [pathResults[winningPathKey]] };
+  }
 };
 
 export default SuperElection;

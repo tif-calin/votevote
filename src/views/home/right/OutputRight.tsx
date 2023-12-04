@@ -37,7 +37,7 @@ const OutputRight: React.FC<Props> = ({ data, dataFull }) => {
       />
       <StaticBlock
         title="Condorcet"
-        methods={['copeland', 'lull']}
+        methods={['copeland', 'lull', 'kemeny_young']}
         results={dataFull}
       />
       <StaticBlock

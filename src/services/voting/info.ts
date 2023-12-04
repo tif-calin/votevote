@@ -149,6 +149,11 @@ const info: { [methodKey: string]: Info } = {
     explanation: 'This is almost the same as Copeland except instead of awarding half a point for every tie, you award a full point. Hence why Copeland is sometimes called the \'1/1⁄2/0 method\' and Lull is sometimes called the \'1/1/0 method\'.',
     classifications: ['condorcet'],
   },
+  kemeny_young: {
+    names: ['Kemeny-Young', 'Kemeny', 'VoteFair Popularity Ranking', 'Maximum Likelihood', 'Median Relation'],
+    explanation: 'Each voter votes with a preference ranking. We then look at every possible permutation of the list of candidates and calculate a "score" for each "path". This score is calculated by how many pairwise preferences are respected. For example if you have a path like "C, B, A", then the score will be the number of voters that preferred C over B plus the number that preferred C over A plus the number that preferred B over A. The path with the highest score determines the final result.',
+    classifications: ['condorcet'],
+  },
   /* cumulative block */
   cumulative: {
     names: ['Cumulative', 'Accumulation', 'Multi', 'Weighted'],

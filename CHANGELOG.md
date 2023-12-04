@@ -1,8 +1,9 @@
 # Changelog
-This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
+This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/).
 
-## [0.1.3.0] - 2022-05-13
+## [0.1.3.0] - 2023-12-04
 ### Added
+ - new voting method: kemeny_young
  - stat box
     - pie chart showing winners
     - shows biggest winner
@@ -21,7 +22,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - various [a11y](https://www.a11yproject.com/) improvements
     - various hover effects happen on focus as well (keyboard accesibility)
     - allow triggerring certain `role="button"` elements with keyboard (keyboard accesibility)
- 
+
 ### Changed
  - default candidates for `xkcd`. Now it's both alphabetical and ordered by hue
 
@@ -35,7 +36,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 ### Changed
  - first block's explanation defaults to open
  - add new preview img and apple icon for site links
- - minor styling tweaks 
+ - minor styling tweaks
     - left input sizing
     - x-axis ticks
     - input buttons now pink on hover
@@ -138,5 +139,3 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 **Description**: This project originally started as a project by me (culi) and the first prototype was made and deployed at [dontplaywithculi.netlify.app/votevote](https://dontplaywithculi.netlify.app/votevote). The original prototype only had visualizations for 3 methods (irv, coombs, and fab_irv), but allowed you to at least view the winners of the election simulated in 26 different methods! During the creation of that, I realized a number of optimizations that could be made, but decided to hold off until I rebuilt the whole thing from scratch. Version 0.1 marks what I consider to be on par with the original prototype despite lacking 19 of the originally implemented methods.
 
 **Archive**: [archive](https://web.archive.org/web/20220215225237/https://votevote.page/)
- 
-
