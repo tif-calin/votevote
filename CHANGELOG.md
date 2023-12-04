@@ -24,6 +24,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
     - various hover effects happen on focus as well (keyboard accesibility)
     - allow triggerring certain `role="button"` elements with keyboard (keyboard accesibility)
  - more unit tests added for voting method algorithms
+ - various code quality improvements, react keys, etc
 
 ### Changed
  - default candidates for `xkcd`. Now it's both alphabetical and ordered by hue

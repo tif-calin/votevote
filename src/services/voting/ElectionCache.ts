@@ -5,6 +5,7 @@ class ElectionCache {
   candidates: string[];
   results: Record<string, ResultFull> = {};
 
+  // first place votes
   _firstVotes?: { [key: string]: number };
   _firstVotesScores?: number[];
   _firstVotesTiers?: string[][];
@@ -14,16 +15,19 @@ class ElectionCache {
   _firstVotesLowest?: number;
   _firstVotesLosers?: string[];
 
-  _pairwisePreferenceMatrix?: { 
-    [key: string]: { [key: string]: number; } 
+  // each candidates scores against each other candidate
+  _pairwisePreferenceMatrix?: {
+    [key: string]: { [key: string]: number; }
   };
 
+  // (negative) Last place votes
   _lastVotes?: { [key: string]: number };
   _lastVotesHighest?: number;
   _lastVotesWinners?: string[];
   _lastVotesLowest?: number;
   _lastVotesLosers?: string[];
 
+  // first-last place votes
   _combinedVotes?: { [key: string]: number };
   _combinedVotesHighest?: number;
   _combinedVotesWinners?: string[];
@@ -152,7 +156,7 @@ class ElectionCache {
 
   get pairwisePreferenceMatrix(): { [key: string]: { [key: string]: number; } } {
     // NOTE: this uses ballotsRanked instead of ballotsScored so there are no ties
-    // someone should prolly do something about that... 
+    // someone should prolly do something about that...
     if (this._pairwisePreferenceMatrix) return this._pairwisePreferenceMatrix;
 
     const matrix = this.candidates.reduce((a, c1) => {

@@ -2,11 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import xkcd from '../../../data/xkcd';
 
-interface Props {
-  color: string;
-  onColorClick?: (color: string) => void;
-};
-
 const Container = styled.div<{
   color: string;
 }>`
@@ -41,12 +36,17 @@ const Container = styled.div<{
   }
 `;
 
+interface Props {
+  color: string;
+  onClick?: (color: string) => void;
+};
+
 const ColorBox = ({ 
   color, 
-  onColorClick, 
+  onClick, 
   ...props 
 }: Props): React.ReactElement => {
-  const handleClick = React.useCallback(() => onColorClick?.(color), [color, onColorClick]);
+  const handleClick = React.useCallback(() => onClick?.(color), [color, onClick]);
 
   return (
     <Container

@@ -35,7 +35,7 @@ const Container = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
 
-      &::after { 
+      &::after {
         content: ': ';
       }
     }
@@ -43,7 +43,7 @@ const Container = styled.div`
 `;
 
 const statName: Record<string, string> = {
-  untiedWinnerCount: 'Winners count',
+  untiedWinnerCount: 'Winners (less ties) count',
   mostWins: 'Biggest winner',
   loserCount: 'Losers count',
 };
@@ -60,12 +60,12 @@ const StatsBox = ({ data, election }: Props): React.ReactElement => {
         [curr]: 0
       }), {} as Record<string, number>);
       const winSet = new Set(
-        Object.values(data).reduce(
+        Object.values(data).reduce<string[]>(
           (acc, { winners }) => {
             winners.forEach(winner => winCounts[winner] += (1 / winners.length));
             return winners.length === 1 ? [acc, winners].flat() : acc;
-          }, 
-          [] as string[]
+          },
+          []
         )
       );
       console.table(winCounts);
@@ -95,7 +95,7 @@ const StatsBox = ({ data, election }: Props): React.ReactElement => {
         <p key={key}>
           <span title={statName[key] || key}>{statName[key] || key}</span>
           <span>
-            {Array.isArray(value) ? value.map(key => <ColorName name={key} />) : value}
+            {Array.isArray(value) ? value.map(key => <ColorName key={key} name={key} />) : value}
           </span>
         </p>
       ))}

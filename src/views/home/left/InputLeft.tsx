@@ -217,7 +217,7 @@ const InputLeft: React.FC<Props> = ({
                 key={`${color}-candidate`} 
                 aria-label={`Remove ${color} from the list of candidates`}
                 color={color}
-                onColorClick={removeCandidate}
+                onClick={removeCandidate}
               />
             ))}
           </CandidateDisplay>
@@ -241,7 +241,7 @@ const InputLeft: React.FC<Props> = ({
                 <li key={voter}>
                   <ColorBox
                     color={voter}
-                    onColorClick={removeVoter}
+                    onClick={removeVoter}
                   />
                   <span 
                     title={`${voter}\n---\n` + formatVoterPreferences(ballots?.[voter]?.ballot)}
