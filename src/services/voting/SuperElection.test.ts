@@ -1,6 +1,6 @@
 import SuperElection from './SuperElection';
 
-const elections = {
+const ELECTION_EXAMPLES = {
   'tennessee': {
     candidates: [
       'Memphis',
@@ -9,7 +9,7 @@ const elections = {
       'Chattanooga',
     ],
     ballots: [
-      { 
+      {
         'Memphis': 1,
         'Nashville': 0.4,
         'Knoxville': 0.2,
@@ -36,24 +36,34 @@ const elections = {
     ],
     weights: [ 42, 26, 15, 17 ],
   },
-  'rgb_rainbow': {
+  rgbRainbow: {
     candidates: [ 'red', 'green', 'blue' ],
     ballots: [
-      { 'red': 1, 'green': 0, 'blue': 0 },    // red
-      { 'red': 1, 'green': 0.65, 'blue': 0 }, // orange
-      { 'red': 1, 'green': 1, 'blue': 0 },    // yellow
-      { 'red': 0, 'green': 1, 'blue': 0 },    // green
-      { 'red': 0, 'green': 0, 'blue': 1 },    // blue
+      { 'red': 1, 'green': 0, 'blue': 0 },        // red
+      { 'red': 1, 'green': 0.65, 'blue': 0 },     // orange
+      { 'red': 1, 'green': 1, 'blue': 0 },        // yellow
+      { 'red': 0, 'green': 1, 'blue': 0 },        // green
+      { 'red': 0, 'green': 0, 'blue': 1 },        // blue
       { 'red': 0.3, 'green': 0, 'blue': 0.5 },    // indigo
       { 'red': 0.9, 'green': 0.5, 'blue': 0.9 },  // violet
     ],
     weights: [ 1, 1, 1, 1, 1, 1, 1 ],
+  },
+  /** https://arxiv.org/pdf/1911.06226.pdf */
+  baldigaGreen2013: {
+    candidates: ['c1', 'c2', 'c3'],
+    ballots: [
+      {c1: 1, c2: 0.5, c3: 0 },
+      {c3: 1, c2: 0.5, c1: 0 },
+      {c2: 1, c3: 0.5, c1: 0 },
+    ],
+    weights: [49, 48, 3]
   }
 };
 
 describe('fptp tests', () => {
   test('tennessee example', () => {
-    const { candidates, ballots, weights } = elections['tennessee'];
+    const { candidates, ballots, weights } = ELECTION_EXAMPLES['tennessee'];
     const election = new SuperElection(candidates, ballots, weights);
 
     const fptp = election.fptp();
@@ -63,8 +73,8 @@ describe('fptp tests', () => {
     expect(fptpWinners).toEqual(['Memphis']);
   });
 
-  test('rgb_rainbow example', () => {
-    const { candidates, ballots, weights } = elections['rgb_rainbow'];
+  test('rgbRainbow example', () => {
+    const { candidates, ballots, weights } = ELECTION_EXAMPLES['rgbRainbow'];
     const election = new SuperElection(candidates, ballots, weights);
 
     const fptp = election.fptp();
@@ -75,9 +85,9 @@ describe('fptp tests', () => {
   });
 });
 
-describe('veto tests', () => {  
+describe('veto tests', () => {
   test('tennessee example', () => {
-    const { candidates, ballots, weights } = elections['tennessee'];
+    const { candidates, ballots, weights } = ELECTION_EXAMPLES['tennessee'];
     const election = new SuperElection(candidates, ballots, weights);
 
     const veto = election.veto();
@@ -92,7 +102,7 @@ describe.skip('signed tests', () => {});
 
 describe('vfa tests', () => {
   test('tennessee example', () => {
-    const { candidates, ballots, weights } = elections['tennessee'];
+    const { candidates, ballots, weights } = ELECTION_EXAMPLES['tennessee'];
     const election = new SuperElection(candidates, ballots, weights);
 
     const vfa = election.vfa();
@@ -109,7 +119,7 @@ describe('vfa tests', () => {
 
 describe('irv tests', () => {
   test('tennessee example', () => {
-    const { candidates, ballots, weights } = elections['tennessee'];
+    const { candidates, ballots, weights } = ELECTION_EXAMPLES['tennessee'];
     const election = new SuperElection(candidates, ballots, weights);
 
     const irv = election.irv();
@@ -119,6 +129,46 @@ describe('irv tests', () => {
     ;
 
     expect(irvWinners).toEqual(['Knoxville']);
+  });
+});
+
+describe('kemeny_young tests', () => {
+  test('tennessee example', () => {
+    const candidates = ELECTION_EXAMPLES['tennessee'].candidates;
+    const ballots = [
+      ['Memphis', 'Nashville', 'Chattanooga', 'Knoxville'],
+      ['Nashville', 'Chattanooga', 'Knoxville', 'Memphis'],
+      ['Chattanooga', 'Knoxville', 'Nashville', 'Memphis'],
+      ['Knoxville', 'Chattanooga', 'Nashville', 'Memphis'],
+    ].map(ranking => Object.fromEntries(ranking.map((c, i) => [c, ((4-i) / 4)])))
+    const weights = ELECTION_EXAMPLES['tennessee'].weights;
+
+    const election = new SuperElection(candidates, ballots, weights);
+
+    const { winners } = election.kemeny_young();
+
+    expect(winners).toEqual(['Nashville']);
+  });
+
+  // https://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method#Description
+  test('Wikipedia example', () => {
+    const candidates = ['Elliot', 'Meredith', 'Roland', 'Selden'];
+    const ballots = [{ Elliot: 1, Roland: 0.6, Meredith: 0.25, Seldon: 0.25 }];
+    const election = new SuperElection(candidates, ballots, [1]);
+
+    const { winners } = election.kemeny_young();
+
+    expect(winners).toEqual(['Elliot']);
+  });
+
+  // https://arxiv.org/pdf/1911.06226.pdf
+  test('gilbert2022', () => {
+    const { candidates, ballots, weights } = ELECTION_EXAMPLES['baldigaGreen2013'];
+    const election = new SuperElection(candidates, ballots, weights);
+
+    const { winners } = election.kemeny_young();
+
+    expect(winners).toEqual(['c2']);
   });
 });
 

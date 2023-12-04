@@ -10,6 +10,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
     - shows how many total winners
     - shows number of non-winners
  - input sections now collapsible
+ - fixed unit testing and added kemeny_young tests
 
 ### Fixed
  - improved infobox typography
@@ -22,6 +23,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
  - various [a11y](https://www.a11yproject.com/) improvements
     - various hover effects happen on focus as well (keyboard accesibility)
     - allow triggerring certain `role="button"` elements with keyboard (keyboard accesibility)
+ - more unit tests added for voting method algorithms
 
 ### Changed
  - default candidates for `xkcd`. Now it's both alphabetical and ordered by hue
