@@ -737,6 +737,25 @@ class SuperElection {
 
     return { winners, result: [pathResults[winningPathKey]] };
   }
+
+  // Black
+  black(candidates = this.candidates): ResultSimple {
+    const cache = this.getCache(candidates);
+    const pairwiseMatchups = cache.pairwiseMatchupMatrix;
+
+    // 1. Check if there's a condorcet winner.
+    const thereExistsCondorcetWinners = Object.values(pairwiseMatchups).some(({ losses }) => losses === 0);
+    if (thereExistsCondorcetWinners) {
+      const result = Object.fromEntries(
+        Object.entries(cache.pairwiseMatchupMatrix).map(([cand, { wins }]) => ([cand, wins]))
+      );
+
+      return result;
+    };
+
+    // 2. If there's no condorcet winner, return the Borda winner.
+    return this.borda(candidates);
+  }
 };
 
 export default SuperElection;

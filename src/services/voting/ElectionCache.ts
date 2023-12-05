@@ -16,9 +16,8 @@ class ElectionCache {
   _firstVotesLosers?: string[];
 
   // each candidates scores against each other candidate
-  _pairwisePreferenceMatrix?: {
-    [key: string]: { [key: string]: number; }
-  };
+  _pairwisePreferenceMatrix?: { [key: string]: { [key: string]: number; } };
+  _pairwiseMatchupMatrix?: { [key: string]: { wins: number; ties: number; losses: number; } };
 
   // (negative) Last place votes
   _lastVotes?: { [key: string]: number };
@@ -156,7 +155,7 @@ class ElectionCache {
 
   get pairwisePreferenceMatrix(): { [key: string]: { [key: string]: number; } } {
     // NOTE: this uses ballotsRanked instead of ballotsScored so there are no ties
-    // someone should prolly do something about that...
+    // TODO: someone should prolly do something about that...
     if (this._pairwisePreferenceMatrix) return this._pairwisePreferenceMatrix;
 
     const matrix = this.candidates.reduce((a, c1) => {
@@ -179,6 +178,29 @@ class ElectionCache {
     });
 
     this._pairwisePreferenceMatrix = matrix;
+    return matrix;
+  };
+
+  get pairwiseMatchupMatrix(): { [key: string]: { wins: number; ties: number; losses: number; } } {
+    if (this._pairwiseMatchupMatrix) return this._pairwiseMatchupMatrix;
+
+    const pairwisePreferences = this.pairwisePreferenceMatrix;
+
+    const matrix = Object.fromEntries(this.candidates.map(candidate => [candidate, { wins: 0, ties: 0, losses: 0 }]))
+    this.candidates.forEach(c1 => {
+      this.candidates.forEach(c2 => {
+        if (c1 === c2) return;
+
+        const c1c2 = pairwisePreferences[c1][c2];
+        const c2c1 = pairwisePreferences[c2][c1];
+
+        if (c1c2 > c2c1) matrix[c1].wins++;
+        else if (c1c2 < c2c1) matrix[c1].losses++;
+        else if (c1c2 === c2c1) matrix[c1].ties++;
+      })
+    });
+
+    this._pairwiseMatchupMatrix = matrix;
     return matrix;
   };
 

@@ -3,7 +3,7 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 
 ## [0.1.3.0] - 2023-12-04
 ### Added
- - new voting method: kemeny_young
+ - new voting method: black, kemeny_young
  - stat box
     - pie chart showing winners
     - shows biggest winner

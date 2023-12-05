@@ -45,7 +45,7 @@ const info: { [methodKey: string]: Info } = {
   },
   /* contingency */
   contingency: {
-    names: ['Contingency', 'Two-Round Runoff'],
+    names: ['Contingency', 'Two-Round Runoff', 'Top Two Runoff'],
     explanation: 'The Contingent vote is kinda like an automatic version of the primary/general system seen in many parts of the US. With the major assumption that voter preferences wouldn\'t change between the primary and general vote. In Contingent votes, voters rank their preferences. If no candidate gets a majority in the first round, all except for the top 2 (more if there are ties) candidates get eliminated. Every voter that voted for an eliminated candidate will have their vote moved to whichever of the two candidates they prefer over the other.',
   },
   supplementary: {
@@ -128,7 +128,7 @@ const info: { [methodKey: string]: Info } = {
     }
   },
   score: {
-    names: ['Score', 'Range', 'Evaluative', 'Utilitarian', 'The Point System', 'Ratings Summation', 'Average'],
+    names: ['Score', 'Range', 'Evaluative', 'Utilitarian', 'The Point System', 'Ratings Summation', 'Average', 'Average Rating'],
     explanation: 'If you think of Combined Approval as a range letting you mark each candidate -1, 0, or 1, then the logical next step is to extend that range right? Range voting allows voters to mark each candidate (here from 0 to 5) and then add up the marks. The candidate with the highest score wins (you can also use the average score. The result would be the same).',
   },
   range: {
@@ -152,6 +152,11 @@ const info: { [methodKey: string]: Info } = {
   kemeny_young: {
     names: ['Kemeny-Young', 'Kemeny', 'VoteFair Popularity Ranking', 'Maximum Likelihood', 'Median Relation'],
     explanation: 'Each voter votes with a preference ranking. We then look at every possible permutation of the list of candidates and calculate a "score" for each "path". This score is calculated by how many pairwise preferences are respected. For example if you have a path like "C, B, A", then the score will be the number of voters that preferred C over B plus the number that preferred C over A plus the number that preferred B over A. The path with the highest score determines the final result.',
+    classifications: ['condorcet'],
+  },
+  black: {
+    names: ['Black'],
+    explanation: 'If there is a Condorcet winner (a candidate that beats or ties every other candidate in a 1-1), choose them. Otherwise choose the Borda count winner',
     classifications: ['condorcet'],
   },
   /* cumulative block */
