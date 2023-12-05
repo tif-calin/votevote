@@ -1,16 +1,46 @@
 # Changelog
-This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/). 
+This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0). This project does not adhere to [semver](https://semver.org/), but adheres to [0ver](https://0ver.org/).
+
+## [0.1.3.0] - 2023-12-04
+### Added
+ - new voting method: black, kemeny_young
+ - stat box
+    - pie chart showing winners
+    - shows biggest winner
+    - shows how many total unique winners
+    - shows number of non-winners
+    - can hover over slice
+ - input sections now collapsible
+ - fixed unit testing and added kemeny_young tests
+
+### Fixed
+ - improved infobox typography
+ - fixed a crash that would happen with no voters and a single candidate
+ - fixed an error in `eurovision` calculation
+
+### Improved
+ - user-select: none on certain controls
+ - various minor styling details
+ - various [a11y](https://www.a11yproject.com/) improvements
+    - various hover effects happen on focus as well (keyboard accesibility)
+    - allow triggerring certain `role="button"` elements with keyboard (keyboard accesibility)
+ - more unit tests added for voting method algorithms
+ - various code quality improvements, react keys, etc
+
+### Changed
+ - default candidates for `xkcd`. Now it's both alphabetical and ordered by hue
 
 ## [0.1.2.2] - 2022-04-30
 ### Added
  - new voting method: equal_even
  - explanatory infobox
  - added a sitemap.xml
+ - link to dev deployment in changelog page
 
 ### Changed
  - first block's explanation defaults to open
  - add new preview img and apple icon for site links
- - minor styling tweaks 
+ - minor styling tweaks
     - left input sizing
     - x-axis ticks
     - input buttons now pink on hover
@@ -22,6 +52,8 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
     - improved styling consistency for selects and inputs
     - x-axis labels are the now in the same position
     - firefox bar labels don't disappear when longer than bar
+
+**Archive**: [archive](https://web.archive.org/web/20220509015251/https://votevote.page/)
 
 ## [0.1.2.1] - 2022-03-01
 ### Fixed
@@ -111,5 +143,3 @@ This changelog is inspired by [keepachangelog.com](https://keepachangelog.com/en
 **Description**: This project originally started as a project by me (culi) and the first prototype was made and deployed at [dontplaywithculi.netlify.app/votevote](https://dontplaywithculi.netlify.app/votevote). The original prototype only had visualizations for 3 methods (irv, coombs, and fab_irv), but allowed you to at least view the winners of the election simulated in 26 different methods! During the creation of that, I realized a number of optimizations that could be made, but decided to hold off until I rebuilt the whole thing from scratch. Version 0.1 marks what I consider to be on par with the original prototype despite lacking 19 of the originally implemented methods.
 
 **Archive**: [archive](https://web.archive.org/web/20220215225237/https://votevote.page/)
- 
-

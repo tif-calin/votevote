@@ -1,5 +1,5 @@
 import ElectionCache from './ElectionCache';
-import { convertSimpleToDetailed, getWinnersDetailed, getWinnersSimple, parseScoredBallot, serializeList, serializeScoredBallot } from './helpers';
+import { convertSimpleToDetailed, deserializeList, getPermutations, getWinnersDetailed, getWinnersSimple, parseScoredBallot, serializeList, serializeScoredBallot } from './helpers';
 
 type ResultSimple = {
   [candidate: string]: number;
@@ -8,14 +8,20 @@ type ResultSimple = {
 type ResultDetailed = {
   [candidate: string]: {
     score: number;
-    [key: string]: any;
+    [key: string]: number; // TODO: remove this
+    // positive?: number;
+    // negative?: number;
+    // wins?: number;
+    // ties?: number;
+    // losses?: number;
   };
 };
 
 type ResultFull = {
   winners: string[];
-  result: ResultDetailed[];
+  result: ResultDetailed[]; // this is an array for results that have "stages"
   thresholds?: number[];
+  scoreKind?: 'bar-graph' | 'heatmap';
 };
 
 class SuperElection {
@@ -34,7 +40,7 @@ class SuperElection {
       lowestScore: number;
     };
   } = {};
-  ballotsRanked: { 
+  ballotsRanked: {
     [key: ReturnType<typeof serializeList>]: {
       weight: number;
       ballot: string[];
@@ -42,11 +48,11 @@ class SuperElection {
   } = {};
 
   constructor(
-    candidates: string[], 
+    candidates: string[],
     ballots: { [key: string]: number }[],
     weights: number[]
   ) {
-    /* 
+    /*
     Assumptions:
       - weights length should equal the number of ballots
     */
@@ -72,10 +78,10 @@ class SuperElection {
         const weight = ~~this.ballotsScored[serialized].weight + weights[i];
         this.ballotsScored[serialized].weight = weight;
       } else {
-        // parse the scoredBallot for its ranked equivalents 
+        // parse the scoredBallot for its ranked equivalents
         // as well as highest/lowest scores
         const [
-          rankings, highestScore, lowestScore, 
+          rankings, highestScore, lowestScore,
           proportional, approval, approvalProportional
         ] = parseScoredBallot(roundedBallot);
 
@@ -143,7 +149,7 @@ class SuperElection {
       const result = (this[method] as Function)();
 
       if (result?.winners) {
-        // if ResultFull 
+        // if ResultFull
         cache.results[method] = result as ResultFull;
       } else {
         const final = Array.isArray(result) ? result[result.length - 1] : result;
@@ -166,6 +172,10 @@ class SuperElection {
         }
       }
 
+      // monkey patch for results that don't have all candidates with scores
+      candidates.forEach(c => {
+        if (!cache.results[method].result[0][c]) cache.results[method].result[0][c] = { score: 0 };
+      });
       return cache.results[method];
     }
 
@@ -186,10 +196,10 @@ class SuperElection {
 
   // Boehm Signed
   signed(candidates = this.candidates): ResultDetailed {
-    const signedVotes = candidates.reduce((a, c) => {
+    const signedVotes = candidates.reduce<ResultDetailed>((a, c) => {
       a[c] = { positive: 0, negative: 0, score: 0 };
       return a;
-    }, {} as ResultDetailed );
+    }, {} );
 
     Object.values(this.ballotsScored).forEach(
       ({ ballot, weight, highestScore, lowestScore }) => {
@@ -252,7 +262,7 @@ class SuperElection {
   irv(candidates = this.candidates): ResultSimple[] {
     // const cache = this.getCache(candidates);
     // if (cache.results.irv) return cache.results.irv;
-    
+
     const rounds: ResultSimple[] = [];
     const majority = this.totalVoters / 2;
 
@@ -413,7 +423,7 @@ class SuperElection {
         for (let i = 0; i < ballot.length - 1; i++) {
           a[ballot[i]] = ~~a[ballot[i]] + (candidates.length - i - 1) * weight;
         }
-        
+
         return a;
     }, {} as ResultSimple);
 
@@ -427,7 +437,7 @@ class SuperElection {
         for (let i = 0; i < ballot.length - 1; i++) {
           a[ballot[i]] = ~~a[ballot[i]] + (1 / (i + 1)) * weight;
         }
-        
+
         return a;
     }, {} as ResultSimple);
 
@@ -442,7 +452,7 @@ class SuperElection {
         a[ballot[1]] = ~~a[ballot[1]] + (10 * weight);
         if (ballot[2]) a[ballot[2]] = ~~a[ballot[2]] + (8 * weight);
 
-        if (ballot[2]) for (let i = 2; i < Math.min(ballot.length, 10); i++) {
+        if (ballot[3]) for (let i = 3; i < Math.min(ballot.length, 10); i++) {
           a[ballot[i]] = ~~a[ballot[i]] + ((10 - i) * weight);
         }
 
@@ -481,17 +491,17 @@ class SuperElection {
   };
 
   // Approval
-  approval(candidates = this.candidates): ResultSimple {    
+  approval(candidates = this.candidates): ResultSimple {
     const approvalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
       for (let candidate of candidates) {
         // TODO: This type of list is reused in many other methods and should
         // be abstracted and cached. Ideally with the flexibility to ability to
-        // specify I (integer between 0 and D-1) and D (integer greater than 2) 
+        // specify I (integer between 0 and D-1) and D (integer greater than 2)
         // where D is the number of classes you divide the scores into and I
-        // is the index of the class you want to count. 
+        // is the index of the class you want to count.
         //
         // For example, in this implementation of Approval, we have D=3 and I=0
-        // because we are dividing the scores into 3 classes: (0-0.333), 
+        // because we are dividing the scores into 3 classes: (0-0.333),
         // (0.333-0.666), and (0.666-1). and we are taking all the scores at the top
         //
         // Record<number, Record<number, Set<string>>>
@@ -520,19 +530,24 @@ class SuperElection {
   // Combined Approval
   cav(candidates = this.candidates): ResultDetailed {
     const initialShape = candidates.reduce((a, c) => ({ ...a, [c]: { score: 0, positive: 0, negative: 0 } }), {});
-    const combinedApprovalResults = Object.values(this.ballotsScored).reduce((a, { ballot, weight }) => {
-      for (let candidate of candidates) {
-        if (ballot[candidate] > (2/3)) {
-          a[candidate].score += weight;
-          a[candidate].positive += weight;
-        } else if (ballot[candidate] < (1/3)) {
-          a[candidate].score -= weight;
-          a[candidate].negative -= weight;
-        }
-      }
+    const combinedApprovalResults = Object.values(this.ballotsScored)
+      .reduce<ResultDetailed>(
+        (a, { ballot, weight }) => {
+          for (let candidate of candidates) {
+            if (ballot[candidate] > (2/3)) {
+              a[candidate].score += weight;
+              a[candidate].positive += weight;
+            } else if (ballot[candidate] < (1/3)) {
+              a[candidate].score -= weight;
+              a[candidate].negative -= weight;
+            }
+          }
 
-      return a;
-    }, initialShape as ResultDetailed);
+          return a;
+        },
+        initialShape
+      )
+    ;
 
     return combinedApprovalResults;
   };
@@ -574,7 +589,7 @@ class SuperElection {
     const cache = this.getCache(candidates);
 
     const prefMatrix = cache.pairwisePreferenceMatrix;
-    
+
     const copelandResults = candidates.reduce((a, c1) => {
       a[c1] = { score: 0, wins: 0, ties: 0, losses: 0 };
       const prefs = prefMatrix[c1];
@@ -582,7 +597,7 @@ class SuperElection {
       Object.entries(prefs).forEach(([c2, c1Score]) => {
         if (c1 !== c2) {
           const c2Score = prefMatrix[c2][c1];
-  
+
           if (c1Score > c2Score) {
             a[c1].wins++;
             a[c1].score += wWeight;
@@ -673,6 +688,74 @@ class SuperElection {
 
     return quadraticResult;
   };
+
+  // STAR
+  // star(candidates = this.candidates): ResultFull {
+  //   const { result } = this.useMethod('borda') as ResultFull;
+  //   const bordaResult = result[0];
+
+  //   return {
+  //     winners: [],
+  //     result: [{}]
+  //   }
+  // }
+
+  // Kemeny-Young
+  kemeny_young(candidates = this.candidates): ResultFull {
+    const cache = this.getCache(candidates);
+    const pairwise = cache.pairwisePreferenceMatrix;
+
+    // TODO: this is the most expensive way to do this
+    const allPossiblePaths = getPermutations(candidates);
+
+    const pathResults: Record<string, Record<string, { score: number; }>> = {};
+    const pathScores: Record<string, number> = Object.fromEntries(
+      allPossiblePaths.map(path => {
+        const pathKey = serializeList(path);
+        pathResults[pathKey] = {};
+
+        let score = 0;
+        path.slice(0, path.length - 1).forEach((c1, i) => {
+          pathResults[pathKey][c1] = { score: 0 };
+          path.slice(i + 1).forEach(c2 => {
+            pathResults[pathKey][c1].score += pairwise[c1][c2];
+            score += pairwise[c1][c2];
+          });
+        });
+
+        return [pathKey, score];
+      })
+    );
+
+    const maxScore = Math.max(...Object.values(pathScores));
+    const winningPaths = Object.keys(pathScores).filter(p => pathScores[p] === maxScore).map(deserializeList);
+
+    const winners = winningPaths.map(path => path[0]);
+    // TODO: what happens when multiple paths win?
+    const winningPath = winningPaths[0];
+    const winningPathKey = serializeList(winningPath);
+
+    return { winners, result: [pathResults[winningPathKey]] };
+  }
+
+  // Black
+  black(candidates = this.candidates): ResultSimple {
+    const cache = this.getCache(candidates);
+    const pairwiseMatchups = cache.pairwiseMatchupMatrix;
+
+    // 1. Check if there's a condorcet winner.
+    const thereExistsCondorcetWinners = Object.values(pairwiseMatchups).some(({ losses }) => losses === 0);
+    if (thereExistsCondorcetWinners) {
+      const result = Object.fromEntries(
+        Object.entries(cache.pairwiseMatchupMatrix).map(([cand, { wins }]) => ([cand, wins]))
+      );
+
+      return result;
+    };
+
+    // 2. If there's no condorcet winner, return the Borda winner.
+    return this.borda(candidates);
+  }
 };
 
 export default SuperElection;

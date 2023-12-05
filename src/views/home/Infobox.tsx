@@ -48,7 +48,8 @@ const Container = styled.div<{
 
   & p, span {
     font-size: 0.8rem;
-    line-height: 1.25;
+    line-height: 1.4;
+    font-weight: 350;
   }
 
   & h2:not(:first-of-type) {

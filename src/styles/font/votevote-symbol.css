@@ -1,7 +1,17 @@
 @charset "UTF-8";
 @font-face {
   font-family: 'VoteVote Symbol';
-  src: url('../font/votevote_symbol.woff2?64559313') format('woff2');
+  src: url('../font/votevote_symbol.woff2?43985526') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
+
+/*
+https://fontello.com/
+
+U+1F500   shuffle (Font Awesome) 
+U+1F53D   down-open (Font Awesome)
+U+21BA    ccw (Font Awesome)
+U+2716    cancel (Font Awesome)
+U+2795    plus (Font Awesome)
+*/

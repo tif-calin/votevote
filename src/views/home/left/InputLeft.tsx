@@ -3,7 +3,36 @@ import styled from 'styled-components';
 import xkcd from '../../../data/xkcd';
 import type { VoterBallots } from '../../../hooks/useElection';
 import useRoster, { useWeightedRoster } from '../../../hooks/useRoster';
+import ColorBox from './ColorBox';
 import RosterControls from './RosterControls';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  // & > h2 {
+  //   margin-bottom: -0.5rem;
+  //   width: 100%;
+  //   text-align: center;
+  // }
+
+  & > *:not(h2) {
+    padding: var(--padding);
+  }
+
+  min-width: 200px;
+  max-width: 36rem;
+  flex-basis: 35%;
+  flex-grow: 1;
+  height: fit-content;
+
+  gap: var(--padding);
+
+  @media (min-width: 693px) {
+    position: sticky; 
+    top: var(--padding);
+  }
+`;
 
 const Container = styled.form`
   display: flex;
@@ -12,50 +41,19 @@ const Container = styled.form`
   max-width: 36rem;
   flex-basis: 35%;
   flex-grow: 1;
-  padding: var(--padding);
-  gap: var(--padding);
   height: fit-content;
+
+  gap: var(--padding);
+
+  & > h3 { margin-bottom: -1rem; }
 
   & > span.warning {
     line-height: 1.25;
     font-size: 0.8rem;
   }
-
-  @media (min-width: 693px) {
-    position: sticky; 
-    top: var(--padding);
-  }
 `;
 
-const ColorBox = styled.div`
-  width: 1.25rem;
-  min-width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 0.25rem;
-  transition: border 0.1s;
-  overflow: hidden;
-  border: 1px solid hsl(var(--shadow-color));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-
-  & span {
-    width: 100%;
-    color: var(--color-white);
-    font-weight: 700;
-    opacity: 0;
-    backdrop-filter: contrast(0.25);
-  }
-
-  &:hover {
-    border: none;
-    & span { opacity: 1; }
-  }
-`;
-
-const CandidateDisplay = styled.div`
+const CandidateDisplay = styled.ul`
   width: 100%;
   height: 100%;
   margin: 0;
@@ -112,19 +110,21 @@ const VoterDisplay = styled.ul`
 `;
 
 interface Props {
-  elect: (candidates: string[], voters: { [key: string]: number }) => void;
+  elect: (candidates: string[], voters: Record<string, number>) => void;
   auto?: boolean;
   ballots: VoterBallots;
+  children?: React.ReactNode;
 };
 
 const initialCandidates = [
-  'azure', 'lemon', 'coral', 'periwinkle', 'seafoam'
-  // 'amethyst', 'azure', 'beige', 'blush', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
+  // 'azure', 'lemon', 'coral', 'periwinkle', 'seafoam',
+  'azure', 'celadon', 'manilla', 'orange', 'pink'
+  // 'amethyst', 'azure', 'beige', 'blush', 'bubblegum', 'canary', 'coral', 'cream', 'lavender', 'lemon', 'lime', 'manilla', 'melon', 'mint', 'orange', 'peach', 'pink', 'pistachio', 'rose', 'seafoam',
 ];
 const initialVoters = Object.keys(xkcd).slice(-24).reduce((a, c) => ({ ...a, [c]: c.length }), {});
 const colorList = Object.keys(xkcd).sort();
 
-const formatVoterPreferences = (ballot?: { [key: string]: number }) => {
+const formatVoterPreferences = (ballot?: Record<string, number>) => {
   if (ballot) {
     return Object.entries(ballot).sort((a, b) => b[1] - a[1]).map(([c, s]) => {
       return `${(Number(s) * 100).toFixed(1)}% - ${c}`;
@@ -133,8 +133,10 @@ const formatVoterPreferences = (ballot?: { [key: string]: number }) => {
 };
 
 const InputLeft: React.FC<Props> = ({ 
-  elect, auto = true, ballots = {}
+  elect, auto = true, ballots, children
 }) => {
+  ballots ||= {};
+
   const { 
     roster: candidates,
     reset: resetCandidates,
@@ -143,13 +145,13 @@ const InputLeft: React.FC<Props> = ({
     remove: removeCandidate,
     selected: selectedCandidate,
     setSelected: setSelectedCandidate,
-  } = useRoster(initialCandidates, 'acid green');
+  } = useRoster(initialCandidates, 'amber');
 
   const candidateOptions = React.useMemo(() => {
     return colorList.filter(c => !candidates.includes(c));
   }, [candidates]);
 
-  const handleAddCandidate = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddCandidate = React.useCallback((_: React.FormEvent<HTMLFormElement>) => {
     addCandidate();
     setSelectedCandidate(candidateOptions.find((_, i, arr) => arr[i - 1] === selectedCandidate) || '');
   }, [addCandidate, candidateOptions, selectedCandidate, setSelectedCandidate]);
@@ -169,11 +171,12 @@ const InputLeft: React.FC<Props> = ({
     setSelected: setSelectedVoter,
     selectedN: selectedVoterN,
     setSelectedN: setSelectedVoterN,
-  } = useWeightedRoster(initialVoters, 'acid green');
+  } = useWeightedRoster(initialVoters, 'amber');
   
-  const voterOptions = React.useMemo(() => {
-    return colorList.filter(v => !Object.keys(voters).includes(v));
-  }, [voters]);
+  const voterOptions = React.useMemo(
+    () => colorList.filter(v => !Object.keys(voters).includes(v)),
+    [voters]
+  );
 
   const handleAddVoter = React.useCallback(() => {
     addVoter();
@@ -189,77 +192,78 @@ const InputLeft: React.FC<Props> = ({
   }, [auto, candidates, voters, elect]);
 
   return (
-    <Container
-      onSubmit={e => e.preventDefault()}
-      className="island"
-    >
-      {!auto && <span className="warning">
-        That's a lot of candidates! To update the charts, please use the button at the bottom.
-      </span>}
-      <RosterControls
-        options={candidateOptions}
-        name="candidates"
-        add={handleAddCandidate}
-        reset={handleResetCandidates}
-        clear={clearCandidates}
-        selected={selectedCandidate}
-        setSelected={setSelectedCandidate}
-        count={candidates.length}
+    <Wrapper>
+      {/* <h2>Input</h2> */}
+      <Container
+        onSubmit={e => e.preventDefault()}
+        className="island"
       >
-        <CandidateDisplay>
-          {candidates.map((color) => (
-            <ColorBox
-              key={`${color}-candidate`} title={color}
-              onClick={() => removeCandidate(color)}
-              style={{
-                backgroundColor: xkcd[color as keyof typeof xkcd].hex,
-              }}
-            >
-              <span>x</span>
-            </ColorBox>
-          ))}
-        </CandidateDisplay>
-      </RosterControls>
+        {!auto && <span className="warning">
+          That's a lot of candidates! To update the charts, please use the button at the bottom.
+        </span>}
+        <RosterControls
+          options={candidateOptions}
+          name="candidates"
+          add={handleAddCandidate}
+          reset={handleResetCandidates}
+          clear={clearCandidates}
+          selected={selectedCandidate}
+          setSelected={setSelectedCandidate}
+          count={candidates.length}
+        >
+          <CandidateDisplay>
+            {candidates.map((color) => (
+              <ColorBox
+                key={`${color}-candidate`} 
+                aria-label={`Remove ${color} from the list of candidates`}
+                color={color}
+                onClick={removeCandidate}
+              />
+            ))}
+          </CandidateDisplay>
+        </RosterControls>
 
-      <RosterControls
-        options={voterOptions}
-        name="voters"
-        add={handleAddVoter}
-        reset={handleResetVoters}
-        clear={clearVoters}
-        selected={selectedVoter}
-        setSelected={setSelectedVoter}
-        selectedN={selectedVoterN}
-        setSelectedN={setSelectedVoterN}
-        count={Object.values(voters)?.reduce((a, v) => a+v, 0)}
-      >
-        <VoterDisplay>
-          {Object.keys(voters).reverse().map((voter) => {
-            return (
-              <li key={voter}>
-                <ColorBox 
-                  style={{ backgroundColor: xkcd[voter as keyof typeof xkcd].hex }} 
-                  onClick={() => removeVoter(voter)}
-                ><span>x</span></ColorBox>
-                <span 
-                  title={`${voter}\n---\n` + formatVoterPreferences(ballots?.[voter]?.ballot)}
-                >{voter}</span>
-                <input 
-                  type="number" 
-                  value={voters[voter]} 
-                  onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} 
-                />
-              </li>
-            );
-          })}
-        </VoterDisplay>
-      </RosterControls>
+        <RosterControls
+          options={voterOptions}
+          name="voters"
+          add={handleAddVoter}
+          reset={handleResetVoters}
+          clear={clearVoters}
+          selected={selectedVoter}
+          setSelected={setSelectedVoter}
+          selectedN={selectedVoterN}
+          setSelectedN={setSelectedVoterN}
+          count={Object.values(voters)?.reduce((a, v) => a+v, 0)}
+        >
+          <VoterDisplay>
+            {Object.keys(voters).reverse().map((voter) => {
+              return (
+                <li key={voter}>
+                  <ColorBox
+                    color={voter}
+                    onClick={removeVoter}
+                  />
+                  <span 
+                    title={`${voter}\n---\n` + formatVoterPreferences(ballots?.[voter]?.ballot)}
+                  >{voter}</span>
+                  <input 
+                    type="number" 
+                    value={voters[voter]} 
+                    onChange={({ target }) => setVoterN(voter, Number(target.value) || 0)} 
+                  />
+                </li>
+              );
+            })}
+          </VoterDisplay>
+        </RosterControls>
 
-      {!auto && <button 
-        type="submit" 
-        onClick={() => elect(candidates, voters)}
-      >Do the thing!</button>}
-    </Container>
+        {!auto && <button 
+          type="submit" 
+          onClick={() => elect(candidates, voters)}
+        >Do the thing!</button>}
+      </Container>
+      {children}
+    </Wrapper>
   );
 };
 

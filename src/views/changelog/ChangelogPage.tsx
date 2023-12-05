@@ -82,13 +82,15 @@ const ChangelogPage: React.FC<Props> = () => {
           For more up-to-date and in-depth information, please check out the changelog in the <A href="https://github.com/tif-calin/votevote/blob/main/CHANGELOG.md">GitHub repo</A>. In addition, you can see <A href="https://dev--votevote.netlify.app/">this Netlify deployment</A> of the upcoming version.
         </p>
 
-        {/* <h3>v0.1.3 <span>2022_05may??</span></h3>
+        <h3>v0.1.3 <span>2023_12dec04</span></h3>
         <div className="release">
           <h4>Added</h4>
           <ul>
-            <li>1 new voting method: equal_even</li>
+            <li>3 new voting methods: equal_even, kemeny_young, black</li>
+            <li>stat box with pie chart</li>
             <li>explanatory infobox</li>
             <li>sitemap.xml</li>
+            <li>ability to collapse input sections</li>
           </ul>
           <h4>Changed</h4>
           <ul>
@@ -97,9 +99,12 @@ const ChangelogPage: React.FC<Props> = () => {
           <h4>Fixed</h4>
           <ul>
             <li>a voter&apos;s input number amount updates on reset</li>
-            <li>numerous browser styling inconsistencies now fixed</li>
+            <li>no voters and single candidate edge case doesn't crash</li>
+            <li>fixed an error in eurovision calculation</li>
+            <li>numerous browser styling inconsistencies</li>
+            <li>various a11y fixes for hover states and roles</li>
           </ul>
-        </div> */}
+        </div>
 
         <br />
         <h3>v0.1.2 <span>2022_02feb28</span></h3>
@@ -145,7 +150,6 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
-
         <br />
         <h3>v0.1.1 <span>2022_02feb18</span></h3>
         <div className="release">
@@ -171,10 +175,9 @@ const ChangelogPage: React.FC<Props> = () => {
             <li>navigating by direct url no longer results in 404</li>
             <li>too long x-tick labels won't show unless hovered over</li>
             <li>winners with negative scores now show thick borders</li>
-            <li>crash on mobile devices due to unsupport .at() feature</li>
+            <li>crash on mobile devices due to unsupported .at() feature</li>
           </ul>
         </div>
-
 
         <br />
         <h3>v0.1.0 <span>2022_02feb15</span></h3>
@@ -209,7 +212,6 @@ const ChangelogPage: React.FC<Props> = () => {
           </ul>
         </div>
 
-        
       </section>
     </Container>
   );

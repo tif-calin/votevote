@@ -7,6 +7,7 @@ const Top = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  user-select: none;
 
   & h3 {
     max-width: 100%;
@@ -75,6 +76,7 @@ const SubTop = styled.span`
   display: flex;
   align-items: flex-end;
   justify-content: right;
+  user-select: none;
 
   & > span:first-child {
     margin-right: auto;
@@ -118,6 +120,7 @@ const BlockTop: React.FC<Props> = ({
       <h3
         onMouseOver={() => setMethodName(subtitle)}
         onMouseOut={() => setMethodName('')}
+        title={methodName}
       >{methodName || `${title} methods`}</h3>
       <form name={`${title.toLowerCase()}-options`}>
         {options?.map((key: string, i: number) => (
