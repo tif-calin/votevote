@@ -1,8 +1,13 @@
 # TODO
-## 2022-02-27
+## 2023-12-04
+
+### priority for v0.1.5
 
 ### priority for v0.1.4
- - [ ] new methods: median
+ - [ ] new methods
+    - [ ] median
+    - [ ] star
+    - [ ] 3-2-1
  - [ ] about/faq page
  - [ ] disttint
  - [ ] different datasets
@@ -10,20 +15,25 @@
     - [ ] voter preference scoring options
  - [x] submit sitemap to google
  - [ ] gamify with high score thing
-
-### priority for v0.1.3
- - [ ] add hybrid methods: star and 3-2-1
- - [ ] seo best practices: h-tags 
+ - [ ] kemeny-young  algorithm improvements
+    - [ ] optimize algorithm so we don't check every single permutation (early exit)
+    - [ ] figure out what "result" to return if there's a tie
  - [ ] more info on charts: threshold lines, marks, etc
- - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
  - [ ] optimize existing methods to use cacheing
     - [ ] cache approval threshold classes
+ - [ ] seo best practices: h-tags
+ - [ ] solution for visualizing pairwise comparison and methods with different "stages" (as opposed to rounds)
+ - [ ] improve borda count to use cache pairwise matchups
+
+## 2022-02-27
+### priority for v0.1.3
+ - [x] add condorcet methods: kemeny_young, black
  - [x] new favicon
  - [x] add explanatory info
  - [x] add a sitemap.xml
  - [x] fix iPhone icon
  - [x] add shoutout for vodle, votyvote
- - [ ] add unit tests for fptp, veto, and vfa
+ - [x] add unit tests for fptp, veto, and vfa
 
 ## 2022-02-19
 ### priority for v0.1.2

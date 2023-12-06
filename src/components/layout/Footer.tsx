@@ -50,11 +50,11 @@ const Footer: React.FC<Props> = () => {
   return (
     <StyledFooter>
       <div className="nav">
-        <A 
+        <A
           className="copyleft"
           href="https://github.com/tif-calin/votevote/"
         >steal this</A>
-        <Link to="/changelog" className="version">{process.env.REACT_APP_VERSION || 'v0.1.2.0'}</Link>
+        <Link to="/changelog" className="version">{process.env.REACT_APP_VERSION || 'v0.1.3.0'}</Link>
       </div>
     </StyledFooter>
   );
